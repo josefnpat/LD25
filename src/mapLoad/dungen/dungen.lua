@@ -30,7 +30,6 @@ function Dungen.getLevel()
 return Dungen.map
 end
 
-
 function Dungen.findDoor()
 Doors = {}
  for x = 1, Dungen.width do
@@ -68,10 +67,22 @@ function Dungen.gRoom(cursorX, cursorY)
   goalY = math.floor(cursorY + height/ 2)
   end
   
-  for x = goalX, goalX + width do
-    for y = goalY, goalY + height do
-	  if x > 1 and x < Dungen.width then
-	    if y > 1 and y < Dungen.height then
+  --if goalX > 1 and goalX + width < Dungen.width then
+  --  if goalY > 1 and goalY + height < Dungen.height then
+	--	for x = goalX, goalX + width do
+      --    for y = goalY, goalY + height do
+		--    if Dungen.map[x][y] == Tiles.Floor then
+		--		  Dungen.gRoom(cursorX, cursorY)
+		--    end
+		--  end
+		--end
+   -- end
+ -- end
+  
+  if goalX > 1 and goalX + width < Dungen.width then
+    if goalY > 1 and goalY + height < Dungen.height then
+        for x = goalX, goalX + width do
+          for y = goalY, goalY + height do
 			if Dungen.map[x][y] == Tiles.Solid then
 				Dungen.map[x][y] = Tiles.Floor
 				if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
@@ -82,8 +93,8 @@ function Dungen.gRoom(cursorX, cursorY)
 				end
 			end
 	    end
-	  end
     end
+  end
   end
 end
 
