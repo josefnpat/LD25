@@ -24,7 +24,7 @@ function slowtrap:gethealth()
   return self.health
 end
 
-function slowtrap:getslow()
+function slowtrap:geteffect()
   return self.slow_amount
 end
 function slowtrap:ishit()

@@ -7,8 +7,8 @@ function counter.load()
   counter.y = y
   counter.h = h
   counter.w = w
-  counter.count = 10
-  counter.font = love.graphics.newFont(20)
+  counter.count = 70
+  counter.font = love.graphics.newFont("assets/spathaserif.ttf",30)
   counter.color = {200,200,200,100}
   counter.bg_color = {0,0,0,60}
 end
@@ -33,14 +33,18 @@ function counter.draw(x,y,w,h)
   love.graphics.setFont(counter.font)
   love.graphics.setColor(counter.color)
   minute = 0
+  strmin = ""
   if math.floor(counter.count/60) > 0 then
     minute = math.floor(counter.count/60)
+	strmin = string.format("%02d",minute)
   end
   second = counter.count - (minute * 60)
+  strsec = string.format("%02d",second)
   if minute > 0 then
-    love.graphics.printf("Counter: "..minute.."min "..second.."sec",x,y,w,'left')
+     
+    love.graphics.printf("Portal Opens in: "..strmin.." minutes "..strsec.." seconds",x,y,600,'center')
   else
-    love.graphics.printf("Counter: "..second.."sec",x,y,w,'left')
+    love.graphics.printf("Portal Opens in: "..strsec.." seconds  ",x,y,600,'center')
   end
 end
 
