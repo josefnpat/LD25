@@ -58,10 +58,14 @@ function player:update(dt)
     self.y = self.y + player.speed*dt
   end
   
-  if Dungeon.map[math.floor(self.x / 16)][math.floor(self.y / 16)] ~= Tiles.Floor and 
-     Dungeon.map[math.floor(self.x / 16)][math.floor(self.y / 16)] ~= Tiles.Door then
-    self.x = previousX
-    self.y = previousY
+  for x = -1,1 do
+    for y = -1,1 do
+      if Dungeon.map[math.floor((self.x+x*4) / 16)][math.floor((self.y+y*4) / 16)] ~= Tiles.Floor and 
+         Dungeon.map[math.floor((self.x+x*4) / 16)][math.floor((self.y+y*4) / 16)] ~= Tiles.Door then
+        self.x = previousX
+        self.y = previousY
+      end
+    end
   end
   
   camera.x = self.x - camera.width / 2 * map.graphics.width
@@ -85,8 +89,8 @@ function player.new()
   e.walking = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = 16 * 16 -- start x * tile width * scale
-  e.y = 16 * 16 -- start y * tile height * scale
+  e.x = 16.5 * 16 -- start x * tile width * scale
+  e.y = 16.5 * 16 -- start y * tile height * scale
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update
