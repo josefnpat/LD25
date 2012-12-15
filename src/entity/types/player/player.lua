@@ -32,12 +32,14 @@ function player:draw()
   if self.walking then
     frame = math.floor((self.dt * 10) % #self.dir + 1)
   end
-  love.graphics.drawq( player.spritesheet, self.dir[frame], self.screen_x, self.screen_y, 0, 4, 4, 8, 24 )
+  love.graphics.drawq( player.spritesheet, self.dir[frame], (self.x - camera.x - map.graphics.width) * 4, (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
 end
 
 function player:update(dt)
   self.dt = self.dt + dt
   self.walking = false
+  local previousX = self.x
+  local previousY = self.y
   if love.keyboard.isDown("left","a") then
     self.dir = player.walk_quads.left
     self.walking = true
@@ -56,8 +58,14 @@ function player:update(dt)
     self.y = self.y + player.speed*dt
   end
   
-  camera.x = -self.screen_x + self.x + 8
-  camera.y = -self.screen_y + self.y + 8
+  if Dungeon.map[math.floor(self.x / 16)][math.floor(self.y / 16)] ~= Tiles.Floor and 
+     Dungeon.map[math.floor(self.x / 16)][math.floor(self.y / 16)] ~= Tiles.Door then
+    self.x = previousX
+    self.y = previousY
+  end
+  
+  camera.x = self.x - camera.width / 2 * map.graphics.width
+  camera.y = self.y - camera.height / 2 * map.graphics.height
   
 end
 
@@ -77,8 +85,8 @@ function player.new()
   e.walking = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = 16 * 16 -- start x * tile width
-  e.y = 16 * 16 -- start y * tile height
+  e.x = 16 * 16 -- start x * tile width * scale
+  e.y = 16 * 16 -- start y * tile height * scale
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update
