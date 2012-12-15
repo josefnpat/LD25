@@ -1,5 +1,6 @@
 local slowtrap = {}
-
+slowtrap.slow_amount = 50;
+slowtrap.health = 100;
 function slowtrap:update(dt)
 end
 
@@ -18,7 +19,11 @@ function slowtrap.new()
 end
 
 function slowtrap.gethealth()
+  return slowtrap.health
+end
 
+function slowtrap.geteffect()
+  return slowtrap.slow_amount
 end
 
 return slowtrap
