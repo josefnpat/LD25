@@ -72,8 +72,8 @@ end
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
-    temp.x = player_obj.x
-    temp.y = player_obj.y
+    temp.x = camera.x
+    temp.y = camera.y
     table.insert(player.traps,temp)
   end
 end
