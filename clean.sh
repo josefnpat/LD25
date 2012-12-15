@@ -2,6 +2,6 @@
 
 # cleanup!
 
-rm LD24_*.zip
-#rm LD24_*.tar.gz
-rm LD24_*.love
+rm LD25_*.zip
+#rm LD25_*.tar.gz
+rm LD25_*.love
