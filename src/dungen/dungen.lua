@@ -41,8 +41,8 @@ end
 
 
 function Dungen.gRoom(cursorX, cursorY)
-  local width = math.random(3,6)
-  local height = math.random(3,6)
+  local width = math.random(6,12)
+  local height = math.random(6,12)
   
   local orientation = math.random(4)
   
@@ -68,7 +68,7 @@ function Dungen.gRoom(cursorX, cursorY)
 				Dungen.map[x][y] = Tiles.Floor
 				if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
 				  Dungen.map[x][y] = Tiles.Wall
-				    if math.random(4) == 1 then
+				    if math.random(3) == 1 then
 				      Dungen.map[x][y] = Tiles.Door
 				    end
 				end
