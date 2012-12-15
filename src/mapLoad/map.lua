@@ -4,10 +4,10 @@ local map = {}
 
 function map.init()
 Dungeon.init(32,32)
-Dungeon.generate(9)
+Dungeon.generate(32)
 camera = {}
-camera.x = 16
-camera.y = 16
+camera.x = 0
+camera.y = 0
 map.graphics = {}
 map.graphics.width = 16
 map.graphics.height = 16
@@ -37,23 +37,23 @@ function map.draw()
       if Dungeon.map[x][y] == Tiles.Solid then
         love.graphics.drawq(map.graphics.sheet,
         map.quads[2],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        (x - 1) * map.graphics.width - camera.x, 
+        (y - 1) * map.graphics.height - camera.y)
       elseif Dungeon.map[x][y] == Tiles.Door then
         love.graphics.drawq(map.graphics.sheet,
         map.quads[1],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        (x - 1) * map.graphics.width - camera.x, 
+        (y - 1) * map.graphics.height - camera.y)
       elseif Dungeon.map[x][y] == Tiles.Wall then
         love.graphics.drawq(map.graphics.sheet,
         map.quads[2],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        (x - 1) * map.graphics.width - camera.x, 
+        (y - 1) * map.graphics.height - camera.y)
       elseif Dungeon.map[x][y] == Tiles.Floor then
         love.graphics.drawq(map.graphics.sheet,
         map.quads[1],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        (x - 1) * map.graphics.width - camera.x, 
+        (y - 1) * map.graphics.height - camera.y)
         --love.graphics.rectangle("line",x * map.graphics.width, y * map.graphics.height, map.graphics.width,map.graphics.height)
       end
     end
