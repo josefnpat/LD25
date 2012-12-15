@@ -8,7 +8,7 @@ Dungeon.generate(64)
 camera = {}
 camera.x = 0
 camera.y = 0
-camera.width = 16
+camera.width = 18
 camera.height = 14
 map.graphics = {}
 map.graphics.width = 16
@@ -16,6 +16,7 @@ map.graphics.height = 16
 map.graphics.sheet = love.graphics.newImage("mapLoad/img/LDtiles.png")
 map.setQuads()
 map.gameCanvas = love.graphics.newCanvas(800,600)
+map.gameCanvas:setFilter("nearest","nearest")
 end
 
 function map.setQuads()
@@ -47,7 +48,7 @@ local TopLeftY = math.max(1,camera.y / map.graphics.height)
 
 local DrawLimitX = math.min(TopLeftX + camera.width, Dungeon.width)
 local DrawLimitY = math.min(TopLeftY + camera.height, Dungeon.height)
-
+love.graphics.setCanvas(map.gameCanvas)
   for x = math.floor(TopLeftX), math.floor(DrawLimitX) do
     for y = math.floor(TopLeftY), math.floor(DrawLimitY) do
       if Dungeon.map[x][y] == Tiles.Solid then
@@ -61,6 +62,8 @@ local DrawLimitY = math.min(TopLeftY + camera.height, Dungeon.height)
       end
     end
   end
+love.graphics.setCanvas()
+love.graphics.draw(map.gameCanvas,0,0,0,4,4)
 end
 
 return map
