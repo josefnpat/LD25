@@ -98,26 +98,26 @@ spawn.enemy = function (x, y)
       local y = v.y
       -- Returns valid next squares, if any.
       local sqs = {}
-      print ("!!")
-      print (x )
-      print (y)
-      print (test_data)
       if x < 20 and x > 1 then
         if map_data[x + 1][y] == 0 then
           if checked[x + 1][y] ~= 0 then
             table.insert(sqs, vector.new(x + 1, y))
+            table.insert(checked[x+1], 1, y)
           end
         end
         if map_data[x - 1][y] == 0 then
           table.insert(sqs, vector.new(x - 1, y))
+          table.insert(checked[x-1], 1, y)
         end
       end
       if y < 20 and y > 1 then
         if map_data[x][y + 1] == 0 then
           table.insert(sqs, vector.new(x, y + 1))
+          table.insert(checked[x], 1, y+1)
         end
         if map_data[x][y - 1] == 0 then
           table.insert(sqs, vector.new(x, y - 1))
+          table.insert(checked[x], 1, y-1)
         end
       end
       return sqs
@@ -142,6 +142,8 @@ spawn.enemy = function (x, y)
        init_path.steps = 0
        
        local function add(path)
+         print ("path steps")
+         print (path.steps)
          if possible[path.steps] == nil then
            possible[path.steps] = {}
          end
@@ -152,12 +154,9 @@ spawn.enemy = function (x, y)
        local ind = 0
        local found = false
        function comp_paths()
-         while true do
+         while ind < 200 do
            paths = possible[ind]
            for i, p in pairs(paths) do
-           print (p.x)
-           print ("??")
-           print (p.y)
              local sqs = getValidSquares(p)       
              for i, s in pairs(sqs) do
                 if tar_square.equals(s) then
@@ -168,6 +167,8 @@ spawn.enemy = function (x, y)
                 add(make_path(s, p))
              end
            end
+           print ("!!!")
+           print (ind)
            ind = ind + 1
          end
        end
