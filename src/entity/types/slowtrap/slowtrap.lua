@@ -1,26 +1,19 @@
- local slowtrap = {}
+local slowtrap = {}
 
 function slowtrap:update(dt)
-  self.x = self.x
-  self.y = self.y
 end
 
 function slowtrap:draw()
   love.graphics.print("slowtrap",self.x,self.y)
 end
 
-function slowtrap:keypressed(key,unicode)
-
-end
-
 function slowtrap.new()
   local e = {}
   e.type = "slowtrap"
-  e.x = player.x
-  e.y = player.y
+  e.x = 0
+  e.y = 0
   e.update = slowtrap.update
   e.draw = slowtrap.draw
-  
   return e
 end
 

@@ -61,6 +61,13 @@ function player:update(dt)
   
 end
 
+function player.keyreleased(key)
+  local temp = entity.new("slowtrap")
+  temp.x = player_obj.x
+  temp.y = player_obj.y
+  table.insert(player.traps,temp)
+end
+
 function player.new()
   local e = {}
   e.type = "player"
@@ -74,17 +81,8 @@ function player.new()
   e.mousepressed = player.mousepressed
   e.update = player.update
   e.dir = player.walk_quads.down
+  e.keyreleased = player.keyreleased
   return e
-end
-
-function player.keyreleased(key)
-  local trap = {}
-  trap.type = "slowtrap"
-  trap.x = player.x
-  trap.y = player.y
-  
-   table.insert(player.traps,trap)
-
 end
 
 return player
