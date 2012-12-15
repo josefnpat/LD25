@@ -26,6 +26,10 @@ function Dungen.generate(rooms)
   end
 end
 
+function Dungen.getLevel()
+return Dungen.map
+end
+
 
 function Dungen.findDoor()
 Doors = {}
