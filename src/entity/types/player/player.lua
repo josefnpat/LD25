@@ -9,6 +9,7 @@ player.walk.down = {x=0,y=32,framecount=3}
 player.walk.up = {x=16*3,y=32,framecount=3}
 player.walk_quads = {}
 player.speed = 100
+player.traps = {}
 for i,v in pairs(player.walk) do
   player.walk_quads[i] = {}
   for frame = 1,v.framecount+1 do
@@ -74,6 +75,16 @@ function player.new()
   e.update = player.update
   e.dir = player.walk_quads.down
   return e
+end
+
+function player.keyreleased(key)
+  local trap = {}
+  trap.type = "slowtrap"
+  trap.x = player.x
+  trap.y = player.y
+  
+   table.insert(player.traps,trap)
+
 end
 
 return player
