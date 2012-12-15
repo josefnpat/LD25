@@ -7,11 +7,26 @@ require "spawn"
 -------------------------------------
 -- love.load
 -------------------------------------
+
+enemy_data = {
+  {400, 400},
+  {200, 200},
+  {200, 20},
+  {20, 200},
+  {80, 400},
+  {20, 360},
+}
+
 function love.load (arg)
 
   enemies = {}
   player = spawn.player(50, 50)
   
+  for i, d in pairs(enemy_data) do
+    print(d)
+    local e = spawn.enemy(d[1], d[2])
+    table.insert(enemies, e)
+  end
 
   --dgenlib.load(arg)
 
@@ -34,13 +49,15 @@ function love.update (dt)
   end
   map = spawn.map()
   player.update(dt)
+  for i, e in pairs(enemies) do
+    e.update(dt)
+  end
 end
 
 -------------------------------------
 -- love.draw
 -------------------------------------
 function love.draw ()
-  love.graphics.print("Hello World", 400, 300)
 --  love.graphics.print(foo, 400, 300)
   map.draw()
   player.draw()
@@ -50,6 +67,9 @@ function love.draw ()
   --gamelib.draw()
   elseif state == "menu" then
   --menulib.draw()
+  end
+  for i, e in pairs(enemies) do
+    e.draw()
   end
 end
 
