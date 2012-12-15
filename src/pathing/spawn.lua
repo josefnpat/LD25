@@ -1,4 +1,5 @@
 require "vector"
+require "proto"
 
 spawn = {}
 player = {}
@@ -18,6 +19,29 @@ map_data = {
    { 0, 2, 0, 0, 0, 3, 0, 3, 0, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0},
    { 0, 2, 0, 0, 0, 3, 0, 3, 0, 1, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0},
    { 0, 2, 2, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 2, 2, 2, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+}
+
+test_data = {
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -50,23 +74,130 @@ spawn.enemy = function (x, y)
   enemy.curr_path.tar.x = 0
   enemy.curr_path.tar.y = 0
 
+  function get_center(square)
+    return vector.new(square.x * 32 + 16, square.y * 32 + 16)
+  end
+
+  enemy.speed = 1
+
+  enemy.tar = vector.new(-10, -10)
+  enemy.path = {vector.new(0, 0)}
+  enemy.i = 1
+
   function enemy.update(dt)
     local curr_square = getSquare(enemy)
     local tar_square = getSquare(player)
 
-    local checked = {}
-    local unckecked = {}
-    local num_uncheck = 1
-    local num_check = 0
-    local index = 1
-
-    function checkValid(x, y)
-      if x == 0
+    if curr_square.equals(tar_square) then
+    print ("In same square")
+    return
     end
 
-    while num_uncheck > 0 do
- 
+    function getValidSquares(v)
+      local x = v.x
+      local y = v.y
+      -- Returns valid next squares, if any.
+      local sqs = {}
+      if x >= 20 then
+        if map_data[x + 1] == 0 then
+          table.insert(sqs, vector.new(x + 1, y))
+        end
+      end
+      if x <= 20 then
+        if map_data[x - 1] == 0 then
+          table.insert(sqs, vector.new(x - 1, y))
+        end
+      end
+      if y >= 20 then
+        if map_data[y + 1] == 0 then
+          table.insert(sqs, vector.new(x, y + 1))
+        end
+      end
+      if y <= 20 then
+        if map_data[y - 1] == 0 then
+          table.insert(sqs, vector.new(x, y - 1))
+        end
+      end
+      return sqs
     end
+
+    function make_path(s, old_path)
+       local path = {}
+       path.x = s.x
+       path.y = s.y
+       path.path = old_path
+       path.steps = old_path.steps + 1
+    end
+
+    if vector.sdist(tar_square, enemy.tar) > 1 then
+       local possible = {} -- paths
+       local checked = {} -- squares
+
+       init_path = {}
+       init_path.x = enemy.x
+       init_path.y = enemy.y
+       init_path.path = {}
+       init_path.steps = 0
+       
+       local function add(path)
+         if possible[path.steps] == nil then
+           possible[path.steps] = {}
+         end
+         table.insert(possible[path.steps], path)
+       end
+
+       add(init_path)
+       local ind = 0
+       local found = false
+       function comp_paths()
+         while true do
+           paths = possible[ind]
+           for i, p in pairs(paths) do
+             local sqs = getValidSquares(p)       
+             for i, s in pairs(sqs) do
+                if tar_square.equals(s) then
+                  print("YAY!")
+                  enemy.path = make_path(s, p)
+                  return
+                end
+                add(make_path(s, p))
+             end
+           end
+           ind = ind + 1
+         end
+       end
+       --comp_paths()
+
+
+    end
+
+    -- Regular move.
+
+    if enemy.path[i] == nil then
+      -- Panic.
+      return
+    end
+
+    if curr_square.equals(enemy.path[i]) then
+      i = i + 1
+    end
+
+    enemy.x = enemy.x + (enemy.path[i].x - curr_square.x) * enemy.speed
+    enemy.y = enemy.y + (enemy.path[i].y - curr_square.y) * enemy.speed
+
+
+-------
+
+--[[
+    enemy.path=CalcPath(CalcMoves(test_data, math.floor(enemy.x/32)+1, math.floor(enemy.y/32)+1, tar_square.x, tar_square.y))
+    print(path)
+    if path ~= nil then
+
+      enemy.x = enemy.x + (enemy.path[1].x - curr_square.x) * enemy.speed
+      enemy.y = enemy.y + (enemy.path[1].y - curr_square.y) * enemy.speed
+    end 
+--]]
+-------
 
   end
 
@@ -78,7 +209,6 @@ spawn.player = function (x, y)
   local player = {}
   player.x = x
   player.y = y
-  player.speed = {}
   player.speed = 100
   player.img = love.graphics.newImage("player.png")
   player.tile = {}

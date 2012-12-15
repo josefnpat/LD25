@@ -3,6 +3,7 @@ state = "menu"
 --require("gamelib/gamelib")
 --require("menulib/menulib")
 require "spawn"
+require "proto"        
 
 -------------------------------------
 -- love.load
@@ -10,11 +11,11 @@ require "spawn"
 
 enemy_data = {
   {400, 400},
-  {200, 200},
-  {200, 20},
-  {20, 200},
-  {80, 400},
-  {20, 360},
+--  {200, 200},
+--  {200, 20},
+--  {20, 200},
+--  {80, 400},
+--  {20, 360},
 }
 
 function love.load (arg)
