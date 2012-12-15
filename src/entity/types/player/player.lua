@@ -11,8 +11,13 @@ player.walk_quads = {}
 player.speed = 100
 for i,v in pairs(player.walk) do
   player.walk_quads[i] = {}
-  for frame = 1,v.framecount do
-    local quad = love.graphics.newQuad( v.x+16*(frame-1), v.y, 16, 32, player.spritesheet:getWidth(),player.spritesheet:getHeight() )
+  for frame = 1,v.framecount+1 do
+    if frame == 4 then
+      real_frame = 2
+    else
+      real_frame = frame
+    end
+    local quad = love.graphics.newQuad( v.x+16*(real_frame-1), v.y, 16, 32, player.spritesheet:getWidth(),player.spritesheet:getHeight() )
     table.insert(player.walk_quads[i],quad)
   end
 end
