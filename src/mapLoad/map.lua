@@ -8,6 +8,8 @@ Dungeon.generate(64)
 camera = {}
 camera.x = 0
 camera.y = 0
+camera.width = 16
+camera.height = 14
 map.graphics = {}
 map.graphics.width = 16
 map.graphics.height = 16
@@ -43,8 +45,8 @@ function map.draw()
 local TopLeftX = math.max(1,camera.x / map.graphics.width)
 local TopLeftY = math.max(1,camera.y / map.graphics.height)
 
-local DrawLimitX = math.min(TopLeftX + 16, Dungeon.width)
-local DrawLimitY = math.min(TopLeftY + 14, Dungeon.height)
+local DrawLimitX = math.min(TopLeftX + camera.width, Dungeon.width)
+local DrawLimitY = math.min(TopLeftY + camera.height, Dungeon.height)
 
   for x = math.floor(TopLeftX), math.floor(DrawLimitX) do
     for y = math.floor(TopLeftY), math.floor(DrawLimitY) do
