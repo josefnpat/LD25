@@ -1,7 +1,7 @@
 local slowtrap = {}
-slowtrap.slow_amount = 50;
-slowtrap.health = 100;
+
 function slowtrap:update(dt)
+
 end
 
 function slowtrap:draw()
@@ -13,17 +13,22 @@ function slowtrap.new()
   e.type = "slowtrap"
   e.x = 0
   e.y = 0
+  slowtrap.slow_amount = 50;
+  slowtrap.health = 10;
   e.update = slowtrap.update
   e.draw = slowtrap.draw
   return e
 end
 
-function slowtrap.gethealth()
-  return slowtrap.health
+function slowtrap:gethealth()
+  return self.health
 end
 
-function slowtrap.geteffect()
-  return slowtrap.slow_amount
+function slowtrap:getslow()
+  return self.slow_amount
+end
+function slowtrap:ishit()
+  self.health = self.health - 1;
 end
 
 return slowtrap
