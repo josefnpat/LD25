@@ -53,17 +53,17 @@ function Dungen.gRoom(cursorX, cursorY)
   local orientation = math.random(4)
   
   if orientation == 1 then
-  goalX = math.floor(cursorX - width / 2)
-  goalY = cursorY
+    goalX = math.floor(cursorX - width / 2)
+    goalY = cursorY
   elseif orientation == 2 then
-  goalX = cursorX
-  goalY = math.floor(cursorY - height/ 2)
+    goalX = cursorX
+    goalY = math.floor(cursorY - height/ 2)
   elseif orientation == 3 then
-  goalX = math.floor(cursorX + width / 2)
-  goalY = cursorY
+    goalX = math.floor(cursorX + width / 2)
+    goalY = cursorY
   else
-  goalX = cursorX
-  goalY = math.floor(cursorY + height/ 2)
+    goalX = cursorX
+    goalY = math.floor(cursorY + height/ 2)
   end
   
   --if goalX > 1 and goalX + width < Dungen.width then
