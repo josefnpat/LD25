@@ -5,8 +5,11 @@ function love.load()
 end
 
 function love.draw()
-  -- draw(x_pos,y_pos,limit)
-  counter.draw(10,10,100)
+  -- draw(x_pos,y_pos,width)
+  counter.draw(10,10,400)
+  if counter.get_time() == 0 then
+    love.graphics.printf("Counter Reached 0 sec.",100,100,500,'center')
+  end
 end
 
 function love.update(dt)
@@ -14,7 +17,7 @@ function love.update(dt)
 end
 
 function love.keypressed(key,uni)
-  counter.set_time(20);
+  counter.set_time(65);
 end
 
 function love.mousereleased(x,y,b)

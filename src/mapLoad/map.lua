@@ -4,15 +4,19 @@ local map = {}
 
 function map.init()
 Dungeon.init(32,32)
-Dungeon.generate(9)
+Dungeon.generate(64)
 camera = {}
-camera.x = 16
-camera.y = 16
+camera.x = 0
+camera.y = 0
+camera.width = 18
+camera.height = 14
 map.graphics = {}
 map.graphics.width = 16
 map.graphics.height = 16
 map.graphics.sheet = love.graphics.newImage("mapLoad/img/LDtiles.png")
 map.setQuads()
+map.gameCanvas = love.graphics.newCanvas(800,600)
+map.gameCanvas:setFilter("nearest","nearest")
 end
 
 function map.setQuads()
@@ -31,33 +35,35 @@ map.graphics.sheet:getWidth(),
 map.graphics.sheet:getHeight())
 end
 
+function map.drawTile(x,y,quad)
+love.graphics.drawq(map.graphics.sheet,
+        map.quads[quad],
+        math.floor((x - 1) * map.graphics.width - camera.x), 
+        math.floor((y - 1) * map.graphics.height - camera.y))
+end
+
 function map.draw()
-  for x = 1, Dungeon.width do
-    for y = 1, Dungeon.height do
+local TopLeftX = math.max(1,camera.x / map.graphics.width)
+local TopLeftY = math.max(1,camera.y / map.graphics.height)
+
+local DrawLimitX = math.min(TopLeftX + camera.width, Dungeon.width)
+local DrawLimitY = math.min(TopLeftY + camera.height, Dungeon.height)
+love.graphics.setCanvas(map.gameCanvas)
+  for x = math.floor(TopLeftX), math.floor(DrawLimitX) do
+    for y = math.floor(TopLeftY), math.floor(DrawLimitY) do
       if Dungeon.map[x][y] == Tiles.Solid then
-        love.graphics.drawq(map.graphics.sheet,
-        map.quads[2],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        map.drawTile(x,y,2)
       elseif Dungeon.map[x][y] == Tiles.Door then
-        love.graphics.drawq(map.graphics.sheet,
-        map.quads[1],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        map.drawTile(x,y,1)
       elseif Dungeon.map[x][y] == Tiles.Wall then
-        love.graphics.drawq(map.graphics.sheet,
-        map.quads[2],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
+        map.drawTile(x,y,2)
       elseif Dungeon.map[x][y] == Tiles.Floor then
-        love.graphics.drawq(map.graphics.sheet,
-        map.quads[1],
-        x * map.graphics.width - camera.x, 
-        y * map.graphics.height - camera.y)
-        --love.graphics.rectangle("line",x * map.graphics.width, y * map.graphics.height, map.graphics.width,map.graphics.height)
+        map.drawTile(x,y,1)
       end
     end
   end
+love.graphics.setCanvas()
+love.graphics.draw(map.gameCanvas,0,0,0,4,4)
 end
 
 return map
