@@ -22,28 +22,27 @@ end
 function Dungen.generate(rooms)
   Dungen.map[math.floor(Dungen.width / 2)][math.floor(Dungen.height / 2)] = 1
   for r = 1, rooms do 
-  Dungen.gRoom(Dungen.findDoor())
+    Dungen.gRoom(Dungen.findDoor())
   end
 end
 
 function Dungen.getLevel()
-return Dungen.map
+  return Dungen.map
 end
 
 function Dungen.findDoor()
-Doors = {}
- for x = 1, Dungen.width do
+  Doors = {}
+  for x = 1, Dungen.width do
     for y = 1, Dungen.height do
       if Dungen.map[x][y] == Tiles.Door then
-		CurrentDoor = #Doors + 1
-		Doors[CurrentDoor] = {}
+		    CurrentDoor = #Doors + 1
+		    Doors[CurrentDoor] = {}
         Doors[CurrentDoor].x = x
         Doors[CurrentDoor].y = y 
       end
     end
   end
-return Doors[math.random(#Doors)].x,Doors[math.random(#Doors)].y
-
+  return Doors[math.random(#Doors)].x,Doors[math.random(#Doors)].y
 end
 
 
@@ -81,20 +80,20 @@ function Dungen.gRoom(cursorX, cursorY)
   
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
-        for x = goalX, goalX + width do
-          for y = goalY, goalY + height do
-			if Dungen.map[x][y] == Tiles.Solid then
-				Dungen.map[x][y] = Tiles.Floor
-				if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
-				  Dungen.map[x][y] = Tiles.Wall
-				    if math.random(3) == 1 then
-				      Dungen.map[x][y] = Tiles.Door
+      for x = goalX, goalX + width do
+        for y = goalY, goalY + height do
+			    if Dungen.map[x][y] == Tiles.Solid then
+				    Dungen.map[x][y] = Tiles.Floor
+				    if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
+				      Dungen.map[x][y] = Tiles.Wall
+				      if math.random(3) == 1 then
+				        Dungen.map[x][y] = Tiles.Door
+				      end
 				    end
-				end
-			end
-	    end
+			    end
+	      end
+      end
     end
-  end
   end
 end
 
@@ -111,7 +110,7 @@ function Dungen.draw()
         love.graphics.setColor(255,255,255)
       end
       love.graphics.rectangle("fill",x * 16, y * 16, 16,16)
-      end
+    end
   end
 end
 
