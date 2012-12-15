@@ -58,14 +58,9 @@ function player:update(dt)
     self.y = self.y + player.speed*dt
   end
   
-  for x = -1,1 do
-    for y = -1,1 do
-      if Dungeon.map[math.floor((self.x+x*4) / 16)][math.floor((self.y+y*4) / 16)] ~= Tiles.Floor and 
-         Dungeon.map[math.floor((self.x+x*4) / 16)][math.floor((self.y+y*4) / 16)] ~= Tiles.Door then
-        self.x = previousX
-        self.y = previousY
-      end
-    end
+  if entity.collision(self) then
+    self.x = previousX
+    self.y = previousY
   end
   
   camera.x = self.x - camera.width / 2 * map.graphics.width

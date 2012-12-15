@@ -15,6 +15,17 @@ function entity.getType(t)
   end
 end
 
+function entity.collision(entity)
+  for x = -1,1 do
+    for y = -1,1 do
+      if Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Floor and 
+         Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Door then
+        return true
+      end
+    end
+  end
+end
+
 function entity.distance(a,b)
   return math.sqrt( (a.x - b.x) ^ 2 + (a.y - b.y) ^ 2 )
 end
