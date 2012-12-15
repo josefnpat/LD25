@@ -1,6 +1,7 @@
 local player = {}
 
 player.spritesheet = love.graphics.newImage("entity/types/player/player.png")
+player.spritesheet:setFilter("nearest","nearest")
 player.walk = {}
 player.walk.left = {x=0,y=0,framecount=3}
 player.walk.right = {x=16*3,y=0,framecount=3}
@@ -25,7 +26,7 @@ function player:draw()
   if self.walking then
     frame = math.floor((self.dt * 10) % #self.dir + 1)
   end
-  love.graphics.drawq( player.spritesheet, self.dir[frame], self.screen_x, self.screen_y, 0, 1, 1, 8, 24 )
+  love.graphics.drawq( player.spritesheet, self.dir[frame], self.screen_x, self.screen_y, 0, 4, 4, 8, 24 )
 end
 
 function player:update(dt)
