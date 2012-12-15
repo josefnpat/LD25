@@ -15,7 +15,11 @@ function love.load (arg)
   entity.new("enemy")
   entity.new("enemy")
   entity.new("enemy")
-  
+  portal_enemy = entity.new("portal")
+  portal_enemy.type = "portal_player"
+  portal_enemy.x,portal_enemy.y = 10,10
+  portal_player = entity.new("portal")
+  portal_player.x,portal_player.y = 50,10
 end
 
 -------------------------------------
