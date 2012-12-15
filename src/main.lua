@@ -1,31 +1,22 @@
+require("menu/lovemenuwrap")
+map = require("mapLoad/map")
+
 state = "menu"
---require("dgenlib/dgenlib")
---require("gamelib/gamelib")
---require("menulib/menulib")
 
 -------------------------------------
 -- love.load
 -------------------------------------
 function love.load (arg)
-
-  --dgenlib.load(arg)
-
-  --gamelib.load(arg)
-
-  --menulib.load(arg)
-  
+  lovemenuwrap.load()
+  map.init()
 end
 
 -------------------------------------
 -- love.update
 -------------------------------------
 function love.update (dt)
-  if state == "dgen" then
-  --dgenlib.update(dt)
-  elseif state == "game" then
-  --gamelib.update(dt)
-  elseif state == "menu" then
-  --menulib.update(dt)
+  if state == "menu" then
+    lovemenuwrap.update(dt)
   end
 end
 
@@ -33,12 +24,10 @@ end
 -- love.draw
 -------------------------------------
 function love.draw ()
-  if state == "dgen" then
-  --dgenlib.draw()
-  elseif state == "game" then
-  --gamelib.draw()
+  if state == "game" then
+    map.draw()
   elseif state == "menu" then
-  --menulib.draw()
+    lovemenuwrap.draw()
   end
 end
 
@@ -46,12 +35,8 @@ end
 -- love.keypressed
 -------------------------------------
 function love.keypressed (key,unicode)
-  if state == "dgen" then
-  --dgenlib.keypressed(key,unicode)
-  elseif state == "game" then
-  --gamelib.keypressed(key,unicode)
-  elseif state == "menu" then
-  --menulib.keypressed(key,unicode)
+  if state == "menu" then
+    lovemenuwrap.keypressed(key,unicode)
   end
 end
 
@@ -72,12 +57,8 @@ end
 -- love.mousepressed
 -------------------------------------
 function love.mousepressed (x,y,button)
-  if state == "dgen" then
-  --dgenlib.mousepressed(x,y,button)
-  elseif state == "game" then
-  --gamelib.mousepressed(x,y,button)
-  elseif state == "menu" then
-  --menulib.mousepressed(x,y,button)
+  if state == "menu" then
+    lovemenuwrap.mousepressed(x,y,button)
   end
 end
 

@@ -1,8 +1,10 @@
 menu = {}
 
-menu.font_title = love.graphics.newFont("menu/assets/Orbitron Black.ttf",64)
-menu.font_desc = love.graphics.newFont("menu/assets/League_Gothic-webfont.ttf",22)
-menu.font_menu = love.graphics.newFont("menu/assets/League_Gothic-webfont.ttf",26)
+love.graphics.getFont()
+
+menu.font_title = love.graphics.newFont("menu/assets/TriodPostnaja.ttf",64)
+menu.font_desc = love.graphics.newFont("menu/assets/Tower_Print.ttf",22)
+menu.font_menu = love.graphics.newFont("menu/assets/Tower_Print.ttf",26)
 menu.icon = love.graphics.newImage("menu/assets/icon.png")
 menu.bg = love.graphics.newImage("menu/assets/bg.png")
 menu.padding = 64
@@ -68,7 +70,9 @@ function menu:draw()
       0,
       menu.icon:getHeight()/2
     )
-    love.graphics.setFont(orig_font)
+    if orig_font then
+      love.graphics.setFont(orig_font)
+    end
     love.graphics.setColor(orig_r,orig_g,orig_b,orig_a)
   end
 end

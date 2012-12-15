@@ -6,7 +6,7 @@ function lovemenuwrap.load()
   menu:toggle()
   menu_view = {}
   menu_view[1] = {
-    title="Dungen Fuckers",
+    title="Dungen",
     desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off. If you can.",
     {t="New Game",cb="ng"},
     {t="Options",cb="op"},
@@ -59,7 +59,7 @@ end
 sound = true
 function menu:callback(cb)
   if cb == "ng" then
-    menu:toggle()
+    state = "game"
   elseif cb == "op" then
     menu:setstate(2)
   elseif cb == "cr" then
@@ -67,7 +67,7 @@ function menu:callback(cb)
   elseif cb == "exit" then
     menu:setstate(3)
   elseif cb == "cexit" then
-    love.event.push("q")
+    love.event.quit()
   elseif cb == "fs" then
     love.graphics.toggleFullscreen( )
   elseif cb == "res" then
