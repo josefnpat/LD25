@@ -1,6 +1,6 @@
+Dungeon = require("mapLoad/dungen/dungen")
+
 local map = {}
-
-
 
 function map.init()
 Dungeon.init(32,32)
@@ -11,7 +11,7 @@ camera.y = 16
 map.graphics = {}
 map.graphics.width = 16
 map.graphics.height = 16
-map.graphics.sheet = love.graphics.newImage("img/LDtiles.png")
+map.graphics.sheet = love.graphics.newImage("mapLoad/img/LDtiles.png")
 map.setQuads()
 end
 

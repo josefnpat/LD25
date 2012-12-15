@@ -59,7 +59,7 @@ end
 sound = true
 function menu:callback(cb)
   if cb == "ng" then
-    menu:toggle()
+    state = "game"
   elseif cb == "op" then
     menu:setstate(2)
   elseif cb == "cr" then
