@@ -30,16 +30,16 @@ end
 function player:update(dt)
   self.dt = self.dt + dt
   self.walking = false
-  if love.keyboard.isDown("left") then
+  if love.keyboard.isDown("left","a") then
     self.dir = player.walk_quads.left
     self.walking = true
-  elseif love.keyboard.isDown("right") then
+  elseif love.keyboard.isDown("right","d") then
     self.dir = player.walk_quads.right
     self.walking = true
-  elseif love.keyboard.isDown("up") then
+  elseif love.keyboard.isDown("up","w") then
     self.dir = player.walk_quads.up
     self.walking = true
-  elseif love.keyboard.isDown("down") then
+  elseif love.keyboard.isDown("down","s") then
     self.dir = player.walk_quads.down
     self.walking = true
   end
