@@ -28,6 +28,19 @@ spawn.enemy = function (x, y)
   enemy.x = x
   enemy.y = y
 
+  enemy.img = love.graphics.newImage("enemy.png")
+
+  function enemy.draw()
+    love.graphics.draw( 
+      enemy.img,
+      enemy.x,
+      enemy.y)
+  end
+
+  function enemy.update(dt)
+  
+  end
+
   return enemy
 end
 
@@ -35,10 +48,36 @@ spawn.player = function (x, y)
   local player = {}
   player.x = x
   player.y = y
+  player.speed = {}
+  player.speed = 100
+  player.img = love.graphics.newImage("player.png")
+  player.tile = {}
+  player.tile.x = 0
+  player.tile.y = 0
+
+  function player.draw()
+    love.graphics.draw( 
+      player.img,
+      player.x,
+      player.y)
+  end
+
+  function player.update(dt)
+    if love.keyboard.isDown("left") then
+        player.x = player.x - player.speed*dt
+    elseif love.keyboard.isDown("right") then
+        player.x = player.x + player.speed*dt
+    elseif love.keyboard.isDown("up") then
+        player.y = player.y - player.speed*dt
+    elseif love.keyboard.isDown("down") then
+        player.y = player.y + player.speed*dt
+    end
+
+  end
 
 
 
-  function player
+
   return player
 end
 

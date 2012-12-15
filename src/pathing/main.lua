@@ -3,12 +3,15 @@ state = "menu"
 --require("gamelib/gamelib")
 --require("menulib/menulib")
 require "spawn"
-require "proto"
 
 -------------------------------------
 -- love.load
 -------------------------------------
 function love.load (arg)
+
+  enemies = {}
+  player = spawn.player(50, 50)
+  
 
   --dgenlib.load(arg)
 
@@ -30,7 +33,7 @@ function love.update (dt)
   --menulib.update(dt)
   end
   map = spawn.map()
---  foo = spawn.bar()
+  player.update(dt)
 end
 
 -------------------------------------
@@ -40,6 +43,7 @@ function love.draw ()
   love.graphics.print("Hello World", 400, 300)
 --  love.graphics.print(foo, 400, 300)
   map.draw()
+  player.draw()
   if state == "dgen" then
   --dgenlib.draw()
   elseif state == "game" then
