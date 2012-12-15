@@ -1,7 +1,9 @@
-state = "menu"
+require("menu/lovemenuwrap")
 --require("dgenlib/dgenlib")
 --require("gamelib/gamelib")
 --require("menulib/menulib")
+
+state = "menu"
 
 -------------------------------------
 -- love.load
@@ -12,7 +14,7 @@ function love.load (arg)
 
   --gamelib.load(arg)
 
-  --menulib.load(arg)
+  lovemenuwrap.load()
   
 end
 
@@ -25,7 +27,7 @@ function love.update (dt)
   elseif state == "game" then
   --gamelib.update(dt)
   elseif state == "menu" then
-  --menulib.update(dt)
+    lovemenuwrap.update(dt)
   end
 end
 
@@ -38,7 +40,7 @@ function love.draw ()
   elseif state == "game" then
   --gamelib.draw()
   elseif state == "menu" then
-  --menulib.draw()
+    lovemenuwrap.draw()
   end
 end
 
@@ -51,7 +53,7 @@ function love.keypressed (key,unicode)
   elseif state == "game" then
   --gamelib.keypressed(key,unicode)
   elseif state == "menu" then
-  --menulib.keypressed(key,unicode)
+    lovemenuwrap.keypressed(key,unicode)
   end
 end
 
@@ -77,7 +79,7 @@ function love.mousepressed (x,y,button)
   elseif state == "game" then
   --gamelib.mousepressed(x,y,button)
   elseif state == "menu" then
-  --menulib.mousepressed(x,y,button)
+    lovemenuwrap.mousepressed(x,y,button)
   end
 end
 
