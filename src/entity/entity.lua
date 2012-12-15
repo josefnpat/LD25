@@ -15,6 +15,10 @@ function entity.getType(t)
   end
 end
 
+function entity.distance(a,b)
+  return math.sqrt( (a.x - b.x) ^ 2 + (a.y - b.y) ^ 2 )
+end
+
 function entity.load(args)
   entity.type = {}
 
