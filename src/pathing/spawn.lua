@@ -92,29 +92,31 @@ spawn.enemy = function (x, y)
     print ("In same square")
     return
     end
-
+    local checked = test_data
     function getValidSquares(v)
       local x = v.x
       local y = v.y
       -- Returns valid next squares, if any.
       local sqs = {}
-      if x >= 20 then
-        if map_data[x + 1] == 0 then
-          table.insert(sqs, vector.new(x + 1, y))
+      print ("!!")
+      print (x )
+      print (y)
+      print (test_data)
+      if x < 20 and x > 1 then
+        if map_data[x + 1][y] == 0 then
+          if checked[x + 1][y] ~= 0 then
+            table.insert(sqs, vector.new(x + 1, y))
+          end
         end
-      end
-      if x <= 20 then
-        if map_data[x - 1] == 0 then
+        if map_data[x - 1][y] == 0 then
           table.insert(sqs, vector.new(x - 1, y))
         end
       end
-      if y >= 20 then
-        if map_data[y + 1] == 0 then
+      if y < 20 and y > 1 then
+        if map_data[x][y + 1] == 0 then
           table.insert(sqs, vector.new(x, y + 1))
         end
-      end
-      if y <= 20 then
-        if map_data[y - 1] == 0 then
+        if map_data[x][y - 1] == 0 then
           table.insert(sqs, vector.new(x, y - 1))
         end
       end
@@ -127,15 +129,15 @@ spawn.enemy = function (x, y)
        path.y = s.y
        path.path = old_path
        path.steps = old_path.steps + 1
+       return path
     end
 
     if vector.sdist(tar_square, enemy.tar) > 1 then
        local possible = {} -- paths
-       local checked = {} -- squares
 
        init_path = {}
-       init_path.x = enemy.x
-       init_path.y = enemy.y
+       init_path.x = curr_square.x
+       init_path.y = curr_square.y
        init_path.path = {}
        init_path.steps = 0
        
@@ -153,6 +155,9 @@ spawn.enemy = function (x, y)
          while true do
            paths = possible[ind]
            for i, p in pairs(paths) do
+           print (p.x)
+           print ("??")
+           print (p.y)
              local sqs = getValidSquares(p)       
              for i, s in pairs(sqs) do
                 if tar_square.equals(s) then
@@ -166,7 +171,7 @@ spawn.enemy = function (x, y)
            ind = ind + 1
          end
        end
-       --comp_paths()
+       comp_paths()
 
 
     end
