@@ -6,7 +6,7 @@ function lovemenuwrap.load()
   menu:toggle()
   menu_view = {}
   menu_view[1] = {
-    title="Dungen",
+    title="",
     desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off. If you can.",
     {t="New Game",cb="ng"},
     {t="Options",cb="op"},
