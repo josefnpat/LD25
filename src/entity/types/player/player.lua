@@ -1,8 +1,6 @@
 local player = {}
 
-
-
-player.spritesheet = love.graphics.newImage("types/player/player.png")
+player.spritesheet = love.graphics.newImage("entity/types/player/player.png")
 player.walk = {}
 player.walk.left = {x=0,y=0,framecount=3}
 player.walk.right = {x=16*3,y=0,framecount=3}

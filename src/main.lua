@@ -1,5 +1,6 @@
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
+entity = require("entity/entity")
 
 state = "menu"
 
@@ -9,6 +10,12 @@ state = "menu"
 function love.load (arg)
   lovemenuwrap.load()
   map.init()
+  entity.load()
+  entity.new("player")
+  entity.new("enemy")
+  entity.new("enemy")
+  entity.new("enemy")
+  
 end
 
 -------------------------------------
@@ -17,6 +24,8 @@ end
 function love.update (dt)
   if state == "menu" then
     lovemenuwrap.update(dt)
+  elseif state == "game" then
+    entity.update(dt)
   end
 end
 
@@ -26,6 +35,7 @@ end
 function love.draw ()
   if state == "game" then
     map.draw()
+    entity.draw()
   elseif state == "menu" then
     lovemenuwrap.draw()
   end
@@ -37,6 +47,8 @@ end
 function love.keypressed (key,unicode)
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
+  elseif state == "game" then
+    entity.keypressed (key,unicode)
   end
 end
 
@@ -44,12 +56,8 @@ end
 -- love.keyreleased
 -------------------------------------
 function love.keyreleased (key)
-  if state == "dgen" then
-  --dgenlib.keyreleased(key)
-  elseif state == "game" then
-  --gamelib.keyreleased(key)
-  elseif state == "menu" then
-  --menulib.keyreleased(key)
+  if state == "game" then
+    entity.keyreleased(key)
   end
 end
 
@@ -59,6 +67,8 @@ end
 function love.mousepressed (x,y,button)
   if state == "menu" then
     lovemenuwrap.mousepressed(x,y,button)
+  elseif state == "game" then
+    entity.mousepressed(x,y,button)
   end
 end
 
@@ -66,12 +76,8 @@ end
 -- love.mousereleased
 -------------------------------------
 function love.mousereleased (x,y,button)
-  if state == "dgen" then
-  --dgenlib.mousereleased(x,y,button)
-  elseif state == "game" then
-  --gamelib.mousereleased(x,y,button)
-  elseif state == "menu" then
-  --menulib.mousereleased(x,y,button)
+  if state == "game" then
+    entity.mousereleased (x,y,button)
   end
 end
 
