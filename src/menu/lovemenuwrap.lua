@@ -67,7 +67,7 @@ function menu:callback(cb)
   elseif cb == "exit" then
     menu:setstate(3)
   elseif cb == "cexit" then
-    love.event.push("q")
+    love.event.quit()
   elseif cb == "fs" then
     love.graphics.toggleFullscreen( )
   elseif cb == "res" then
