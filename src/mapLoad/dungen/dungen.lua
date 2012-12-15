@@ -26,16 +26,24 @@ function Dungen.generate(rooms)
   end
 end
 
+function Dungen.getLevel()
+return Dungen.map
+end
+
 
 function Dungen.findDoor()
+Doors = {}
  for x = 1, Dungen.width do
     for y = 1, Dungen.height do
       if Dungen.map[x][y] == Tiles.Door then
-        return x, y
+		CurrentDoor = #Doors + 1
+		Doors[CurrentDoor] = {}
+        Doors[CurrentDoor].x = x
+        Doors[CurrentDoor].y = y 
       end
+    end
   end
-end
-
+return Doors[math.random(#Doors)].x,Doors[math.random(#Doors)].y
 
 end
 
@@ -83,11 +91,11 @@ function Dungen.draw()
   for x = 1, Dungen.width do
     for y = 1, Dungen.height do
       if Dungen.map[x][y] == 0 then
-        love.graphics.setColor(255,0,0)
+        love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 1 then
-        love.graphics.setColor(0,255,0)
+        love.graphics.setColor(255,255,255)
       elseif Dungen.map[x][y] == 2 then
-        love.graphics.setColor(255,255,0)
+        love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 3 then
         love.graphics.setColor(255,255,255)
       end
