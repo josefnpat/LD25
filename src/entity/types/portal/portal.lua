@@ -4,6 +4,7 @@ function portal:draw()
   x_scale = 4
   y_scale = 4
   sheet = map.graphics.sheet
+  sheet:setFilter("nearest","nearest")
   if self.type == "portal_enemy" then
     --love.graphics.rectangle('fill',self.x,self.y,10,10)
     quad = love.graphics.newQuad(0,80,16,24,sheet:getWidth(),sheet:getHeight())
@@ -19,8 +20,6 @@ end
 function portal:update(dt)
   print(camera.x.." x "..camera.y)
   print("Portal Location: "..self.x.." x "..self.y)
-  --self.camera_x = -(self.x + camera.x)
-  --self.camera_y = -(self.x + camera.y)
     self.camera_x = (-camera.x + ((32 * 4) + self.x))
     self.camera_y = (-camera.y + ((32 * 4) + self.y))
 end
