@@ -18,9 +18,9 @@ function slowtrap.new()
   e.y = 0
   e.camera_x = 0
   e.camera_y = 0
-  slowtrap.slow_amount = -25;
-  slowtrap.effect = 1
-  slowtrap.health = 10;  
+  e.slow_amount = -25;
+  e.effect = 1
+  e.health = 10;  
   e.update = slowtrap.update
   e.gethealth = slowtrap.gethealth
   e.geteffect = slowtrap.geteffect

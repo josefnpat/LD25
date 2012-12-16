@@ -1,5 +1,6 @@
 local wizard = {}
-
+local x_scale = 4
+local y_scale = 4
 --wizard.spritesheet = love.graphics.newImage("entity/types/wizard/wizard.png")
 --wizard.spritesheet:setFilter("nearest","nearest")
 wizard.walk = {}
@@ -28,11 +29,16 @@ function wizard:mousepressed(x,y,button)
 end
 
 function wizard:draw()
-  local frame = 2
+local rad = 100
+  --[[local frame = 2
   if self.walking then
     frame = math.floor((self.dt * 10) % self.dir + 1)
-  end
+  end]]--
  --love.graphics.drawq( wizard.spritesheet, #self.dir[frame], (self.x - camera.x - map.graphics.width) * 4, (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
+  love.graphics.print("wizard",(self.camera_x * x_scale),(self.camera_y * y_scale))
+  love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
+  love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
+  
 end
 
 function wizard:update(dt)
@@ -57,12 +63,13 @@ function wizard:update(dt)
     self.walking = true
     self.y = self.y + wizard.speed*dt
   end
-  
+ 
   
   
   camera.x = self.x - camera.width / 2 * map.graphics.width
   camera.y = self.y - camera.height / 2 * map.graphics.height]]--
-  
+  self.camera_x = (-camera.x + ((32 * 4) + self.x))
+  self.camera_y = (-camera.y + ((32 * 4) + self.y))
 end
 
 
@@ -73,15 +80,17 @@ function wizard.new()
   e.walking = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = 30 
-  e.y = 200 
+  e.x = 512 + math.random(-100,100)
+  e.y = 512 + math.random(-100,100) 
+  e.camera_x = 0
+  e.camera_y = 0
   e.draw = wizard.draw
   e.update = wizard.update
   e.geteffect = wizard.geteffect
   e.getmodifier = wizard.getmodifier
-  wizard.effect = 1
-  wizard.modifier = 25
-  wizard.speed = 50
+  e.effect = 1
+  e.modifier = 25
+  e.speed = 50
   e.dir = wizard.walk_quads.down
   return e
 end
