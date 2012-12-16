@@ -68,6 +68,16 @@ function love.update (dt)
     drama.update(dt)
   elseif state == "game" then
     if not pause then
+      for i,v in ipairs(enemies) do
+        if v.health < 0  then
+          table.remove(enemies,i)
+        end
+      end
+      for i,v in ipairs(entity.data) do
+        if v.health < 0  then
+          table.remove(entity.data,i)
+        end
+      end
       entity.update(dt)
       counter.update(dt)
     end
