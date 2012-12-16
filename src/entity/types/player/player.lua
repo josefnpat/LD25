@@ -126,6 +126,11 @@ function player:keyreleased(key)
       self.dir = player.walk_quads[self.dir_name]
     end
     prin.captive = not prin.captive
+  elseif key == "2" then
+    local temp = entity.new("spiketrap")
+    temp.x = camera.x-4*4
+    temp.y = camera.y-10*4
+    table.insert(self.traps,temp)
   end
 end
 
