@@ -16,7 +16,6 @@ menu.title:setFilter("nearest","nearest")
 menu.title_glow = love.graphics.newImage("menu/assets/title_glow.png")
 menu.title_glow:setFilter("nearest","nearest")
 
-
 menu.padding = 64
 menu.option = 0
 menu.state = 1

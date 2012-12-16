@@ -5,9 +5,17 @@ function lovemenuwrap.load()
 
   menu:toggle()
   menu_view = {}
+  
+  if git and git_count then
+    git = "\nGIT: v"..git_count.." ["..git.."]"
+  else
+    git = ""
+    print("Game does not have any git information.")
+  end
+  
   menu_view[1] = {
     title="",
-    desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off. If you can.",
+    desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off. If you can."..git,
     {t="New Game",cb="ng"},
     {t="Options",cb="op"},
     {t="Credits",cb="cr"},
