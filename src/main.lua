@@ -38,15 +38,15 @@ function game_init()
   for x = 1, map.mapWidth do
 	  for y = 1, map.mapHeight do
 		  if Dungeon.map[x][y] == Tiles.Portal then
-		  local c = #portals + 1
-		  portals[c] = entity.new("portal")
-		  if c == 3 then
-		  portals[c].owner = "player"
-		  else
-		  portals[c].owner = "enemy"
-		  end
-		  portals[c].x = x
-		  portals[c].y = y
+		    local c = #portals + 1
+		    portals[c] = entity.new("portal")
+		    if c == 3 then
+		      portals[c].owner = "player"
+		    else
+		      portals[c].owner = "enemy"
+		    end
+		    portals[c].x = x
+		    portals[c].y = y
 		  end
     end
   end
