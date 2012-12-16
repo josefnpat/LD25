@@ -39,7 +39,7 @@ function game_init()
 		if Dungeon.map[x][y] == Tiles.Portal then
 		local c = #portals + 1
 		portals[c] = entity.new("portal")
-		if c == 2 then
+		if c == 3 then
 		portals[c].owner = "player"
 		else
 		portals[c].owner = "enemy"
