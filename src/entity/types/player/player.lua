@@ -125,6 +125,7 @@ function player:keyreleased(key)
     table.insert(player.traps,temp)
   elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 200) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
+    prin.captive = not prin.captive
   end
 end
 

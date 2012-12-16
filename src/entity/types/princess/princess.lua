@@ -1,7 +1,8 @@
 local princess = {}
 
 function princess:draw()
-  love.graphics.drawq(self.sprite.sheet, self.quad,
+  if self.captive == false then
+    love.graphics.drawq(self.sprite.sheet, self.quad,
              (self.camera.x * self.scale.x),
              (self.camera.y * self.scale.y),
              0,
@@ -9,6 +10,7 @@ function princess:draw()
              self.scale.y,
              8,
              24)
+  end
 end
 
 function princess:update(dt)
@@ -16,7 +18,8 @@ function princess:update(dt)
     self.camera.x = (-camera.x + self.x)
     self.camera.y = (-camera.y + self.y)
   else
-    -- Stuff.
+    self.x = player_obj.x
+    self.y = player_obj.y
   end
 end
 
