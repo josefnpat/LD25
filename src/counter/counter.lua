@@ -42,7 +42,11 @@ function counter.draw()
   second = counter.count - (minute * 60)
   strsec = string.format("%02d",second)
   love.graphics.draw(counter.img,love.graphics.getWidth()/2,0,0,4,4,32,0)
-  love.graphics.printf("Portal Opens in:\n"..strmin..":"..strsec,0,12,love.graphics.getWidth(),"center")
+  if counter.count == 0 then
+    love.graphics.printf("Portal Is Open!\nEscape!",0,12,love.graphics.getWidth(),"center")
+  else
+    love.graphics.printf("Portal Opens In:\n"..strmin..":"..strsec,0,12,love.graphics.getWidth(),"center")
+  end
   love.graphics.setColor(255,255,255)
 end
 
