@@ -112,21 +112,13 @@ function player:update(dt)
   
 end
 
-function dist(v1, v2)
-  local sub = {}
-  sub.x = v1.x - v2.x
-  sub.y = v1.y - v2.y
-  local len = sub.x*sub.x + sub.y*sub.y
-  return len
-end
-
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
     temp.x = camera.x-4*4
     temp.y = camera.y-10*4
     table.insert(self.traps,temp)
-  elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
+  elseif key == "p" and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     if self.isCarryingPrincess then
       self.dir = player.carry_quads[self.dir_name]

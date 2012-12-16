@@ -36,18 +36,19 @@ function game_init()
   
   portals = {}
   for x = 1, map.mapWidth do
-	for y = 1, map.mapHeight do
-		if Dungeon.map[x][y] == Tiles.Portal then
-		local c = #portals + 1
-		portals[c] = entity.new("portal")
-		if c == 3 then
-		portals[c].owner = "player"
-		else
-		portals[c].owner = "enemy"
-		end
-		portals[c].x = x
-		portals[c].y = y
-		end
+	  for y = 1, map.mapHeight do
+		  if Dungeon.map[x][y] == Tiles.Portal then
+		    local c = #portals + 1
+		    portals[c] = entity.new("portal")
+		    if c == 3 then
+		      portals[c].owner = "player"
+		      playerportal_obj = portals[c]
+		    else
+		      portals[c].owner = "enemy"
+		    end
+		    portals[c].x = x
+		    portals[c].y = y
+		  end
     end
   end
   
@@ -85,7 +86,7 @@ function love.draw ()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
-    map.draw(2,debug)
+    map.draw(2,tileDebug)
     counter.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
@@ -107,6 +108,9 @@ debug = false
 function love.keypressed (key,unicode)
   if key == 'f1' then
     debug = not debug
+  end
+  if key == 'f2' then
+    tileDebug = not tileDebug
   end
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
