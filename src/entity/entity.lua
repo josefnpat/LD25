@@ -33,8 +33,7 @@ end
 function entity.collision(entity)
   for x = -1,1 do
     for y = -1,1 do
-      if Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Floor and 
-         Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Door then
+      if Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Floor then
         return true
       end
     end
