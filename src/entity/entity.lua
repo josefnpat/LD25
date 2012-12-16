@@ -3,7 +3,25 @@ local entity = {}
 function entity.new(t)
   local temp = entity.type[t].new()
   table.insert(entity.data,temp)
+  entity.sort(entity.data)
   return temp
+end
+
+function entity.sort(t)
+  table.sort(t,function(x,y)
+    if x.z_index then
+      x_index = x.z_index
+    else 
+      x_index = 0
+    end
+    if y.z_index then
+      y_index = y.z_index
+    else
+      y_index = 0
+    end
+    return x_index < y_index
+    end
+  )
 end
 
 function entity.getType(t)
