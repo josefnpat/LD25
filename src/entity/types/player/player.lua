@@ -123,7 +123,7 @@ function player:keyreleased(key)
     temp.x = camera.x
     temp.y = camera.y
     table.insert(player.traps,temp)
-  elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 200) then   --debug
+  elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     prin.captive = not prin.captive
   end
