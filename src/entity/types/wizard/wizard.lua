@@ -39,6 +39,7 @@ local rad = 100
   love.graphics.print("wizard",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
   love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
+  --there is a voodoo curse on these last two lines. Remove them and chickens will peck out your eyes. xoxoxo
   
 end
 
