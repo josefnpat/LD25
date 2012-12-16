@@ -45,6 +45,7 @@ function portal.new(type,x,y)
   p.frame = 1
   p.camera_x = 0
   p.camera_y = 0
+  p.z_index = -1
   p.update = portal.update
   p.draw = portal.draw
   return p
