@@ -59,12 +59,24 @@ end
 
 function BitToQuad(Bit)
 
+if Bit == 20 or Bit == 21 or Bit == 17 then
+return 27
+end
+
 if Bit == 140 or Bit == 132 or Bit == 136  then
 return 36
 end
 
-if Bit == 156 then
+if Bit == 156 or Bit == 149 then
 return 28
+end
+
+if Bit == 189 or Bit == 190 or Bit == 191 then
+return 19
+end
+
+if Bit == 29 then
+return 17
 end
 
 if Bit == 7 then
@@ -83,12 +95,7 @@ if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
 end
 
-if Bit == 20 then
-return 27
-end
-
-
-if Bit == 172 or Bit == 170 or Bit == 166 or Bit == 172 then
+if Bit == 172 or Bit == 170 or Bit == 166 or Bit == 172 or Bit == 174 then
 return 44
 end
 
