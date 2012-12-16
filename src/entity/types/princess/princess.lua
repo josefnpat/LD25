@@ -43,14 +43,31 @@ function princess:update(dt)
     -- Fill in wandering logic.
 
     local mask = Dungeon.map
-    print ("!!!")
-    print (self.x)
-    print (self.y)
-    local square = util.getSquare(self)
+    local square = util:getSquare(self)
 
-    if util.isEmpty(self.path) or square.equals(self.target) then
+    if square.equals(self.target.sqr) or util:isEmpty(self.path) then
+      local new_path = {}
+      local path_len = math.random(3, 8)
+      local sqr = square
+      for i = 0, path_len do
+        local squares = util:getValidSquares(sqr)
+        if util:isEmpty(squares) then
+          print("Princess has no where to move.")
+        else
+          local nxt = squares[math.random(#squares)]
+          table.insert(new_path, nxt)
+          sqr = nxt.sqr
+        end
+      end
+      self.path = new_path
+      self.target = self.path[#self.path]
     end
-
+    if not util:isEmpty(self.path) then
+      if square.equals(self.path[1].sqr) then
+        table.remove(self.path, 1)
+      end
+      self.move(self.path[1].dir, dt)
+    end
   else -- Need to add enemy carry.
     self.path = {}
     self.x = player_obj.x
@@ -127,16 +144,17 @@ function princess.new()
     elseif dir == "right" then
       prin.dir = prin.walk_quads.right 
       prin.x = prin.x + prin.speed*dt
+    elseif dir == "right" then
+      print ("Princess moves nowhere.")
     end
     prin.walking = true
   end
 
   local location = {}
-  location.x = prin.x
-  location.y = prin.y
-  -- self.target = util.getSquare(prin)
+  location.sqr = util:getSquare(prin)
+  location.dir = "none"
+  prin.target = location
 
-  prin.target = nil
   prin.path = {}
 
   return prin

@@ -22,7 +22,6 @@ function vector:new(x, y)
   end
 
   return vec
-
 end
 
 function vector:add(v1, v2)
