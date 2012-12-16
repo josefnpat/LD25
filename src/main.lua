@@ -85,7 +85,7 @@ function love.draw ()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
-    map.draw(2,debug)
+    map.draw(2,tileDebug)
     counter.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
@@ -107,6 +107,9 @@ debug = false
 function love.keypressed (key,unicode)
   if key == 'f1' then
     debug = not debug
+  end
+  if key == 'f2' then
+    tileDebug = not tileDebug
   end
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
