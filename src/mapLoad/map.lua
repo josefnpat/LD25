@@ -76,15 +76,7 @@ if Bit == 17 then
 return 12
 end
 
-if Bit == 25 then
-
-end
-
-if Bit == 5 then
-
-end
-
-if Bit == 140 or Bit == 132 or Bit == 136  then
+if Bit == 140 or Bit == 132 or Bit == 136 or Bit == 141  then
 return 36
 end
 
@@ -126,12 +118,26 @@ if Bit == 63 or Bit == 60 or Bit == 61 or Bit == 62 then
 return 20
 end
 
+if Bit == 127 then
+return 20
+end
+
 if Bit == 34 then
 return 4
 end
 
 if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
+end
+
+if Bit == 203 or Bit == 207 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 then
+map.autoLayer2[x][y - 1] = 34
+return 36
+end
+
+if Bit == 83 or Bit == 85 or Bit == 87  then
+map.autoLayer2[x][y - 1] = 26
+return 27
 end
 
 if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
@@ -241,7 +247,7 @@ function map.draw(layer)
       end
       
       
-      love.graphics.setFont(font)
+      --love.graphics.setFont(font)
       --if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
 		--love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
       --end
