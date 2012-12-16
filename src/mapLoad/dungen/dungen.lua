@@ -14,7 +14,7 @@ function Dungen.init(width,height)
   for x = 1, width do
     Dungen.map[x] = {}
     for y = 1, height do
-      Dungen.map[x][y] = 0
+      Dungen.map[x][y] = Tiles.Solid
     end
   end
 end
@@ -83,7 +83,7 @@ function Dungen.gRoom(cursorX, cursorY)
 			    if Dungen.map[x][y] == Tiles.Solid then
 				    Dungen.map[x][y] = Tiles.Floor
 				    if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
-				      Dungen.map[x][y] = Tiles.Wall
+				      Dungen.map[x][y] = Tiles.Solid
 				      if
 				      x == goalX + math.floor(width / 2) - 1 or
 				      x == goalX + math.floor(width / 2) + 1 or
