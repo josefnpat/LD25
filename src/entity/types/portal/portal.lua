@@ -26,7 +26,8 @@ function portal:draw()
     y_scale)
    end
    if self.owner == "player" then
-	love.graphics.drawq(
+	 if counter.get_time() == 0 then
+	 love.graphics.drawq(
     portal.sheet,
     portal.portal_quads[portal.frame],
     ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
@@ -34,6 +35,18 @@ function portal:draw()
     0,
     x_scale,
     y_scale)
+    else
+	love.graphics.setColor(100,255,255)
+	love.graphics.drawq(
+    portal.sheet,
+    portal.portal_quads[1],
+    ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
+    ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
+    0,
+    x_scale,
+    y_scale)
+	end
+	love.graphics.setColor(255,255,255)
    end
 end
 

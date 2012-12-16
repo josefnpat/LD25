@@ -91,8 +91,8 @@ function enemy.new()
   local e = {}
   e.type = "enemy"
   e.health = 100
-  e.x = 512 + math.random(-100,100)
-  e.y = 512 + math.random(-100,100)
+  e.x = player_obj.x + math.random(-100,100)
+  e.y = player_obj.y + math.random(-100,100)
   e.camera_x = 0
   e.camera_y = 0
   e.speed = 50
