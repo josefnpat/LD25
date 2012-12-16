@@ -1,4 +1,7 @@
 local slowtrap = {}
+slowtrap.sheet = map.graphics.sheet
+slowtrap.sheet:setFilter('nearest','nearest')
+
 
 function slowtrap:update(dt)
     self.camera_x = (-camera.x + ((32 * 4) + self.x))
@@ -8,7 +11,8 @@ end
 function slowtrap:draw()
   local x_scale = 4
   local y_scale = 4
-  love.graphics.print("slowtrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
+  --love.graphics.print("slowtrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
+  love.graphics.drawq(map.graphics.sheet,map.quads[7],(self.camera_x * x_scale),(self.camera_x * x_scale))
 end
 
 function slowtrap.new()
@@ -21,6 +25,7 @@ function slowtrap.new()
   e.slow_amount = -25;
   e.effect = 1
   e.health = 10;  
+  e.z_index = -1
   e.update = slowtrap.update
   e.gethealth = slowtrap.gethealth
   e.geteffect = slowtrap.geteffect

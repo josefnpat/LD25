@@ -36,6 +36,8 @@ function enemy:update(dt)
         elseif self.speed == 75 then
           self.speed = 50  
         end
+      elseif v.type == "blocktrap" then
+        v:ishit(self.weapon_power)
       end
     end
   end
@@ -95,6 +97,7 @@ function enemy.new()
   e.camera_x = 0
   e.camera_y = 0
   e.speed = 50
+  e.weapon_power = 10
   e.slowed = false
   e.hasted = false
   e.update = enemy.update
