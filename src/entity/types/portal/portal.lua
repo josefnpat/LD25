@@ -58,7 +58,7 @@ function portal.new()
   local p = {}
   p.type = "portal"
   p.owner = "enemy"
-  e.health = 999
+  p.health = 999
   p.dt = 0
   p.x = 0
   p.y = 0
