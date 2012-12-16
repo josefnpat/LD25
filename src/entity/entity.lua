@@ -16,7 +16,7 @@ function entity.sort(t)
       if y.z_index then
         y_index = y.z_index
       end
-      return x_index < y_index
+      return y_index > x_index
     end
   )
 end
