@@ -29,7 +29,7 @@ function princess:update(dt)
     self.camera.y = (-camera.y + self.y) - (self.sprite.height)/2
 
     -- For testing animations.
-
+--[[
     if love.keyboard.isDown("h") then
       self.move("left", dt)
     elseif love.keyboard.isDown("j") then
@@ -39,7 +39,7 @@ function princess:update(dt)
     elseif love.keyboard.isDown("l") then
       self.move("right", dt)
     end
-
+]]--
     -- Fill in wandering logic.
 
     local mask = Dungeon.map
