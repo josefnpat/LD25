@@ -1,5 +1,5 @@
 local Dungen = {}
-
+local bresenham = require("bresenham")
 
 function Dungen.init(width,height)
   Tiles = {}
@@ -86,8 +86,38 @@ function Dungen.gRoom(cursorX, cursorY)
   --print("Succes: I was able to build a room!")
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
+    		
+		local sx,sy,ex,ey =PreviousCenter.x,PreviousCenter.y,goalX + math.floor(width / 2),goalY + math.floor(height /2)
+		table.insert(Dungen.debug_doors,{start={x=sx,y=sy},stop={x=ex,y=ey}})		
     
-		table.insert(Dungen.debug_doors,{start={x = PreviousCenter.x,y = PreviousCenter.y},stop={x=goalX + math.floor(width / 2) ,y=goalY + math.floor(height /2)}})
+    local b_line = bresenham.los(sx,sy,ex,ey, function(x,y)
+        Dungen.map[x][y] = Tiles.Floor
+        
+        if Dungen.map[x+1][y] then
+          Dungen.map[x+1][y] = Tiles.Floor
+        end
+        
+        if Dungen.map[x][y+1] then
+          Dungen.map[x][y+1] = Tiles.Floor
+        end
+        
+        if Dungen.map[x-1][y] then
+          Dungen.map[x-1][y] = Tiles.Floor
+        end
+        
+        if Dungen.map[x][y-1] then
+          Dungen.map[x][y-1] = Tiles.Floor
+        end
+        
+        return true
+      end)
+      
+    --[[
+    for i,v in ipairs(b_line) do
+      Dungen.map[x][y] = 0
+    end
+    --]]
+
 		Dungen.map[goalX + math.floor(width / 2)][goalY + math.floor(height /2)] = Tiles.Portal
 		PreviousCenter.x = goalX + math.floor(width / 2)
 		PreviousCenter.y = goalY + math.floor(height /2)
@@ -128,7 +158,7 @@ function Dungen.draw()
   end
   love.graphics.setColor(255,0,0)
   for i,v in ipairs(Dungen.debug_doors) do
-    love.graphics.line(v.start.x*4+8,v.start.y*4+8,v.stop.x*4+8,v.stop.y*4+8)
+    love.graphics.line(v.start.x*4,v.start.y*4,v.stop.x*4,v.stop.y*4)
   end
 end
 
