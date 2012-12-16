@@ -1,3 +1,4 @@
+require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 entity = require("entity/entity")
