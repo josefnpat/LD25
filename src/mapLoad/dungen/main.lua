@@ -1,4 +1,5 @@
 Dungeon = require("dungen")
+bresenham = require("bresenham")
 
 function love.load()
 Dungeon.init(128,128)

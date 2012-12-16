@@ -1,6 +1,8 @@
 require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
+bresenham = require("mapLoad/dungen/bresenham")
+
 entity = require("entity/entity")
 counter = require("counter/counter")
 

@@ -1,5 +1,6 @@
 map = require("map")
 Dungeon = require("dungen/dungen")
+bresenham = require("dungen/bresenham")
 
 function love.load()
 map.init()

@@ -1,5 +1,4 @@
 local Dungen = {}
-local bresenham = require("bresenham")
 
 function Dungen.init(width,height)
   Tiles = {}
@@ -30,7 +29,7 @@ function Dungen.generate(rooms)
   for r = 1, rooms do 
      Dungen.gRoom(Dungen.findDoor())
   end
-  print("There are "..#Dungen.debug_doors.."doors.")
+  --print("There are "..#Dungen.debug_doors.."doors.")
 end
 
 function Dungen.getLevel()
