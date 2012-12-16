@@ -77,7 +77,7 @@ if Bit >= 20 and Bit <= 23 then
 return 27
 end
 
-if Bit == 17 then
+if Bit >= 17 and Bit <= 19 then
 return 12
 end
 
@@ -97,7 +97,16 @@ if Bit == 29 then
 return 17
 end
 
-if Bit == 7 then
+if Bit == 3 then
+return 11
+end
+
+if Bit == 119 then
+map.autoLayer2[x][y - 1] = 18
+return 33
+end
+
+if Bit >= 7 and Bit <= 9 then
 return 3
 end
 
@@ -115,17 +124,25 @@ if Bit == 95 then
 return 41
 end
 
-if Bit == 223 then
+if Bit == 223 or Bit == 213 then
 map.autoLayer2[x][y - 1] = 26
 return 28
 end
 
-if Bit == 3 or Bit == 11 then
-return 11
+if Bit == 11 then
+return 5
 end
 
-if Bit == 71 then
---return 
+if Bit == 46 then
+return 41
+end
+
+if Bit == 188 then
+return 19
+end
+
+if Bit >= 71 and Bit <= 72 then
+return 3
 end
 
 if Bit == 106 or Bit == 107 then
@@ -156,6 +173,10 @@ map.autoLayer2[x][y - 1] = 42
 return 4
 end
 
+if Bit == 51 then
+return 13
+end
+
 if Bit == 63 or Bit == 60 or Bit == 61 or Bit == 62 then
 return 20
 end
@@ -167,6 +188,11 @@ end
 if Bit == 127 or Bit == 125 then
 map.autoLayer2[x][y - 1] = 18
 return 20
+end
+
+if Bit == 234 then
+map.autoLayer2[x][y - 1] = 42
+return 44
 end
 
 if Bit == 28 then
@@ -191,6 +217,11 @@ map.autoLayer2[x][y - 1] = 26
 return 12
 end
 
+if Bit == 115 then
+map.autoLayer2[x][y - 1] = 18
+return 13
+end
+
 if Bit >= 84 and Bit <= 87  then
 map.autoLayer2[x][y - 1] = 26
 return 27
@@ -200,15 +231,12 @@ if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
 map.autoLayer2[x][y - 1] = 34
 end
 
-if Bit == 75 then
+if Bit >= 73 and Bit <= 75 then
 map.autoLayer2[x][y - 1] = 34
 end
 
-if Bit == 168 then
-return 44
-end
 
-if Bit == 172  or Bit == 170 or Bit == 168 or Bit == 166 or Bit == 172 or Bit == 174 then
+if Bit >= 166 and Bit <= 174 then
 return 44
 end
 
