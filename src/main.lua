@@ -45,8 +45,9 @@ end
 -------------------------------------
 function love.draw ()
   if state == "game" then
-    map.draw()
+    map.draw(1)
     entity.draw()
+    map.draw(2)
   elseif state == "menu" then
     lovemenuwrap.draw()
   end
