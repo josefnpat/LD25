@@ -6,13 +6,14 @@ libdrama.vpad = love.graphics.getWidth()*libdrama.vpad_perc/100
 libdrama.hpad = love.graphics.getHeight()*libdrama.hpad_perc/100
 libdrama.speaker_color = {255,255,255,255}
 libdrama.non_speaker_color = {255,255,255,127}
-libdrama.text_color = {0,255,0,255}
+libdrama.text_color = {255,255,255,255}
 libdrama.top_perc = 60
 libdrama.top = (love.graphics.getHeight()-2*libdrama.vpad)*libdrama.top_perc/100
 libdrama.font = "counter/assets/spathaserif.ttf"
 libdrama.font_small = love.graphics.newFont(libdrama.font,16)
 libdrama.font_large = love.graphics.newFont(libdrama.font,32)
 libdrama.textspeed = 0.05
+libdrama.sfx_speach = love.audio.newSource("drama/Blip_speach20.wav")
 
 function libdrama.load(scene)
   libdrama.linedt = 0
@@ -30,15 +31,18 @@ function libdrama.draw()
   local line_height = libdrama.font_large:getHeight()
   
   if libdrama.curline.left then
+  local sizeOffset
     if libdrama.curline.speaker == "left" or libdrama.curline.speaker == "both" then
       love.graphics.setColor(libdrama.speaker_color)
+      sizeOffset = math.sin(love.timer.getTime()) * 0.5 - 1
     else
       love.graphics.setColor(libdrama.non_speaker_color)
+      sizeOffset = -1
     end
     
     if libdrama.curline.left.img then
       local scale = libdrama.top/libdrama.curline.left.img:getHeight()
-      love.graphics.draw(libdrama.curline.left.img,love.graphics.getWidth()/4,libdrama.vpad,0,scale,scale,libdrama.curline.left.img:getWidth()/2,0)
+      love.graphics.draw(libdrama.curline.left.img,love.graphics.getWidth()/4,libdrama.vpad,0,scale + sizeOffset,scale + sizeOffset,libdrama.curline.left.img:getWidth()/2,0)
     end
     if libdrama.curline.left.name then
       love.graphics.setFont(libdrama.font_small)
@@ -48,15 +52,18 @@ function libdrama.draw()
   end
   
   if libdrama.curline.right then
+  local sizeOffset
     if libdrama.curline.speaker == "right" or libdrama.curline.speaker == "both" then
       love.graphics.setColor(libdrama.speaker_color)
+      sizeOffset = math.sin(love.timer.getTime()) * 0.5 - 1
     else
       love.graphics.setColor(libdrama.non_speaker_color)
+      sizeOffset = -1
     end
     
     if libdrama.curline.right.img then
       local scale = libdrama.top/libdrama.curline.left.img:getHeight()
-      love.graphics.draw(libdrama.curline.right.img,love.graphics.getWidth()*3/4,libdrama.vpad,0,-scale,scale,libdrama.curline.right.img:getWidth()/2,0)
+      love.graphics.draw(libdrama.curline.right.img,love.graphics.getWidth()*3/4,libdrama.vpad,0,-scale - sizeOffset,scale + sizeOffset,libdrama.curline.right.img:getWidth()/2,0)
     end
     if libdrama.curline.right.name then
       love.graphics.setFont(libdrama.font_small)
@@ -96,6 +103,12 @@ function libdrama.update(dt)
   if libdrama.linedt > libdrama.textspeed then
     libdrama.linedt = libdrama.linedt - libdrama.textspeed
     libdrama.linedt_count = libdrama.linedt_count + 1
+    
+    if libdrama.linedt_count < string.len(libdrama.scene.lines[libdrama.line].text) then
+    libdrama.sfx_speach:stop()
+    libdrama.sfx_speach:play()
+    end
+    
   end
 end
 
