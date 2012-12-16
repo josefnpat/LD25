@@ -2,7 +2,7 @@ require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 entity = require("entity/entity")
-counter = require("counter/counter")
+
 state = "menu"
 
 -------------------------------------
@@ -23,9 +23,6 @@ function love.load (arg)
   table.insert(enemies,enemy3)
   table.insert(enemies,wizard1)
   
-  counter.load()
-  counter.set_time(120);
-  
   portal_enemy = {}
   for x = 1, map.mapWidth do
 	for y = 1, map.mapHeight do
@@ -34,7 +31,6 @@ function love.load (arg)
 		portal_enemy[c] = entity.new("portal")
 		portal_enemy[c].x = x
 		portal_enemy[c].y = y
-		print(c .. " = " .. x .. "/" .. y)
 		end
     end
   end
@@ -54,7 +50,6 @@ function love.update (dt)
     lovemenuwrap.update(dt)
   elseif state == "game" then
     entity.update(dt)
-    counter.update(dt)
   end
 end
 
@@ -66,7 +61,6 @@ function love.draw ()
     map.draw(1)
     entity.draw()
     map.draw(2)
-    counter.draw()
   elseif state == "menu" then
     lovemenuwrap.draw()
   end
