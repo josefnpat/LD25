@@ -50,4 +50,16 @@ function util:isEmpty(t)
   return true
 end
 
+function util:dirIn(t, d)
+  if #t == 0 then
+    return false
+  end
+  for i, s in pairs(t) do
+    if s.dir == d then
+      return s
+    end
+  end
+  return false
+end
+
 return util

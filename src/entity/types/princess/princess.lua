@@ -40,21 +40,32 @@ function princess:update(dt)
       self.move("right", dt)
     end
 ]]--
-    -- Fill in wandering logic.
+
+    -- Wandering logic.
 
     local mask = Dungeon.map
     local square = util:getSquare(self)
 
     if square.equals(self.target.sqr) or util:isEmpty(self.path) then
       local new_path = {}
-      local path_len = math.random(3, 8)
+      local path_len = math.random(5, 12)
       local sqr = square
       for i = 0, path_len do
         local squares = util:getValidSquares(sqr)
         if util:isEmpty(squares) then
           print("Princess has no where to move.")
         else
-          local nxt = squares[math.random(#squares)]
+          local nxt = square
+          local sdir = false
+          if #new_path > 0 then
+            sdir = util:dirIn(squares, new_path[#new_path].dir)
+          end
+          local ran = (math.random(1, 10))
+          if #squares > 0 and sdir and ran > 4 then
+            nxt = sdir
+          else
+            nxt = squares[math.random(#squares)]
+          end
           table.insert(new_path, nxt)
           sqr = nxt.sqr
         end
