@@ -1,10 +1,10 @@
 local enemy = {}
-local x_scale = 4
-local y_scale = 4
+
 
 function enemy:update(dt)
-  self.camera_x = (-camera.x + ((32 * 4) + self.x))
-  self.camera_y = (-camera.y + ((32 * 4) + self.y))
+  self.camera_x = (-camera.x + self.x) - (self.sprite.width)/2
+  self.camera_y = (-camera.y + self.y) - (self.sprite.height)/2
+
   local rad = 100
   local wizard_is_near = false
   local trap_is_near = false
@@ -61,6 +61,10 @@ function enemy:update(dt)
 end
 
 function enemy:draw()
+  local frame = 2
+    if self.walking then
+      frame = math.floor((self.dt * 10) % #self.dir + 1)
+    end
   local rad = 100
   if self.speed == 50  then
     love.graphics.setColor(250,0,0)
@@ -75,12 +79,21 @@ function enemy:draw()
  
   local str = string.format("%02d",self.speed)
   local hstr = string.format("%02d",self.health)
-  love.graphics.print("enemy",(self.camera_x * x_scale),(self.camera_y * y_scale))
-  love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
+  love.graphics.drawq(self.sprite.sheet,
+        self.dir[frame], 
+        (self.x - camera.x - map.graphics.width) * 4,
+        (self.y - camera.y - map.graphics.height - 4) * 4,
+        0,
+        self.x_scale,
+        self.y_scale,
+        8,
+        24)
+
+  love.graphics.circle("line",(self.camera_x * self.x_scale),(self.camera_y * self.y_scale),rad*2)
   --leave this in I'm going to need it for testing love, Cirrus
-  love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
+  love.graphics.print(str,(self.camera_x * self.x_scale)+12,(self.camera_y * self.y_scale)+12)
   --also, leave this 
-  love.graphics.print(hstr,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+25)
+  love.graphics.print(hstr,(self.camera_x * self.x_scale)+12,(self.camera_y * self.y_scale)+25)
   love.graphics.setColor(255,255,255)
   
 end
@@ -95,9 +108,17 @@ function enemy.new()
   e.health = 100
   e.x = player_obj.x + math.random(-100,100)
   e.y = player_obj.y + math.random(-100,100)
+  e.sprite = {}
+  e.walking = false
+  e.sprite.sheet = love.graphics.newImage("entity/types/enemy/enemy.png")
+  e.sprite.sheet:setFilter("nearest","nearest")
+  e.sprite.width = 16
+  e.sprite.height = 32
   e.camera_x = 0
   e.camera_y = 0
   e.speed = 50
+  e.x_scale = 4
+  e.y_scale = 4
   e.range = 999
   e.weapon_power = 10
   e.slowed = false
@@ -109,6 +130,39 @@ function enemy.new()
   e.gethealth = enemy.gethealth
   e.keypressed = enemy.keypressed
   e.ishit = enemy.ishit
+  e.dt = 0
+
+  e.walk = {}
+  e.walk.left = {x=0,y=0,framecount=3}
+  e.walk.right = {x=16*3,y=0,framecount=3}
+  e.walk.down = {x=0,y=32,framecount=3}
+  e.walk.up = {x=16*3,y=32,framecount=3}
+  e.walk_quads = {}
+
+for i,v in pairs(e.walk) do
+    e.walk_quads[i] = {}
+    for frame = 1,v.framecount+1 do
+      if frame == 4 then
+        real_frame = 2
+      else
+        real_frame = frame
+      end
+      local quad = love.graphics.newQuad(v.x+16*(real_frame-1),
+            v.y,
+            16,
+            32,
+            e.sprite.sheet:getWidth(),
+            e.sprite.sheet:getHeight())
+      table.insert(e.walk_quads[i],quad)
+    end
+  end
+  e.dir = e.walk_quads.down
+
+  e.quad = love.graphics.newQuad(0, 0,
+             e.sprite.width,
+             e.sprite.height,
+             e.sprite.sheet:getWidth(),
+             e.sprite.sheet:getHeight())
   return e
 end
 
