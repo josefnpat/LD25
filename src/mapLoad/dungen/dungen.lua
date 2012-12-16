@@ -117,12 +117,12 @@ function Dungen.draw()
       elseif Dungen.map[x][y] == 3 then
         love.graphics.setColor(255,255,255)
       end
-      love.graphics.rectangle("fill",x * 16, y * 16, 16,16)
+      love.graphics.rectangle("fill",x * 4, y * 4, 4,4)
     end
   end
   love.graphics.setColor(255,0,0)
   for i,v in ipairs(Dungen.debug_doors) do
-    love.graphics.line(v.start.x*16+8,v.start.y*16+8,v.stop.x*16+8,v.stop.y*16+8)
+    love.graphics.line(v.start.x*4+8,v.start.y*4+8,v.stop.x*4+8,v.stop.y*4+8)
   end
 end
 
