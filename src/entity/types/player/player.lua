@@ -18,7 +18,7 @@ player.carry.up = {x=16*3,y=32*3,framecount=3}
 player.carry_quads = {}
 
 player.speed = 100
-player.traps = {}
+traps = {}
 
 local real_frame
 
@@ -122,7 +122,7 @@ function player:keyreleased(key)
     local temp = entity.new("slowtrap")
     temp.x = camera.x
     temp.y = camera.y
-    table.insert(player.traps,temp)
+    table.insert(traps,temp)
   elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     prin.captive = not prin.captive
