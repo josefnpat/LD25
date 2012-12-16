@@ -35,6 +35,7 @@ local rad = 100
     frame = math.floor((self.dt * 10) % self.dir + 1)
   end]]--
  --love.graphics.drawq( wizard.spritesheet, #self.dir[frame], (self.x - camera.x - map.graphics.width) * 4, (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
+  local str = string.format("%02d",self.speed)
   love.graphics.print("wizard",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
   love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
