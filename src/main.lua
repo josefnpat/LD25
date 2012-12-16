@@ -94,7 +94,7 @@ debug = false
 -- love.keypressed
 -------------------------------------
 function love.keypressed (key,unicode)
-  if key == '`' then
+  if key == 'd' then
     debug = not debug
   end
   if state == "menu" then
