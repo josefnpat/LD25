@@ -1,9 +1,11 @@
 local entity = {}
 
+entity.needs_sorting = false
+
 function entity.new(t)
   local temp = entity.type[t].new()
   table.insert(entity.data,temp)
-  --entity.sort(entity.data)
+  entity.needs_sorting = true
   return temp
 end
 
@@ -65,6 +67,9 @@ function entity.update(dt)
     if v.update then
       v:update(dt)
     end
+  end
+  if entity.needs_sorting then
+    entity.sort(entity.data)
   end
 end
 
