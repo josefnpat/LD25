@@ -12,18 +12,17 @@ function princess:draw()
 end
 
 function princess:update(dt)
-  self.camera.x = (-camera.x + self.x)
-  self.camera.y = (-camera.y + self.y)
-  print ("!!!")
-  print (self.camera.x)
-  print (self.camera.y)
+  if self.captive == false then
+    self.camera.x = (-camera.x + self.x)
+    self.camera.y = (-camera.y + self.y)
+  else
+    -- Stuff.
+  end
 end
 
 function princess.new()
   local prin = {}
   prin.type = "princess"
---  prin.x = ((map.mapWidth / 2) + 0.5) * 16
---  prin.y = ((map.mapHeight / 2) + 0.5) * 16
   prin.x = player_obj.x
   prin.y = player_obj.y
   prin.camera = {}
@@ -40,6 +39,7 @@ function princess.new()
   prin.scale = {}
   prin.scale.x = 4
   prin.scale.y = 4
+  prin.captive = false
 
   prin.quad = love.graphics.newQuad(0, 0,
              prin.sprite.width,
