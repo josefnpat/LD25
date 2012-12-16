@@ -9,17 +9,14 @@ end
 
 function entity.sort(t)
   table.sort(t,function(x,y)
-    if x.z_index then
-      x_index = x.z_index
-    else 
-      x_index = 0
-    end
-    if y.z_index then
-      y_index = y.z_index
-    else
-      y_index = 0
-    end
-    return x_index < y_index
+      local x_index,y_index = 0,0
+      if x.z_index then
+        x_index = x.z_index
+      end
+      if y.z_index then
+        y_index = y.z_index
+      end
+      return x_index < y_index
     end
   )
 end
