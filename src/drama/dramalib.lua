@@ -105,8 +105,10 @@ function libdrama.update(dt)
     libdrama.linedt_count = libdrama.linedt_count + 1
     
     if libdrama.linedt_count < string.len(libdrama.scene.lines[libdrama.line].text) then
-    libdrama.sfx_speach:stop()
-    libdrama.sfx_speach:play()
+      if(sound) then
+        libdrama.sfx_speach:stop()
+        libdrama.sfx_speach:play()
+      end
     end
     
   end
