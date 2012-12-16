@@ -71,15 +71,14 @@ function enemy:draw()
   else
     love.graphics.setColor(255,255,255)
   end
- --[[ if self.slowed == true  then
-    love.graphics.setColor(0,191,255)
-  else
-    love.graphics.setColor(255,255,255)
-  end]]--
+  --leave these as well
+ 
   local str = string.format("%02d",self.speed)
   love.graphics.print("enemy",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
+  --leave this in I'm going to need it for testing love, Cirrus
   love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
+  --also, leave this 
   love.graphics.setColor(255,255,255)
   
 end
