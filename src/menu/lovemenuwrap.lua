@@ -65,7 +65,7 @@ sound = true
 function menu:callback(cb)
   if cb == "ng" then
     game_init()
-    state = "game"
+    state = "drama"
   elseif cb == "op" then
     menu:setstate(2)
   elseif cb == "cr" then

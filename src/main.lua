@@ -5,6 +5,7 @@ bresenham = require("mapLoad/dungen/bresenham")
 debuglib = require("debug/debug")
 entity = require("entity/entity")
 counter = require("counter/counter")
+drama = require("drama/drama")
 
 state = "menu"
 
@@ -51,6 +52,9 @@ function game_init()
   end
   
   prin = entity.new("princess")
+  
+  drama.load()
+  
 end
 
 -------------------------------------
@@ -59,6 +63,8 @@ end
 function love.update (dt)
   if state == "menu" then
     lovemenuwrap.update(dt)
+  elseif state == "drama" then
+    drama.update(dt)
   elseif state == "game" then
     if not pause then
       entity.update(dt)
@@ -74,6 +80,8 @@ end
 function love.draw ()
   if state == "menu" then
     lovemenuwrap.draw()
+  elseif state == "drama" then
+    drama.draw()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
@@ -102,6 +110,8 @@ function love.keypressed (key,unicode)
   end
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
+  elseif state == "drama" then
+    drama.keypressed (key,unicode)
   elseif state == "game" then
     if pause then
       if key == "escape" then
