@@ -19,7 +19,7 @@ function enemy:update(dt)
     end
   end
 
-  for _,v in ipairs(traps) do
+  for _,v in ipairs(player_obj.traps) do
     local dist = entity.distance(self,v)
     if dist < rad and dist ~=0 then
       if v.type == "slowtrap" then

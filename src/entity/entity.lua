@@ -3,7 +3,7 @@ local entity = {}
 function entity.new(t)
   local temp = entity.type[t].new()
   table.insert(entity.data,temp)
-  entity.sort(entity.data)
+  --entity.sort(entity.data)
   return temp
 end
 
