@@ -12,7 +12,11 @@ function slowtrap:draw()
   local x_scale = 4
   local y_scale = 4
   --love.graphics.print("slowtrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
-  love.graphics.drawq(map.graphics.sheet,map.quads[7],(self.camera_x * x_scale),(self.camera_x * x_scale))
+  love.graphics.drawq(
+    map.graphics.sheet,map.quads[7],
+    self.camera_x * x_scale,
+    self.camera_y * y_scale,
+    0,4,4)
 end
 
 function slowtrap.new()
@@ -24,7 +28,7 @@ function slowtrap.new()
   e.camera_y = 0
   e.slow_amount = -25;
   e.effect = 1
-  e.health = 10;  
+  e.health = 10;
   e.z_index = -1
   e.update = slowtrap.update
   e.gethealth = slowtrap.gethealth

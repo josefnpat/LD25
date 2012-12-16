@@ -119,8 +119,9 @@ end
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
-    temp.x = camera.x
-    temp.y = camera.y
+    temp.x = camera.x-2*4
+    temp.y = camera.y-10*4
+    print(temp.x,temp.y)
     table.insert(self.traps,temp)
   elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
