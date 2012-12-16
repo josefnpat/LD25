@@ -109,14 +109,23 @@ function player:update(dt)
   
 end
 
+function dist(v1, v2)
+  local sub = {}
+  sub.x = v1.x - v2.x
+  sub.y = v1.y - v2.y
+  local len = sub.x*sub.x + sub.y*sub.y
+  return len
+end
+
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
     temp.x = camera.x
     temp.y = camera.y
     table.insert(player.traps,temp)
-  elseif key == "p" then --debug
+  elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
+    prin.captive = not prin.captive
   end
 end
 

@@ -1,11 +1,4 @@
-function file_exists(name)
-  local f=io.open(name,"r")
-  if f~=nil then io.close(f) return true else return false end
-end
-
-if file_exists("git.lua") then
-  require("git")
-end
+require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 entity = require("entity/entity")
@@ -32,6 +25,8 @@ function love.load (arg)
   portal_enemy.x,portal_enemy.y = 500,500
   portal_player = entity.new("portal")
   portal_player.x,portal_player.y = 550,550
+  prin = entity.new("princess")
+
 end
 
 -------------------------------------
