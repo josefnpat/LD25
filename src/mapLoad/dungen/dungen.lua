@@ -30,6 +30,7 @@ function Dungen.generate(rooms)
      Dungen.gRoom(Dungen.findDoor())
   end
   --print("There are "..#Dungen.debug_doors.."doors.")
+  RemoveDoors()
 end
 
 function Dungen.getLevel()
@@ -162,6 +163,16 @@ function Dungen.draw()
   for i,v in ipairs(Dungen.debug_doors) do
     love.graphics.line(v.start.x*4,v.start.y*4,v.stop.x*4,v.stop.y*4)
   end
+end
+
+function RemoveDoors()
+for x = 1, Dungen.width do
+    for y = 1, Dungen.height do
+		if Dungen.map[x][y] == Tiles.Door then
+			Dungen.map[x][y] = Tiles.Solid
+		end
+	end
+end
 end
 
 return Dungen
