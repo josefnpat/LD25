@@ -44,3 +44,5 @@ end
 function vector:div(v, s)
   return vector.new(v.x/s, v.y/s)
 end
+
+return vector

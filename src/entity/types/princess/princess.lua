@@ -1,3 +1,5 @@
+util = require "entity/types/princess/util/util"
+vector = require "entity/types/princess/util/vector"
 local princess = {}
 
 function princess:draw()
@@ -9,23 +11,20 @@ function princess:draw()
     love.graphics.drawq(self.sprite.sheet,
         self.dir[frame], 
         (self.x - camera.x - map.graphics.width) * 4,
-        (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
+        (self.y - camera.y - map.graphics.height - 4) * 4,
+        0,
+        self.scale.x,
+        self.scale.y,
+        8,
+        24)
   end
-
---    love.graphics.drawq(self.sprite.sheet, self.quad,
---             (self.camera.x * self.scale.x),
---             (self.camera.y * self.scale.y),
---             0,
---             self.scale.x,
---             self.scale.y,
---             8,
---             24)
 end
 
 function princess:update(dt)
   self.dt = self.dt + dt
+  self.walking = false
+
   if self.captive == false then
-    self.walking = false
     self.camera.x = (-camera.x + self.x) - (self.sprite.width)/2
     self.camera.y = (-camera.y + self.y) - (self.sprite.height)/2
 
@@ -42,9 +41,18 @@ function princess:update(dt)
     end
 
     -- Fill in wandering logic.
-    local mask = Dungeon.map[1][1]
 
-  else
+    local mask = Dungeon.map
+    print ("!!!")
+    print (self.x)
+    print (self.y)
+    local square = util.getSquare(self)
+
+    if util.isEmpty(self.path) or square.equals(self.target) then
+    end
+
+  else -- Need to add enemy carry.
+    self.path = {}
     self.x = player_obj.x
     self.y = player_obj.y
   end
@@ -89,7 +97,12 @@ function princess.new()
       else
         real_frame = frame
       end
-      local quad = love.graphics.newQuad( v.x+16*(real_frame-1), v.y, 16, 32, prin.sprite.sheet:getWidth(),prin.sprite.sheet:getHeight() )
+      local quad = love.graphics.newQuad(v.x+16*(real_frame-1),
+            v.y,
+            16,
+            32,
+            prin.sprite.sheet:getWidth(),
+            prin.sprite.sheet:getHeight())
       table.insert(prin.walk_quads[i],quad)
     end
   end
@@ -117,6 +130,14 @@ function princess.new()
     end
     prin.walking = true
   end
+
+  local location = {}
+  location.x = prin.x
+  location.y = prin.y
+  -- self.target = util.getSquare(prin)
+
+  prin.target = nil
+  prin.path = {}
 
   return prin
 end

@@ -1,9 +1,10 @@
-require "vector"
+require "entity/types/princess/util/vector"
 
 local util = {}
 
 function util:getSquare(e)
-  square = vector.new(math.floor(e.x/32), math.floor(e.y/32))
+  print (e)
+  square = vector.new(math.floor(e.x/map.graphics.width), math.floor(e.y/map.graphics.height))
   return square
 end
 
@@ -31,6 +32,13 @@ function util:getValidSquares(v)
     end
   end
   return sqs
+end
+
+function util:isEmpty(t)
+  for _ in pairs(t)  do 
+    return false
+  end
+  return true
 end
 
 return util
