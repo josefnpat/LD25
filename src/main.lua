@@ -63,6 +63,7 @@ function love.update (dt)
       counter.update(dt)
     end
   end
+  debuglib.update(dt)
 end
 
 -------------------------------------
@@ -74,7 +75,7 @@ function love.draw ()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
-    map.draw(2,1)
+    map.draw(2)
     counter.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
