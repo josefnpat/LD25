@@ -15,10 +15,20 @@ function portal:draw()
   local x_scale = 4
   local y_scale = 4
 
-  if self.type == "portal" then
+  if self.owner == "enemy" then
 	love.graphics.drawq(
     portal.sheet,
     portal.portal_quads[4],
+    ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
+    ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
+    0,
+    x_scale,
+    y_scale)
+   end
+   if self.owner == "player" then
+	love.graphics.drawq(
+    portal.sheet,
+    portal.portal_quads[portal.frame],
     ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
     ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
     0,
@@ -43,6 +53,7 @@ end
 function portal.new()
   local p = {}
   p.type = "portal"
+  p.owner = "enemy"
   p.dt = 0
   p.x = 0
   p.y = 0

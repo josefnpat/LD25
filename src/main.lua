@@ -33,20 +33,22 @@ function game_init()
   counter.load()
   counter.set_time(120);
   
-  portal_enemy = {}
+  portals = {}
   for x = 1, map.mapWidth do
 	for y = 1, map.mapHeight do
 		if Dungeon.map[x][y] == Tiles.Portal then
-		local c = #portal_enemy + 1
-		portal_enemy[c] = entity.new("portal")
-		portal_enemy[c].x = x
-		portal_enemy[c].y = y
+		local c = #portals + 1
+		portals[c] = entity.new("portal")
+		if c == 2 then
+		portals[c].owner = "player"
+		else
+		portals[c].owner = "enemy"
+		end
+		portals[c].x = x
+		portals[c].y = y
 		end
     end
   end
-  --portal_player = entity.new("portal")
-  --portal_player.x = 500
-  --portal_player.y = 550
   
   prin = entity.new("princess")
 end
