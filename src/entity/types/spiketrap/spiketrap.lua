@@ -1,6 +1,7 @@
 local spiketrap = {}
---spiketrap.sheet = map.graphics.sheet
---spiketrap.sheet:setFilter('nearest','nearest')
+spiketrap.sheet = map.graphics.sheet
+spiketrap.sheet:setFilter('nearest','nearest')
+
 
 
 function spiketrap:update(dt)
@@ -11,12 +12,12 @@ end
 function spiketrap:draw()
   local x_scale = 4
   local y_scale = 4
-  love.graphics.print("spiketrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
-  --[[love.graphics.drawq(
-    map.graphics.sheet,map.quads[8],
+  --love.graphics.print("spiketrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
+  love.graphics.drawq(
+    map.graphics.sheet,map.quads[32],
     self.camera_x * x_scale,
     self.camera_y * y_scale,
-    0,4,4)]]--
+    0,4,4)
 end
 
 function spiketrap.new()
