@@ -39,6 +39,7 @@ function enemy:update(dt)
       end
     end
   end
+
   if not wizard_is_near and self.hasted == true then
    -- self:applyeffect(1,-25)
     if self.speed == 75 then  
