@@ -90,21 +90,24 @@ function Dungen.gRoom(cursorX, cursorY)
 		table.insert(Dungen.debug_doors,{start={x=sx,y=sy},stop={x=ex,y=ey}})		
     
     local b_line = bresenham.los(sx,sy,ex,ey, function(x,y)
-        Dungen.map[x][y] = Tiles.Floor
+    
+        if Dungen.map[x][y] ~= Tiles.Portal then
+          Dungen.map[x][y] = Tiles.Floor
+        end
         
-        if Dungen.map[x+1][y] then
+        if Dungen.map[x+1][y] and Dungen.map[x+1][y] ~= Tiles.Portal then
           Dungen.map[x+1][y] = Tiles.Floor
         end
         
-        if Dungen.map[x][y+1] then
+        if Dungen.map[x][y+1] and Dungen.map[x][y+1] ~= Tiles.Portal then
           Dungen.map[x][y+1] = Tiles.Floor
         end
         
-        if Dungen.map[x-1][y] then
+        if Dungen.map[x-1][y] and Dungen.map[x-1][y] ~= Tiles.Portal then
           Dungen.map[x-1][y] = Tiles.Floor
         end
         
-        if Dungen.map[x][y-1] then
+        if Dungen.map[x][y-1] and Dungen.map[x][y-1] ~= Tiles.Portal then
           Dungen.map[x][y-1] = Tiles.Floor
         end
         
