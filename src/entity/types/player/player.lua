@@ -114,7 +114,6 @@ function dist(v1, v2)
   sub.x = v1.x - v2.x
   sub.y = v1.y - v2.y
   local len = sub.x*sub.x + sub.y*sub.y
-  print("squared dist is "..len)
   return len
 end
 
