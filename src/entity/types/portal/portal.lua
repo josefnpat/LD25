@@ -7,13 +7,12 @@ function portal:draw()
   sheet:setFilter("nearest","nearest")
   if self.type == "portal_enemy" then
     quad = love.graphics.newQuad(0,80,16,24,sheet:getWidth(),sheet:getHeight())
-    love.graphics.drawq(sheet,quad,(self.camera_x * x_scale),(self.camera_y * y_scale),0,x_scale,y_scale,8,24)
+    love.graphics.drawq(sheet,quad,(self.camera_x * x_scale),(self.camera_y * y_scale),0,x_scale,y_scale,12,12)
   elseif self.type == "portal_player" then
     quad_x = self.dir[self.frame].x
     quad_y = self.dir[self.frame].y
     quad = love.graphics.newQuad(quad_x,quad_y,32,32,sheet:getWidth(),sheet:getHeight())
-    love.graphics.drawq(sheet,quad,(self.camera_x * x_scale),(self.camera_y * y_scale),0,x_scale,y_scale,8,24)
-
+    love.graphics.drawq(sheet,quad,(self.camera_x * x_scale),(self.camera_y * y_scale),0,x_scale,y_scale,12,12)
   end
 end
 
