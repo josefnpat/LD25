@@ -248,7 +248,7 @@ function map.draw(layer,writeDebug)
       
         map.drawTile(x,y,2)
         
-      elseif Dungeon.map[x][y] == Tiles.Floor and layer == 1 then
+      elseif Dungeon.map[x][y] == Tiles.Floor and layer == 1 or Dungeon.map[x][y] == Tiles.Portal and layer == 1 then
       
         map.drawTile(x,y,2)
         

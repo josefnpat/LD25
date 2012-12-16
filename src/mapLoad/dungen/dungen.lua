@@ -7,6 +7,7 @@ function Dungen.init(width,height)
   Tiles.Door = 1
   Tiles.Wall = 2
   Tiles.Floor = 3
+  Tiles.Portal = 4
 
   Dungen.map = {}
   Dungen.width = width
@@ -78,6 +79,7 @@ function Dungen.gRoom(cursorX, cursorY)
   --print("Succes: I was able to build a room!")
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
+		Dungen.map[goalX + math.floor(width / 2)][goalY + math.floor(height /2)] = Tiles.Portal
       for x = goalX, goalX + width do
         for y = goalY, goalY + height do
 			    if Dungen.map[x][y] == Tiles.Solid then

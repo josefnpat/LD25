@@ -22,11 +22,23 @@ function love.load (arg)
   table.insert(enemies,enemy2)
   table.insert(enemies,enemy3)
   table.insert(enemies,wizard1)
-  portal_enemy = entity.new("portal")
-  portal_enemy.type = "portal_player"
-  portal_enemy.x,portal_enemy.y = 500,500
-  portal_player = entity.new("portal")
-  portal_player.x,portal_player.y = 550,550
+  
+  portal_enemy = {}
+  for x = 1, map.mapWidth do
+	for y = 1, map.mapHeight do
+		if Dungeon.map[x][y] == Tiles.Portal then
+		local c = #portal_enemy + 1
+		portal_enemy[c] = entity.new("portal")
+		portal_enemy[c].x = x
+		portal_enemy[c].y = y
+		print(c .. " = " .. x .. "/" .. y)
+		end
+    end
+  end
+  --portal_player = entity.new("portal")
+  --portal_player.x = 500
+  --portal_player.y = 550
+  
   prin = entity.new("princess")
 
 end
