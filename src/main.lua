@@ -32,6 +32,8 @@ function love.load (arg)
   portal_enemy.x,portal_enemy.y = 500,500
   portal_player = entity.new("portal")
   portal_player.x,portal_player.y = 550,550
+  prin = entity.new("princess")
+
 end
 
 -------------------------------------
