@@ -144,6 +144,7 @@ function player.new()
   e.update = player.update
   e.dir = player.walk_quads.down
   e.keyreleased = player.keyreleased
+  e.z_index = 2
   return e
 end
 
