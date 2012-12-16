@@ -242,9 +242,9 @@ function map.draw(layer)
       
       
       love.graphics.setFont(font)
-      if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
-		love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
-      end
+      --if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
+		--love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
+      --end
     end
   end
   love.graphics.setCanvas()
