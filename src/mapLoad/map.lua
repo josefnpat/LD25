@@ -110,9 +110,9 @@ if Bit >= 7 and Bit <= 9 then
 return 3
 end
 
-if Bit == 95 then
+if Bit >= 93 and Bit <= 95 then
 map.autoLayer2[x][y - 1] = 26
-return 27
+return 17
 end
 
 if Bit >= 235 and Bit <= 239 then
@@ -120,8 +120,12 @@ map.autoLayer2[x][y - 1] = 42
 return 44
 end
 
-if Bit == 95 then
-return 41
+if Bit == 27 then
+return 25
+end
+
+if Bit == 159 then
+return 28
 end
 
 if Bit == 223 or Bit == 213 or Bit == 215 then
@@ -186,8 +190,16 @@ if Bit == 55 then
 return 33
 end
 
+if Bit == 187 then
+return 19
+end
+
 if Bit == 31 then
 return 4
+end
+
+if Bit == 143 then
+return 36
 end
 
 if Bit == 123 then

@@ -59,7 +59,7 @@ table.insert(scene.lines,line)
 line = {}
 
 line.speaker = "left"
-line.text = "It takes a while until the portal opens up, but I better carry this princess out of hero, before the here can rescue her."
+line.text = "It takes a while until the portal opens up, but I better carry this princess out of here, before the hero can rescue her."
 
 table.insert(scene.lines,line)
 

@@ -70,8 +70,8 @@ function Dungen.gRoom(cursorX, cursorY)
   
   
   
-  if goalX > 1 and goalX + width < Dungen.width then
-     if goalY > 1 and goalY + height < Dungen.height then
+  if goalX > 3 and goalX + width < Dungen.width - 3 then
+     if goalY > 3 and goalY + height < Dungen.height - 3 then
 		for x = goalX, goalX + width do
           for y = goalY, goalY + height do
 		    if Dungen.map[x][y] == Tiles.Floor then
@@ -84,8 +84,8 @@ function Dungen.gRoom(cursorX, cursorY)
    end
  end
   --print("Succes: I was able to build a room!")
-  if goalX > 1 and goalX + width < Dungen.width then
-    if goalY > 1 and goalY + height < Dungen.height then
+  if goalX > 3 and goalX + width < Dungen.width - 3 then
+    if goalY > 3 and goalY + height < Dungen.height - 3 then
     		
 		local sx,sy,ex,ey =PreviousCenter.x,PreviousCenter.y,goalX + math.floor(width / 2),goalY + math.floor(height /2)
 		table.insert(Dungen.debug_doors,{start={x=sx,y=sy},stop={x=ex,y=ey}})		
@@ -141,6 +141,9 @@ function Dungen.gRoom(cursorX, cursorY)
       end
     end
   end
+  
+ 
+  
   return goalX + math.floor(width / 2), goalY + math.floor(height /2)
 end
 
