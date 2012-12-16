@@ -6,7 +6,8 @@ debuglib = require("debug/debug")
 entity = require("entity/entity")
 counter = require("counter/counter")
 drama = require("drama/drama")
-
+win = require("win/win")
+lose = require("win/win")
 state = "menu"
 
 -------------------------------------
@@ -32,7 +33,7 @@ function game_init()
   table.insert(enemies,wizard1)
   
   counter.load()
-  counter.set_time(120);
+  counter.set_time(1);
   
   portals = {}
   for x = 1, map.mapWidth do
@@ -81,6 +82,10 @@ function love.update (dt)
       entity.update(dt)
       counter.update(dt)
     end
+  elseif state == "win" then
+     win.update(dt)
+  elseif state == "lose" then
+     lose.update(dt)
   end
   debuglib.update(dt)
 end
@@ -105,11 +110,12 @@ function love.draw ()
       love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
     end
     if player_obj.game_status == "won" then 
-      love.graphics.setColor(0,0,0,191)
-      love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
-      love.graphics.setColor(255,255,255)
-      love.graphics.printf("YOU WON THE GAME!!",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
+      state = "win"
     end
+  elseif state == "win" then
+     win.draw()
+  elseif state == "lose" then
+     lose.draw()
   end
   if debug then
     debuglib.draw()
@@ -146,6 +152,10 @@ function love.keypressed (key,unicode)
       end
     end
     entity.keypressed (key,unicode)
+  elseif state == "win" then
+     win.keypressed (key,unicode)
+  elseif state == "lose" then
+     lose.keypressed (key,unicode)
   end
 end
 
