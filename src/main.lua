@@ -104,6 +104,12 @@ function love.draw ()
       love.graphics.setColor(255,255,255)
       love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
     end
+    if player_obj.game_status == "won" then 
+      love.graphics.setColor(0,0,0,191)
+      love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+      love.graphics.setColor(255,255,255)
+      love.graphics.printf("YOU WON THE GAME!!",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
+    end
   end
   if debug then
     debuglib.draw()

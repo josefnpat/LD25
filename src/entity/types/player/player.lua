@@ -113,7 +113,7 @@ function player:update(dt)
   p_portal.x = ((playerportal_obj.x * map.graphics.width) - map.graphics.width) + 32
   p_portal.y= ((playerportal_obj.y * map.graphics.height) - map.graphics.height) + 10
   
-  if counter.count == 0 and entity.distance(self,p_portal) < 16 then
+  if counter.count == 0 and entity.distance(self,p_portal) < 16  and self.isCarryingPrincess then
     self.game_status = "won"
   else
     self.game_status = "current"
@@ -147,6 +147,7 @@ function player.new()
   e.type = "player"
   e.dt = 0
   e.walking = false
+  e.health = 999
   e.isCarryingPrincess = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
