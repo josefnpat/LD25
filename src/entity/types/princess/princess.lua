@@ -92,6 +92,7 @@ function princess.new()
   prin.x = player_obj.x
   prin.y = player_obj.y
   prin.camera = {}
+  prin.health = 999
   -- Start next to player.
   prin.camera.x = 0
   prin.camera.y = 0

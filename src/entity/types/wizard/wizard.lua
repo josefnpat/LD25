@@ -86,6 +86,7 @@ function wizard.new()
   e.y = player_obj.y + math.random(-100,100) 
   e.camera_x = 0
   e.camera_y = 0
+  e.health = 100
   e.draw = wizard.draw
   e.update = wizard.update
   e.geteffect = wizard.geteffect

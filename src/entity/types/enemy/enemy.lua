@@ -36,8 +36,8 @@ function enemy:update(dt)
         elseif self.speed == 75 then
           self.speed = 50  
         end
-      elseif v.type == "blocktrap" then
-        v:ishit(self.weapon_power)
+      elseif v.type == "spiketrap" then
+        self:ishit(v:getmodifier())
       end
     end
   end
@@ -74,11 +74,13 @@ function enemy:draw()
   --leave these as well
  
   local str = string.format("%02d",self.speed)
+  local hstr = string.format("%02d",self.health)
   love.graphics.print("enemy",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
   --leave this in I'm going to need it for testing love, Cirrus
   love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
   --also, leave this 
+  love.graphics.print(hstr,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+25)
   love.graphics.setColor(255,255,255)
   
 end
@@ -105,6 +107,7 @@ function enemy.new()
   e.applyeffect = enemy.applyeffect
   e.gethealth = enemy.gethealth
   e.keypressed = enemy.keypressed
+  e.ishit = enemy.ishit
   return e
 end
 

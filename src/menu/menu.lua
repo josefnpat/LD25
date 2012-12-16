@@ -3,8 +3,8 @@ menu = {}
 love.graphics.getFont()
 
 menu.font_title = love.graphics.newFont("menu/assets/TriodPostnaja.ttf",64)
-menu.font_desc = love.graphics.newFont("menu/assets/Tower_Print.ttf",22)
-menu.font_menu = love.graphics.newFont("menu/assets/Tower_Print.ttf",24)
+menu.font_desc = love.graphics.newFont("menu/assets/creeper_pixel.ttf",45)
+menu.font_menu = love.graphics.newFont("menu/assets/creeper_pixel.ttf",35)
 menu.icon = love.graphics.newImage("menu/assets/icon.png")
 menu.icon:setFilter("nearest","nearest")
 menu.bg = love.graphics.newImage("menu/assets/bg.png")

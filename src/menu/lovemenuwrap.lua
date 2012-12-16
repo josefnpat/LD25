@@ -15,7 +15,7 @@ function lovemenuwrap.load()
   
   menu_view[1] = {
     title="",
-    desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off. If you can."..git,
+    desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off.\n If you can."..git,
     {t="New Game",cb="ng"},
     {t="Options",cb="op"},
     {t="Credits",cb="cr"},
