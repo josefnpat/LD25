@@ -112,14 +112,6 @@ function player:update(dt)
   
 end
 
-function dist(v1, v2)
-  local sub = {}
-  sub.x = v1.x - v2.x
-  sub.y = v1.y - v2.y
-  local len = sub.x*sub.x + sub.y*sub.y
-  return len
-end
-
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
