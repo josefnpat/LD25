@@ -5,7 +5,7 @@ local map = {}
 function map.init()
 	map.mapWidth = 64
 	map.mapHeight = 64
-	map.rooms = 9
+	map.rooms = 10
 	
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)
