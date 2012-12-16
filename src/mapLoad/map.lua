@@ -76,19 +76,11 @@ if Bit == 17 then
 return 12
 end
 
-if Bit == 25 then
-
-end
-
-if Bit == 5 then
-
-end
-
-if Bit == 140 or Bit == 132 or Bit == 136  then
+if Bit == 140 or Bit == 132 or Bit == 136 or Bit == 141 or Bit == 134  then
 return 36
 end
 
-if Bit == 156 or Bit == 149 or Bit == 157 then
+if Bit == 156 or Bit == 149 or Bit == 157 or Bit == 153 then
 return 28
 end
 
@@ -126,6 +118,19 @@ if Bit == 63 or Bit == 60 or Bit == 61 or Bit == 62 then
 return 20
 end
 
+if Bit == 126 then
+return 20
+end
+
+if Bit == 127 or Bit == 125 then
+map.autoLayer2[x][y - 1] = 18
+return 20
+end
+
+if Bit == 28 then
+return 17
+end
+
 if Bit == 34 then
 return 4
 end
@@ -134,7 +139,21 @@ if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
 end
 
+if Bit == 203 or Bit == 207 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
+map.autoLayer2[x][y - 1] = 34
+return 36
+end
+
+if Bit == 83 or Bit == 85 or Bit == 87  then
+map.autoLayer2[x][y - 1] = 26
+return 12
+end
+
 if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
+map.autoLayer2[x][y - 1] = 34
+end
+
+if Bit == 75 then
 map.autoLayer2[x][y - 1] = 34
 end
 
@@ -209,7 +228,7 @@ function map.drawTile(x,y,quad)
     math.floor((y - 1) * map.graphics.height - camera.y))
 end
 
-function map.draw(layer)
+function map.draw(layer,writeDebug)
   local TopLeftX = math.max(1,camera.x / map.graphics.width)
   local TopLeftY = math.max(1,camera.y / map.graphics.height)
 
@@ -240,19 +259,19 @@ function map.draw(layer)
         map.drawTile(x,y,map.autoLayer2[x][y])
       end
       
-      
-      love.graphics.setFont(font)
-      --if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
-		--love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
-      --end
+      if writeDebug == 1 then
+        love.graphics.setFont(font)
+        if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
+		  love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
+        end
+      end
     end
   end
   love.graphics.setCanvas()
   love.graphics.draw(map.gameCanvas[layer],0,0,0,4,4)
   
-  for i = 1, #map.gameCanvas do
-  map.gameCanvas[i]:clear()
-  end
+  map.gameCanvas[1]:clear(31,24,24)
+  map.gameCanvas[2]:clear()
 end
 
 return map
