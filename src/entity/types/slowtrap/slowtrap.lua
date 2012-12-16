@@ -13,7 +13,7 @@ function slowtrap:draw()
   local y_scale = 4
   --love.graphics.print("slowtrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.drawq(
-    map.graphics.sheet,map.quads[7],
+    map.graphics.sheet,map.quads[8],
     self.camera_x * x_scale,
     self.camera_y * y_scale,
     0,4,4)
