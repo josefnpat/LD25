@@ -73,7 +73,7 @@ end
 
 function BitToQuad(Bit,x,y)
 
-if Bit == 20 or Bit == 21 then
+if Bit >= 20 and Bit <= 23 then
 return 27
 end
 
@@ -81,11 +81,11 @@ if Bit == 17 then
 return 12
 end
 
-if Bit == 140 or Bit == 132 or Bit == 136 or Bit == 141 or Bit == 134  then
+if Bit >= 132 and Bit <= 142  then
 return 36
 end
 
-if Bit == 156 or Bit == 149 or Bit == 157 or Bit == 153 then
+if Bit >= 148 and Bit <= 157 then
 return 28
 end
 
@@ -101,17 +101,45 @@ if Bit == 7 then
 return 3
 end
 
-if Bit == 11 then
-return 5
+if Bit == 95 then
+map.autoLayer2[x][y - 1] = 26
+return 27
 end
 
-if Bit == 3 then
+if Bit == 235 then
+map.autoLayer2[x][y - 1] = 42
+return 44
+end
+
+if Bit == 95 then
+return 41
+end
+
+if Bit == 223 then
+map.autoLayer2[x][y - 1] = 26
+return 28
+end
+
+if Bit == 3 or Bit == 11 then
 return 11
 end
 
+if Bit == 71 then
+return 
+end
+
 if Bit == 106 or Bit == 107 then
-map.autoLayer2[x][y - 1] = 42
+map.autoLayer2[x][y - 1] = 26
 return 43
+end
+
+if Bit == 98 then
+map.autoLayer2[x][y - 1] = 42
+return 4
+end
+
+if Bit == 31 then
+return 4
 end
 
 if Bit == 99 then
@@ -144,14 +172,19 @@ if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
 end
 
-if Bit == 203 or Bit == 207 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
+if Bit == 203 or Bit == 207 or Bit == 206 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
 map.autoLayer2[x][y - 1] = 34
 return 36
 end
 
-if Bit == 83 or Bit == 85 or Bit == 87  then
+if Bit >= 81 and Bit <= 83 then
 map.autoLayer2[x][y - 1] = 26
 return 12
+end
+
+if Bit >= 84 and Bit <= 87  then
+map.autoLayer2[x][y - 1] = 26
+return 27
 end
 
 if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
@@ -162,7 +195,11 @@ if Bit == 75 then
 map.autoLayer2[x][y - 1] = 34
 end
 
-if Bit == 172 or Bit == 170 or Bit == 166 or Bit == 172 or Bit == 174 then
+if Bit == 168 then
+return 44
+end
+
+if Bit == 172  or Bit == 170 or Bit == 168 or Bit == 166 or Bit == 172 or Bit == 174 then
 return 44
 end
 
