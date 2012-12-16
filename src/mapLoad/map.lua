@@ -3,25 +3,39 @@ Dungeon = require("mapLoad/dungen/dungen")
 local map = {}
 
 function map.init()
-	map.mapWidth = 64
-	map.mapHeight = 64
+	map.mapWidth = 128
+	map.mapHeight = 128
 	map.rooms = 32
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)
-  camera = {}
-  camera.x = 0
-  camera.y = 0
-  camera.width = 18
-  camera.height = 14
+  
   map.graphics = {}
   map.graphics.width = 16
   map.graphics.height = 16
   map.graphics.sheet = love.graphics.newImage("mapLoad/img/LDtiles.png")
-  map.setQuads()
-  map.gameCanvas = love.graphics.newCanvas(800,600)
-  map.gameCanvas:setFilter("nearest","nearest")
   
+  camera = {}
+  camera.x = 0
+  camera.y = 0
+  
+  --These two lines need to be changed dynamically (width and height)
+  camera.width = love.graphics.getWidth() / map.graphics.width / 4 + 1
+  camera.height = love.graphics.getHeight() / map.graphics.height / 4 + 1
+  
+  map.setQuads()
+  map.gameCanvas = {} 
+  map.gameCanvas[1] = love.graphics.newCanvas(800,600)
+  map.gameCanvas[2] = love.graphics.newCanvas(800,600)
+  map.gameCanvas[1]:setFilter("nearest","nearest")
+  map.gameCanvas[2]:setFilter("nearest","nearest")
+  
+  map.autoLayer2 = {}
+	
+	for x = 1, map.mapWidth do
+		map.autoLayer2[x] = {}
+	end
+	
   map.autoMap = map.autoTile()
 end
 
@@ -54,20 +68,24 @@ for x = 2, map.mapWidth - 1 do
 		autoMap[x][y] = calculateEdge(x,y,Tiles.Solid) + calculateCorner(x,y,Tiles.Solid)
 	end
 end
-return autoMap
+  return autoMap
 end
 
-function BitToQuad(Bit)
+function BitToQuad(Bit,x,y)
 
-if Bit == 20 or Bit == 21 or Bit == 17 then
+if Bit >= 20 and Bit <= 23 then
 return 27
 end
 
-if Bit == 140 or Bit == 132 or Bit == 136  then
+if Bit >= 17 and Bit <= 19 then
+return 12
+end
+
+if Bit >= 132 and Bit <= 142  then
 return 36
 end
 
-if Bit == 156 or Bit == 149 then
+if Bit >= 148 and Bit <= 157 then
 return 28
 end
 
@@ -79,23 +97,146 @@ if Bit == 29 then
 return 17
 end
 
-if Bit == 7 then
+if Bit == 3 then
+return 11
+end
+
+if Bit == 119 then
+map.autoLayer2[x][y - 1] = 18
+return 33
+end
+
+if Bit >= 7 and Bit <= 9 then
 return 3
+end
+
+if Bit == 95 then
+map.autoLayer2[x][y - 1] = 26
+return 27
+end
+
+if Bit >= 235 and Bit <= 239 then
+map.autoLayer2[x][y - 1] = 42
+return 44
+end
+
+if Bit == 95 then
+return 41
+end
+
+if Bit == 223 or Bit == 213 then
+map.autoLayer2[x][y - 1] = 26
+return 28
 end
 
 if Bit == 11 then
 return 5
 end
 
-if Bit == 3 then
-return 11
+if Bit == 46 then
+return 41
+end
+
+if Bit == 188 then
+return 19
+end
+
+if Bit >= 71 and Bit <= 72 then
+return 3
+end
+
+if Bit == 106 or Bit == 107 then
+map.autoLayer2[x][y - 1] = 42
+return 43
+end
+
+if Bit == 98 then
+map.autoLayer2[x][y - 1] = 42
+return 4
+end
+
+if Bit == 55 then
+return 33
+end
+
+if Bit == 31 then
+return 4
+end
+
+if Bit == 123 then
+map.autoLayer2[x][y - 1] = 18
+return 41
+end
+
+if Bit == 99 then
+map.autoLayer2[x][y - 1] = 42
+return 4
+end
+
+if Bit == 51 then
+return 13
+end
+
+if Bit == 63 or Bit == 60 or Bit == 61 or Bit == 62 then
+return 20
+end
+
+if Bit == 126 then
+return 20
+end
+
+if Bit == 127 or Bit == 125 then
+map.autoLayer2[x][y - 1] = 18
+return 20
+end
+
+if Bit == 234 then
+map.autoLayer2[x][y - 1] = 42
+return 44
+end
+
+if Bit == 28 then
+return 17
+end
+
+if Bit == 34 then
+return 4
 end
 
 if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
 end
 
-if Bit == 172 or Bit == 170 or Bit == 166 or Bit == 172 or Bit == 174 then
+if Bit == 203 or Bit == 207 or Bit == 206 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
+map.autoLayer2[x][y - 1] = 34
+return 36
+end
+
+if Bit >= 81 and Bit <= 83 then
+map.autoLayer2[x][y - 1] = 26
+return 12
+end
+
+if Bit == 115 then
+map.autoLayer2[x][y - 1] = 18
+return 13
+end
+
+if Bit >= 84 and Bit <= 87  then
+map.autoLayer2[x][y - 1] = 26
+return 27
+end
+
+if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
+map.autoLayer2[x][y - 1] = 34
+end
+
+if Bit >= 73 and Bit <= 75 then
+map.autoLayer2[x][y - 1] = 34
+end
+
+
+if Bit >= 166 and Bit <= 174 then
 return 44
 end
 
@@ -121,6 +262,7 @@ if Dungeon.map[x + 1][y + 1] ~= tile then
 temp = temp + 8
 end
 end
+
 
 if temp > 0 then
 	return temp
@@ -165,32 +307,50 @@ function map.drawTile(x,y,quad)
     math.floor((y - 1) * map.graphics.height - camera.y))
 end
 
-function map.draw()
+function map.draw(layer,writeDebug)
   local TopLeftX = math.max(1,camera.x / map.graphics.width)
   local TopLeftY = math.max(1,camera.y / map.graphics.height)
 
   local DrawLimitX = math.min(TopLeftX + camera.width, Dungeon.width)
   local DrawLimitY = math.min(TopLeftY + camera.height, Dungeon.height)
-  love.graphics.setCanvas(map.gameCanvas)
+  love.graphics.setCanvas(map.gameCanvas[layer])
   for x = math.floor(TopLeftX), math.floor(DrawLimitX) do
     for y = math.floor(TopLeftY), math.floor(DrawLimitY) do
-      if Dungeon.map[x][y] == Tiles.Solid then
+      
+      if Dungeon.map[x][y] == Tiles.Solid and layer == 1 then
+      
         if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
-        map.drawTile(x,y,BitToQuad(map.autoMap[x][y]))
+        map.drawTile(x,y,BitToQuad(map.autoMap[x][y],x,y))
         end
-      elseif Dungeon.map[x][y] == Tiles.Door then
+        
+      elseif Dungeon.map[x][y] == Tiles.Door and layer == 1 then
+      
         map.drawTile(x,y,2)
-      elseif Dungeon.map[x][y] == Tiles.Floor then
+        
+      elseif Dungeon.map[x][y] == Tiles.Floor and layer == 1 or Dungeon.map[x][y] == Tiles.Portal and layer == 1 then
+      
         map.drawTile(x,y,2)
+        
       end
-      love.graphics.setFont(font)
-      --if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
-		--love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
-      --end
+      
+      
+      if map.autoLayer2[x][y] and layer == 2 then
+        map.drawTile(x,y,map.autoLayer2[x][y])
+      end
+      
+      if writeDebug == 1 then
+        love.graphics.setFont(font)
+        if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
+		  love.graphics.print(map.autoMap[x][y],(x - 1) * map.graphics.width - camera.x, (y - 1) * map.graphics.height - camera.y)
+        end
+      end
     end
   end
   love.graphics.setCanvas()
-  love.graphics.draw(map.gameCanvas,0,0,0,4,4)
+  love.graphics.draw(map.gameCanvas[layer],0,0,0,4,4)
+  
+  map.gameCanvas[1]:clear(31,24,24)
+  map.gameCanvas[2]:clear()
 end
 
 return map

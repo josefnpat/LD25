@@ -1,7 +1,10 @@
 require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
+bresenham = require("mapLoad/dungen/bresenham")
+debuglib = require("debug/debug")
 entity = require("entity/entity")
+counter = require("counter/counter")
 
 state = "menu"
 
@@ -10,6 +13,10 @@ state = "menu"
 -------------------------------------
 function love.load (arg)
   lovemenuwrap.load()
+  game_init()  
+end
+
+function game_init()
   map.init()
   entity.load()
   player_obj = entity.new("player")
@@ -17,16 +24,33 @@ function love.load (arg)
   enemy1 = entity.new("enemy")
   enemy2 = entity.new("enemy")
   enemy3 = entity.new("enemy")
+  wizard1 = entity.new("wizard")
   table.insert(enemies,enemy1)
   table.insert(enemies,enemy2)
   table.insert(enemies,enemy3)
-  portal_enemy = entity.new("portal")
-  portal_enemy.type = "portal_player"
-  portal_enemy.x,portal_enemy.y = 500,500
-  portal_player = entity.new("portal")
-  portal_player.x,portal_player.y = 550,550
+  table.insert(enemies,wizard1)
+  
+  counter.load()
+  counter.set_time(120);
+  
+  portals = {}
+  for x = 1, map.mapWidth do
+	for y = 1, map.mapHeight do
+		if Dungeon.map[x][y] == Tiles.Portal then
+		local c = #portals + 1
+		portals[c] = entity.new("portal")
+		if c == 3 then
+		portals[c].owner = "player"
+		else
+		portals[c].owner = "enemy"
+		end
+		portals[c].x = x
+		portals[c].y = y
+		end
+    end
+  end
+  
   prin = entity.new("princess")
-
 end
 
 -------------------------------------
@@ -36,29 +60,61 @@ function love.update (dt)
   if state == "menu" then
     lovemenuwrap.update(dt)
   elseif state == "game" then
-    entity.update(dt)
+    if not pause then
+      entity.update(dt)
+      counter.update(dt)
+    end
   end
+  debuglib.update(dt)
 end
 
 -------------------------------------
 -- love.draw
 -------------------------------------
 function love.draw ()
-  if state == "game" then
-    map.draw()
-    entity.draw()
-  elseif state == "menu" then
+  if state == "menu" then
     lovemenuwrap.draw()
+  elseif state == "game" then
+    map.draw(1)
+    entity.draw()
+    map.draw(2)
+    counter.draw()
+    if pause then
+      love.graphics.setColor(0,0,0,191)
+      love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+      love.graphics.setColor(255,255,255)
+      love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
+    end
+  end
+  if debug then
+    debuglib.draw()
   end
 end
 
+pause = false
+debug = false
 -------------------------------------
 -- love.keypressed
 -------------------------------------
 function love.keypressed (key,unicode)
+  if key == 'f1' then
+    debug = not debug
+  end
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
   elseif state == "game" then
+    if pause then
+      if key == "escape" then
+        pause = false
+      elseif key == "q" then
+        state = "menu"
+        pause = false
+      end
+    else
+      if key == "escape" then
+        pause = true
+      end
+    end
     entity.keypressed (key,unicode)
   end
 end

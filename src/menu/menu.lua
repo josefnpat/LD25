@@ -32,8 +32,12 @@ function menu:calc_offset()
   menu.offset = 0--love.graphics.getHeight()/2-(menu.font_menu:getHeight()*#menu.view[menu.state])/2
 end
 
-function menu:toggle()
-  menu.run = not menu.run
+function menu:toggle(val)
+  if val then
+    menu.run = val
+  else
+    menu.run = not menu.run
+  end
 end
 
 menu.title_fade = 0
@@ -87,6 +91,16 @@ function menu:draw()
         "center"
       )
     end
+    
+    love.graphics.setColor(0,0,0,150)
+    love.graphics.draw(
+      menu.icon,
+      love.graphics.getWidth()*7/10 + 5,
+      menu.iconcurpos + 15,--wat
+      math.rad(math.sin(love.timer.getTime()) * 10 - 5),scale_x,scale_y,
+      0,
+      menu.icon:getHeight()/2
+    )
     love.graphics.setColor(255,255,255)
     love.graphics.draw(
       menu.icon,
@@ -94,8 +108,7 @@ function menu:draw()
       menu.iconcurpos,--wat
       math.rad(math.sin(love.timer.getTime()) * 10 - 5),scale_x,scale_y,
       0,
-      menu.icon:getHeight()/2
-    )
+      menu.icon:getHeight()/2)
     if orig_font then
       love.graphics.setFont(orig_font)
     end

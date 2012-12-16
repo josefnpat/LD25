@@ -1,9 +1,11 @@
 local entity = {}
 
+entity.needs_sorting = false
+
 function entity.new(t)
   local temp = entity.type[t].new()
   table.insert(entity.data,temp)
-  entity.sort(entity.data)
+  entity.needs_sorting = true
   return temp
 end
 
@@ -16,7 +18,7 @@ function entity.sort(t)
       if y.z_index then
         y_index = y.z_index
       end
-      return x_index < y_index
+      return y_index > x_index
     end
   )
 end
@@ -33,8 +35,7 @@ end
 function entity.collision(entity)
   for x = -1,1 do
     for y = -1,1 do
-      if Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Floor and 
-         Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Door then
+      if Dungeon.map[math.floor((entity.x+x*4) / 16)][math.floor((entity.y+y*4) / 16)] ~= Tiles.Floor then
         return true
       end
     end
@@ -51,7 +52,7 @@ function entity.load(args)
   files = love.filesystem.enumerate("entity/types")
 
   for _,t in ipairs(files) do
-    print("loading type `"..t.."`")
+    --print("loading type `"..t.."`")
     entity.type[t] = require("entity/types/"..t.."/"..t)
     if entity.type[t].load then
       entity.type[t].load(args)
@@ -66,6 +67,9 @@ function entity.update(dt)
     if v.update then
       v:update(dt)
     end
+  end
+  if entity.needs_sorting then
+    entity.sort(entity.data)
   end
 end
 

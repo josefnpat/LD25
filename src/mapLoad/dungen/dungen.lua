@@ -1,12 +1,16 @@
 local Dungen = {}
 
-
 function Dungen.init(width,height)
   Tiles = {}
   Tiles.Solid = 0
   Tiles.Door = 1
   Tiles.Wall = 2
   Tiles.Floor = 3
+  Tiles.Portal = 4
+  
+  PreviousCenter = {}
+  PreviousCenter.x = math.floor(width / 2)
+  PreviousCenter.y = math.floor(height / 2)
 
   Dungen.map = {}
   Dungen.width = width
@@ -21,9 +25,12 @@ end
 
 function Dungen.generate(rooms)
   Dungen.map[math.floor(Dungen.width / 2)][math.floor(Dungen.height / 2)] = Tiles.Door
+  local previousX, previousY = math.floor(Dungen.width / 2),math.floor(Dungen.height / 2)
   for r = 1, rooms do 
-    Dungen.gRoom(Dungen.findDoor())
+     Dungen.gRoom(Dungen.findDoor())
   end
+  --print("There are "..#Dungen.debug_doors.."doors.")
+  RemoveDoors()
 end
 
 function Dungen.getLevel()
@@ -31,7 +38,7 @@ function Dungen.getLevel()
 end
 
 function Dungen.findDoor()
-  Doors = {}
+  local Doors = {}
   for x = 1, Dungen.width do
     for y = 1, Dungen.height do
       if Dungen.map[x][y] == Tiles.Door then
@@ -45,6 +52,7 @@ function Dungen.findDoor()
   return Doors[math.random(#Doors)].x,Doors[math.random(#Doors)].y
 end
 
+Dungen.debug_doors = {}
 
 function Dungen.gRoom(cursorX, cursorY)
   local width = math.random(8,16)
@@ -69,7 +77,7 @@ function Dungen.gRoom(cursorX, cursorY)
 		    if Dungen.map[x][y] == Tiles.Floor then
                   --print("no room found, trying again")
                   Dungen.gRoom(Dungen.findDoor())
-				  return false
+				  return previousX, previousY
 		    end
 		  end
 		end
@@ -78,6 +86,44 @@ function Dungen.gRoom(cursorX, cursorY)
   --print("Succes: I was able to build a room!")
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
+    		
+		local sx,sy,ex,ey =PreviousCenter.x,PreviousCenter.y,goalX + math.floor(width / 2),goalY + math.floor(height /2)
+		table.insert(Dungen.debug_doors,{start={x=sx,y=sy},stop={x=ex,y=ey}})		
+    
+    local b_line = bresenham.los(sx,sy,ex,ey, function(x,y)
+    
+        if Dungen.map[x][y] ~= Tiles.Portal then
+          Dungen.map[x][y] = Tiles.Floor
+        end
+        
+        if Dungen.map[x+1][y] and Dungen.map[x+1][y] ~= Tiles.Portal then
+          Dungen.map[x+1][y] = Tiles.Floor
+        end
+        
+        if Dungen.map[x][y+1] and Dungen.map[x][y+1] ~= Tiles.Portal then
+          Dungen.map[x][y+1] = Tiles.Floor
+        end
+        
+        if Dungen.map[x-1][y] and Dungen.map[x-1][y] ~= Tiles.Portal then
+          Dungen.map[x-1][y] = Tiles.Floor
+        end
+        
+        if Dungen.map[x][y-1] and Dungen.map[x][y-1] ~= Tiles.Portal then
+          Dungen.map[x][y-1] = Tiles.Floor
+        end
+        
+        return true
+      end)
+      
+    --[[
+    for i,v in ipairs(b_line) do
+      Dungen.map[x][y] = 0
+    end
+    --]]
+
+		Dungen.map[goalX + math.floor(width / 2)][goalY + math.floor(height /2)] = Tiles.Portal
+		PreviousCenter.x = goalX + math.floor(width / 2)
+		PreviousCenter.y = goalY + math.floor(height /2)
       for x = goalX, goalX + width do
         for y = goalY, goalY + height do
 			    if Dungen.map[x][y] == Tiles.Solid then
@@ -85,10 +131,6 @@ function Dungen.gRoom(cursorX, cursorY)
 				    if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
 				      Dungen.map[x][y] = Tiles.Solid
 				      if
-				      x == goalX + math.floor(width / 2) - 1 or
-				      x == goalX + math.floor(width / 2) + 1 or
-				      y == goalY + math.floor(height / 2) - 1 or 
-				      y == goalY + math.floor(height / 2) + 1 or
 				      x == goalX + math.floor(width / 2) or 
 				      y == goalY + math.floor(height / 2) then
 				        Dungen.map[x][y] = Tiles.Door
@@ -99,6 +141,7 @@ function Dungen.gRoom(cursorX, cursorY)
       end
     end
   end
+  return goalX + math.floor(width / 2), goalY + math.floor(height /2)
 end
 
 function Dungen.draw()
@@ -107,15 +150,29 @@ function Dungen.draw()
       if Dungen.map[x][y] == 0 then
         love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 1 then
-        love.graphics.setColor(255,255,255)
+        love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 2 then
         love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 3 then
         love.graphics.setColor(255,255,255)
       end
-      love.graphics.rectangle("fill",x * 16, y * 16, 16,16)
+      love.graphics.rectangle("fill",x * 4, y * 4, 4,4)
     end
   end
+  love.graphics.setColor(255,0,0)
+  for i,v in ipairs(Dungen.debug_doors) do
+    love.graphics.line(v.start.x*4,v.start.y*4,v.stop.x*4,v.stop.y*4)
+  end
+end
+
+function RemoveDoors()
+for x = 1, Dungen.width do
+    for y = 1, Dungen.height do
+		if Dungen.map[x][y] == Tiles.Door then
+			Dungen.map[x][y] = Tiles.Solid
+		end
+	end
+end
 end
 
 return Dungen

@@ -18,7 +18,6 @@ player.carry.up = {x=16*3,y=32*3,framecount=3}
 player.carry_quads = {}
 
 player.speed = 100
-player.traps = {}
 
 local real_frame
 
@@ -66,6 +65,7 @@ function player:update(dt)
   local previousX = self.x
   local previousY = self.y
   if love.keyboard.isDown("left","a") then
+    self.dir_name = "left"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.left
     else
@@ -74,6 +74,7 @@ function player:update(dt)
     self.walking = true
     self.x = self.x - player.speed*dt
   elseif love.keyboard.isDown("right","d") then
+    self.dir_name = "right"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.right
     else
@@ -82,6 +83,7 @@ function player:update(dt)
     self.walking = true
     self.x = self.x + player.speed*dt
   elseif love.keyboard.isDown("up","w") then
+    self.dir_name = "up"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.up
     else
@@ -90,6 +92,7 @@ function player:update(dt)
     self.walking = true
     self.y = self.y - player.speed*dt
   elseif love.keyboard.isDown("down","s") then
+    self.dir_name = "down"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.down
     else
@@ -104,8 +107,8 @@ function player:update(dt)
     self.y = previousY
   end
   
-  camera.x = self.x - camera.width / 2 * map.graphics.width
-  camera.y = self.y - camera.height / 2 * map.graphics.height
+  camera.x = self.x - (camera.width / 2) * map.graphics.width
+  camera.y = self.y - (camera.height / 2) * map.graphics.height
   
 end
 
@@ -120,11 +123,16 @@ end
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
-    temp.x = camera.x
-    temp.y = camera.y
-    table.insert(player.traps,temp)
+    temp.x = camera.x-4*4
+    temp.y = camera.y-10*4
+    table.insert(self.traps,temp)
   elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
+    if self.isCarryingPrincess then
+      self.dir = player.carry_quads[self.dir_name]
+    else
+      self.dir = player.walk_quads[self.dir_name]
+    end
     prin.captive = not prin.captive
   end
 end
@@ -143,8 +151,10 @@ function player.new()
   e.mousepressed = player.mousepressed
   e.update = player.update
   e.dir = player.walk_quads.down
+  e.dir_name = "down"
   e.keyreleased = player.keyreleased
   e.z_index = 2
+  e.traps = {}
   return e
 end
 
