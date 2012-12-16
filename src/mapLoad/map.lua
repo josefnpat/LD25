@@ -270,9 +270,8 @@ function map.draw(layer,writeDebug)
   love.graphics.setCanvas()
   love.graphics.draw(map.gameCanvas[layer],0,0,0,4,4)
   
-  for i = 1, #map.gameCanvas do
-  map.gameCanvas[i]:clear()
-  end
+  map.gameCanvas[1]:clear(31,24,24)
+  map.gameCanvas[2]:clear()
 end
 
 return map
