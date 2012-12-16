@@ -9,15 +9,20 @@ function map.init()
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)
-  camera = {}
-  camera.x = 0
-  camera.y = 0
-  camera.width = 18
-  camera.height = 14
+  
   map.graphics = {}
   map.graphics.width = 16
   map.graphics.height = 16
   map.graphics.sheet = love.graphics.newImage("mapLoad/img/LDtiles.png")
+  
+  camera = {}
+  camera.x = 0
+  camera.y = 0
+  
+  --These two lines need to be changed dynamically (width and height)
+  camera.width = love.graphics.getWidth() / map.graphics.width / 4 + 1
+  camera.height = love.graphics.getHeight() / map.graphics.height / 4 + 1
+  
   map.setQuads()
   map.gameCanvas = {} 
   map.gameCanvas[1] = love.graphics.newCanvas(800,600)

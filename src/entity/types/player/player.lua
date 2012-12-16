@@ -103,8 +103,8 @@ function player:update(dt)
     self.y = previousY
   end
   
-  camera.x = self.x - camera.width / 2 * map.graphics.width
-  camera.y = self.y - camera.height / 2 * map.graphics.height
+  camera.x = self.x - (camera.width / 2) * map.graphics.width
+  camera.y = self.y - (camera.height / 2) * map.graphics.height
   
 end
 
