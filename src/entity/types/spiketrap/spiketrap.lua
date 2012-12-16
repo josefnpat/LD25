@@ -28,6 +28,7 @@ function spiketrap.new()
   e.camera_y = 0
   e.effect = 1
   e.health = 10;
+  e.range = 50
   e.weaponpower = 15
   e.z_index = -1
   e.update = spiketrap.update

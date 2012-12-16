@@ -72,6 +72,33 @@ function wizard:update(dt)
   camera.y = self.y - camera.height / 2 * map.graphics.height]]--
   self.camera_x = (-camera.x + ((32 * 4) + self.x))
   self.camera_y = (-camera.y + ((32 * 4) + self.y))
+ for _,v in ipairs(player_obj.traps) do
+    local dist = entity.distance(self,v)
+    if dist < v.range and dist ~=0 then
+      if v.type == "slowtrap" then
+        self.slowed = true         
+        trap_is_near = true
+        --self:applyeffect(v:geteffect(),v:getmodifier())    
+        if self.speed == 50 and self.hasted == false then  
+          self.speed = 25
+        elseif self.speed == 75 then
+          self.speed = 50  
+        end
+      elseif v.type == "spiketrap" then
+        self:ishit(v:getmodifier())
+      end
+    end
+  end
+
+
+  if not trap_is_near and self.slowed == true then
+    --self:applyeffect(1,25)
+    if self.speed == 25 then  
+      self.speed = 50
+    elseif self.speed == 50 then
+      self.speed = 75  
+    end
+  end
 end
 
 
@@ -87,6 +114,7 @@ function wizard.new()
   e.camera_x = 0
   e.camera_y = 0
   e.health = 100
+  e.range = 100
   e.draw = wizard.draw
   e.update = wizard.update
   e.geteffect = wizard.geteffect
@@ -94,12 +122,17 @@ function wizard.new()
   e.effect = 1
   e.modifier = 25
   e.speed = 50
+  e.ishit = wizard.ishit
   e.dir = wizard.walk_quads.down
   return e
 end
 
 function wizard:geteffect()
   return self.effect
+end
+
+function wizard:ishit(pow)
+  self.health = self.health - pow;
 end
 
 function wizard:getmodifier()

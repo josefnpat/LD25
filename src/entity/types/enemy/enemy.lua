@@ -10,7 +10,7 @@ function enemy:update(dt)
   local trap_is_near = false
   for _,v in ipairs(enemies) do
     local dist = entity.distance(self,v)
-    if dist < rad and dist ~=0  then
+    if dist < v.range and dist ~=0  then
       if v.type == "wizard" then
         self.hasted = true        
         wizard_is_near = true  
@@ -26,7 +26,7 @@ function enemy:update(dt)
 
   for _,v in ipairs(player_obj.traps) do
     local dist = entity.distance(self,v)
-    if dist < rad and dist ~=0 then
+    if dist < v.range and dist ~=0 then
       if v.type == "slowtrap" then
         self.slowed = true         
         trap_is_near = true
@@ -98,6 +98,7 @@ function enemy.new()
   e.camera_x = 0
   e.camera_y = 0
   e.speed = 50
+  e.range = 999
   e.weapon_power = 10
   e.slowed = false
   e.hasted = false

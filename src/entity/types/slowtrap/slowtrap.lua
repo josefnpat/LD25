@@ -30,6 +30,7 @@ function slowtrap.new()
   e.effect = 1
   e.health = 10;
   e.z_index = -1
+  e.range = 60
   e.update = slowtrap.update
   e.gethealth = slowtrap.gethealth
   e.geteffect = slowtrap.geteffect
