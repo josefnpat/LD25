@@ -16,44 +16,35 @@ function portal:draw()
   local y_scale = 4
 
   if self.owner == "enemy" then
-	love.graphics.drawq(
-    portal.sheet,
-    portal.portal_quads[4],
-    ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
-    ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
-    0,
-    x_scale,
-    y_scale)
-   end
-   if self.owner == "player" then
-	 if counter.get_time() == 0 then
-	 love.graphics.drawq(
-    portal.sheet,
-    portal.portal_quads[portal.frame],
-    ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
-    ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
-    0,
-    x_scale,
-    y_scale)
-    else
-	love.graphics.setColor(100,255,255)
-	love.graphics.drawq(
-    portal.sheet,
-    portal.portal_quads[1],
-    ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
-    ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
-    0,
-    x_scale,
-    y_scale)
-	end
-	love.graphics.setColor(255,255,255)
-   end
+    love.graphics.drawq(
+      portal.sheet,
+      portal.portal_quads[4],
+      ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
+      ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
+      0,
+      x_scale,
+      y_scale)
+  end
+  if self.owner == "player" then
+    if counter.get_time() ~= 0 then
+      love.graphics.setColor(0,255,255)
+    end
+    love.graphics.drawq(
+      portal.sheet,
+      portal.portal_quads[portal.frame],
+      ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
+      ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
+      0,
+      x_scale,
+      y_scale)
+    love.graphics.setColor(255,255,255)
+  end
 end
 
 function portal:update(dt)
   if self.dt > 0.2 then
-    self.dt = 0.00
-    if portal.frame == 3 then
+    self.dt = self.dt - 0.2
+    if portal.frame >= 3 then
       portal.frame = 1
     else 
       portal.frame = portal.frame + 1
