@@ -33,7 +33,7 @@ function game_init()
   table.insert(enemies,wizard1)
   
   counter.load()
-  counter.set_time(1);
+  counter.set_time(120);
   
   portals = {}
   for x = 1, map.mapWidth do
