@@ -31,7 +31,6 @@ function love.load (arg)
 		portal_enemy[c] = entity.new("portal")
 		portal_enemy[c].x = x
 		portal_enemy[c].y = y
-		print(c .. " = " .. x .. "/" .. y)
 		end
     end
   end

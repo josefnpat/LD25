@@ -3,8 +3,8 @@ Dungeon = require("mapLoad/dungen/dungen")
 local map = {}
 
 function map.init()
-	map.mapWidth = 64
-	map.mapHeight = 64
+	map.mapWidth = 128
+	map.mapHeight = 128
 	map.rooms = 32
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
