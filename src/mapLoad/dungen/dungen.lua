@@ -25,6 +25,7 @@ function Dungen.generate(rooms)
   for r = 1, rooms do 
     Dungen.gRoom(Dungen.findDoor())
   end
+  print("There are "..#Dungen.debug_doors.."doors.")
 end
 
 function Dungen.getLevel()
@@ -46,6 +47,7 @@ function Dungen.findDoor()
   return Doors[math.random(#Doors)].x,Doors[math.random(#Doors)].y
 end
 
+Dungen.debug_doors = {}
 
 function Dungen.gRoom(cursorX, cursorY)
   local width = math.random(8,16)
@@ -61,7 +63,7 @@ function Dungen.gRoom(cursorX, cursorY)
     goalY = math.floor(cursorY - height / 2)
   end
   
-  
+  table.insert(Dungen.debug_doors,{start={x=cursorX,y=cursorY},stop={x=goalX,y=goalY}})
   
   if goalX > 1 and goalX + width < Dungen.width then
      if goalY > 1 and goalY + height < Dungen.height then
@@ -117,6 +119,10 @@ function Dungen.draw()
       end
       love.graphics.rectangle("fill",x * 16, y * 16, 16,16)
     end
+  end
+  love.graphics.setColor(255,0,0)
+  for i,v in ipairs(Dungen.debug_doors) do
+    love.graphics.line(v.start.x*16+8,v.start.y*16+8,v.stop.x*16+8,v.stop.y*16+8)
   end
 end
 
