@@ -126,7 +126,7 @@ function player:keyreleased(key)
     temp.x = camera.x-4*4
     temp.y = camera.y-10*4
     table.insert(self.traps,temp)
-  elseif key == "p" and (self.isCarryingPrincess or dist(self, prin) < 320) then   --debug
+  elseif key == "p" and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     if self.isCarryingPrincess then
       self.dir = player.carry_quads[self.dir_name]

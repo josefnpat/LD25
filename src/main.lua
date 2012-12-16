@@ -42,6 +42,7 @@ function game_init()
 		    portals[c] = entity.new("portal")
 		    if c == 3 then
 		      portals[c].owner = "player"
+		      playerportal_obj = portals[c]
 		    else
 		      portals[c].owner = "enemy"
 		    end
