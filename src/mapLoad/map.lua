@@ -3,8 +3,12 @@ Dungeon = require("mapLoad/dungen/dungen")
 local map = {}
 
 function map.init()
-  Dungeon.init(32,32)
-  Dungeon.generate(64)
+	map.mapWidth = 64
+	map.mapHeight = 64
+	map.rooms = 9
+	
+  Dungeon.init(map.mapWidth,map.mapHeight)
+  Dungeon.generate(map.rooms)
   camera = {}
   camera.x = 0
   camera.y = 0

@@ -84,8 +84,8 @@ function player.new()
   e.walking = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = 16.5 * 16 -- start x * tile width * scale
-  e.y = 16.5 * 16 -- start y * tile height * scale
+  e.x = ((map.mapWidth / 2) + 0.5) * 16 -- start x * tile width * scale
+  e.y = ((map.mapHeight / 2) + 0.5) * 16 -- start y * tile height * scale
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update

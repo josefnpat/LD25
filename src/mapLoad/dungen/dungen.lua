@@ -20,7 +20,7 @@ function Dungen.init(width,height)
 end
 
 function Dungen.generate(rooms)
-  Dungen.map[math.floor(Dungen.width / 2)][math.floor(Dungen.height / 2)] = 1
+  Dungen.map[math.floor(Dungen.width / 2)][math.floor(Dungen.height / 2)] = Tiles.Door
   for r = 1, rooms do 
     Dungen.gRoom(Dungen.findDoor())
   end
@@ -50,34 +50,32 @@ function Dungen.gRoom(cursorX, cursorY)
   local width = math.random(6,12)
   local height = math.random(6,12)
   
-  local orientation = math.random(4)
+  local orientation = math.random(2)
   
   if orientation == 1 then
     goalX = math.floor(cursorX - width / 2)
     goalY = cursorY
   elseif orientation == 2 then
     goalX = cursorX
-    goalY = math.floor(cursorY - height/ 2)
-  elseif orientation == 3 then
-    goalX = math.floor(cursorX + width / 2)
-    goalY = cursorY
-  else
-    goalX = cursorX
-    goalY = math.floor(cursorY + height/ 2)
+    goalY = math.floor(cursorY - height / 2)
   end
   
-  --if goalX > 1 and goalX + width < Dungen.width then
-  --  if goalY > 1 and goalY + height < Dungen.height then
-	--	for x = goalX, goalX + width do
-      --    for y = goalY, goalY + height do
-		--    if Dungen.map[x][y] == Tiles.Floor then
-		--		  Dungen.gRoom(cursorX, cursorY)
-		--    end
-		--  end
-		--end
-   -- end
- -- end
   
+  
+  if goalX > 1 and goalX + width < Dungen.width then
+     if goalY > 1 and goalY + height < Dungen.height then
+		for x = goalX, goalX + width do
+          for y = goalY, goalY + height do
+		    if Dungen.map[x][y] == Tiles.Floor then
+                  --print("no room found, trying again")
+                  Dungen.gRoom(Dungen.findDoor())
+				  return false
+		    end
+		  end
+		end
+   end
+ end
+    print("Succes!")
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
       for x = goalX, goalX + width do
@@ -86,7 +84,13 @@ function Dungen.gRoom(cursorX, cursorY)
 				    Dungen.map[x][y] = Tiles.Floor
 				    if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
 				      Dungen.map[x][y] = Tiles.Wall
-				      if math.random(3) == 1 then
+				      if
+				      x == goalX + math.floor(width / 2) - 1 or
+				      x == goalX + math.floor(width / 2) + 1 or
+				      y == goalY + math.floor(height / 2) - 1 or 
+				      y == goalY + math.floor(height / 2) + 1 or
+				      x == goalX + math.floor(width / 2) or 
+				      y == goalY + math.floor(height / 2) then
 				        Dungen.map[x][y] = Tiles.Door
 				      end
 				    end
