@@ -1,4 +1,11 @@
-require("git")
+function file_exists(name)
+  local f=io.open(name,"r")
+  if f~=nil then io.close(f) return true else return false end
+end
+
+if file_exists("git.lua") then
+  require("git")
+end
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 entity = require("entity/entity")
