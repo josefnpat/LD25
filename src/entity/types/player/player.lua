@@ -109,7 +109,15 @@ function player:update(dt)
   
   camera.x = self.x - (camera.width / 2) * map.graphics.width
   camera.y = self.y - (camera.height / 2) * map.graphics.height
+  local p_portal = {}
+  p_portal.x = ((playerportal_obj.x * map.graphics.width) - map.graphics.width) + 32
+  p_portal.y= ((playerportal_obj.y * map.graphics.height) - map.graphics.height) + 10
   
+  if counter.count == 0 and entity.distance(self,p_portal) < 16 then
+    self.game_status = "won"
+  else
+    self.game_status = "current"
+  end 
 end
 
 function player:keyreleased(key)
@@ -151,6 +159,7 @@ function player.new()
   e.dir_name = "down"
   e.keyreleased = player.keyreleased
   e.z_index = 2
+  e.game_status = "current"
   e.traps = {}
   return e
 end
