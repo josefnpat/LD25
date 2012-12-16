@@ -32,25 +32,18 @@ function princess:update(dt)
     -- For testing animations.
 
     if love.keyboard.isDown("h") then
-      self.dir = self.walk_quads.left
-      self.walking = true
-      self.x = self.x - self.speed*dt
+      self.move("left", dt)
     elseif love.keyboard.isDown("j") then
-      self.dir = self.walk_quads.down
-      self.walking = true
-      self.y = self.y + self.speed*dt
+      self.move("down", dt)
     elseif love.keyboard.isDown("k") then
-      self.dir = self.walk_quads.up
-      self.walking = true
-      self.y = self.y - self.speed*dt
+      self.move("up", dt)
     elseif love.keyboard.isDown("l") then
-      self.dir = self.walk_quads.right 
-      self.walking = true
-      self.x = self.x + self.speed*dt
+      self.move("right", dt)
     end
 
     -- Fill in wandering logic.
-    
+    local mask = Dungeon.map[1][1]
+
   else
     self.x = player_obj.x
     self.y = player_obj.y
@@ -108,6 +101,22 @@ function princess.new()
              prin.sprite.sheet:getWidth(),
              prin.sprite.sheet:getHeight())
 
+  function prin.move(dir, dt)
+    if dir == "up" then
+      prin.dir = prin.walk_quads.up
+      prin.y = prin.y - prin.speed*dt
+    elseif dir == "down" then
+      prin.dir = prin.walk_quads.down
+      prin.y = prin.y + prin.speed*dt
+    elseif dir == "left" then
+      prin.dir = prin.walk_quads.left
+      prin.x = prin.x - prin.speed*dt
+    elseif dir == "right" then
+      prin.dir = prin.walk_quads.right 
+      prin.x = prin.x + prin.speed*dt
+    end
+    prin.walking = true
+  end
 
   return prin
 end
