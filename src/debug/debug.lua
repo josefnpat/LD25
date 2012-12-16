@@ -1,7 +1,7 @@
 debug = {}
 
 function debug.draw()
-  love.graphics.setColor(0,0,0,191)
+  love.graphics.setColor(255,0,255,255)
   love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight()/2)
   love.graphics.setColor(255,255,255)
   love.graphics.print("DEBUG MODE - "..love.timer.getFPS(),0,0)
@@ -14,6 +14,7 @@ function debug.draw()
     end
     love.graphics.drawq(map.graphics.sheet,v,x_ret*16*4,y_ret*16*4,0,4,4)
     love.graphics.print(i,x_ret*16*4,y_ret*16*4)
+    love.graphics.rectangle("line",x_ret*16*4,y_ret*16*4,16*4,16*4)
     x_ret = x_ret + 1
   end
   
