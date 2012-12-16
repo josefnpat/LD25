@@ -13,6 +13,10 @@ state = "menu"
 -------------------------------------
 function love.load (arg)
   lovemenuwrap.load()
+  game_init()  
+end
+
+function game_init()
   map.init()
   entity.load()
   player_obj = entity.new("player")
@@ -45,7 +49,6 @@ function love.load (arg)
   --portal_player.y = 550
   
   prin = entity.new("princess")
-
 end
 
 -------------------------------------
@@ -55,8 +58,10 @@ function love.update (dt)
   if state == "menu" then
     lovemenuwrap.update(dt)
   elseif state == "game" then
-    entity.update(dt)
-    counter.update(dt)
+    if not pause then
+      entity.update(dt)
+      counter.update(dt)
+    end
   end
 end
 
@@ -71,9 +76,16 @@ function love.draw ()
     entity.draw()
     map.draw(2)
     counter.draw()
+    if pause then
+      love.graphics.setColor(0,0,0,191)
+      love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
+      love.graphics.setColor(255,255,255)
+      love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
+    end
   end
 end
 
+pause = false
 -------------------------------------
 -- love.keypressed
 -------------------------------------
@@ -81,6 +93,18 @@ function love.keypressed (key,unicode)
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
   elseif state == "game" then
+    if pause then
+      if key == "escape" then
+        pause = false
+      elseif key == "q" then
+        state = "menu"
+        pause = false
+      end
+    else
+      if key == "escape" then
+        pause = true
+      end
+    end
     entity.keypressed (key,unicode)
   end
 end

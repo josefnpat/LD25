@@ -50,7 +50,7 @@ function entity.load(args)
   files = love.filesystem.enumerate("entity/types")
 
   for _,t in ipairs(files) do
-    print("loading type `"..t.."`")
+    --print("loading type `"..t.."`")
     entity.type[t] = require("entity/types/"..t.."/"..t)
     if entity.type[t].load then
       entity.type[t].load(args)

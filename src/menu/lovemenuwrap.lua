@@ -3,7 +3,7 @@ menu = require("menu/menu")
 lovemenuwrap = {}
 function lovemenuwrap.load()
 
-  menu:toggle()
+  menu:toggle(true)
   menu_view = {}
   
   if git and git_count then
@@ -51,9 +51,6 @@ end
 curbg = 0
 function lovemenuwrap.keypressed(key,unicode)
   menu:keypressed(key)
-  if not menu.run and key == "escape" then
-    menu:toggle()
-  end
   if key == "r" then
     curbg = (curbg + 1)%4
     if curbg == 0 then
@@ -67,6 +64,7 @@ end
 sound = true
 function menu:callback(cb)
   if cb == "ng" then
+    game_init()
     state = "game"
   elseif cb == "op" then
     menu:setstate(2)

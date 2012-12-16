@@ -32,8 +32,12 @@ function menu:calc_offset()
   menu.offset = 0--love.graphics.getHeight()/2-(menu.font_menu:getHeight()*#menu.view[menu.state])/2
 end
 
-function menu:toggle()
-  menu.run = not menu.run
+function menu:toggle(val)
+  if val then
+    menu.run = val
+  else
+    menu.run = not menu.run
+  end
 end
 
 menu.title_fade = 0
