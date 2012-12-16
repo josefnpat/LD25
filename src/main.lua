@@ -2,7 +2,7 @@ require("git")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 bresenham = require("mapLoad/dungen/bresenham")
-
+debuglib = require("debug/debug")
 entity = require("entity/entity")
 counter = require("counter/counter")
 
@@ -74,7 +74,7 @@ function love.draw ()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
-    map.draw(2)
+    map.draw(2,1)
     counter.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
@@ -83,13 +83,20 @@ function love.draw ()
       love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
     end
   end
+  if debug then
+    debuglib.draw()
+  end
 end
 
 pause = false
+debug = false
 -------------------------------------
 -- love.keypressed
 -------------------------------------
 function love.keypressed (key,unicode)
+  if key == '`' then
+    debug = not debug
+  end
   if state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
   elseif state == "game" then
