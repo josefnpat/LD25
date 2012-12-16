@@ -82,8 +82,8 @@ function wizard.new()
   e.walking = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = 512 + math.random(-100,100)
-  e.y = 512 + math.random(-100,100) 
+  e.x = player_obj.x + math.random(-100,100)
+  e.y = player_obj.y + math.random(-100,100) 
   e.camera_x = 0
   e.camera_y = 0
   e.draw = wizard.draw
