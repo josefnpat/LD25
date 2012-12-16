@@ -8,6 +8,10 @@ function Dungen.init(width,height)
   Tiles.Wall = 2
   Tiles.Floor = 3
   Tiles.Portal = 4
+  
+  PreviousCenter = {}
+  PreviousCenter.x = math.floor(width / 2)
+  PreviousCenter.y = math.floor(height / 2)
 
   Dungen.map = {}
   Dungen.width = width
@@ -22,8 +26,9 @@ end
 
 function Dungen.generate(rooms)
   Dungen.map[math.floor(Dungen.width / 2)][math.floor(Dungen.height / 2)] = Tiles.Door
+  local previousX, previousY = math.floor(Dungen.width / 2),math.floor(Dungen.height / 2)
   for r = 1, rooms do 
-    Dungen.gRoom(Dungen.findDoor())
+     Dungen.gRoom(Dungen.findDoor())
   end
   print("There are "..#Dungen.debug_doors.."doors.")
 end
@@ -33,7 +38,7 @@ function Dungen.getLevel()
 end
 
 function Dungen.findDoor()
-  Doors = {}
+  local Doors = {}
   for x = 1, Dungen.width do
     for y = 1, Dungen.height do
       if Dungen.map[x][y] == Tiles.Door then
@@ -63,7 +68,7 @@ function Dungen.gRoom(cursorX, cursorY)
     goalY = math.floor(cursorY - height / 2)
   end
   
-  table.insert(Dungen.debug_doors,{start={x=cursorX,y=cursorY},stop={x=goalX,y=goalY}})
+  
   
   if goalX > 1 and goalX + width < Dungen.width then
      if goalY > 1 and goalY + height < Dungen.height then
@@ -72,7 +77,7 @@ function Dungen.gRoom(cursorX, cursorY)
 		    if Dungen.map[x][y] == Tiles.Floor then
                   --print("no room found, trying again")
                   Dungen.gRoom(Dungen.findDoor())
-				  return false
+				  return previousX, previousY
 		    end
 		  end
 		end
@@ -81,7 +86,11 @@ function Dungen.gRoom(cursorX, cursorY)
   --print("Succes: I was able to build a room!")
   if goalX > 1 and goalX + width < Dungen.width then
     if goalY > 1 and goalY + height < Dungen.height then
+    
+		table.insert(Dungen.debug_doors,{start={x = PreviousCenter.x,y = PreviousCenter.y},stop={x=goalX + math.floor(width / 2) ,y=goalY + math.floor(height /2)}})
 		Dungen.map[goalX + math.floor(width / 2)][goalY + math.floor(height /2)] = Tiles.Portal
+		PreviousCenter.x = goalX + math.floor(width / 2)
+		PreviousCenter.y = goalY + math.floor(height /2)
       for x = goalX, goalX + width do
         for y = goalY, goalY + height do
 			    if Dungen.map[x][y] == Tiles.Solid then
@@ -89,10 +98,6 @@ function Dungen.gRoom(cursorX, cursorY)
 				    if x == goalX or x == goalX + width or y == goalY or y == goalY + height then
 				      Dungen.map[x][y] = Tiles.Solid
 				      if
-				      x == goalX + math.floor(width / 2) - 1 or
-				      x == goalX + math.floor(width / 2) + 1 or
-				      y == goalY + math.floor(height / 2) - 1 or 
-				      y == goalY + math.floor(height / 2) + 1 or
 				      x == goalX + math.floor(width / 2) or 
 				      y == goalY + math.floor(height / 2) then
 				        Dungen.map[x][y] = Tiles.Door
@@ -103,6 +108,7 @@ function Dungen.gRoom(cursorX, cursorY)
       end
     end
   end
+  return goalX + math.floor(width / 2), goalY + math.floor(height /2)
 end
 
 function Dungen.draw()
@@ -111,7 +117,7 @@ function Dungen.draw()
       if Dungen.map[x][y] == 0 then
         love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 1 then
-        love.graphics.setColor(255,255,255)
+        love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 2 then
         love.graphics.setColor(0,0,0)
       elseif Dungen.map[x][y] == 3 then
