@@ -15,8 +15,8 @@ end
 
 function princess:update(dt)
   if self.captive == false then
-    self.camera.x = (-camera.x + self.x)
-    self.camera.y = (-camera.y + self.y)
+    self.camera.x = (-camera.x + self.x) - (self.sprite.width)/2
+    self.camera.y = (-camera.y + self.y) - (self.sprite.height)/2
   else
     self.x = player_obj.x
     self.y = player_obj.y
