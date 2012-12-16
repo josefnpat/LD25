@@ -20,14 +20,18 @@ function love.load (arg)
   map.init()
   entity.load()
   player_obj = entity.new("player")
-  entity.new("enemy")
-  entity.new("enemy")
-  entity.new("enemy")
+ enemies = {}  
+  enemy1 = entity.new("enemy")
+  enemy2 = entity.new("enemy")
+  enemy3 = entity.new("enemy")
+   table.insert(enemies,enemy1)
+   table.insert(enemies,enemy2)
+   table.insert(enemies,enemy3)
   portal_enemy = entity.new("portal")
   portal_enemy.type = "portal_player"
-  portal_enemy.x,portal_enemy.y = 10,10
+  portal_enemy.x,portal_enemy.y = 500,500
   portal_player = entity.new("portal")
-  portal_player.x,portal_player.y = 50,10
+  portal_player.x,portal_player.y = 550,550
 end
 
 -------------------------------------
