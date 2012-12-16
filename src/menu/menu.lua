@@ -92,7 +92,7 @@ function menu:draw()
       menu.icon,
       love.graphics.getWidth()*7/10,
       menu.iconcurpos,--wat
-      0,scale_x,scale_y,
+      math.rad(math.sin(love.timer.getTime()) * 10 - 5),scale_x,scale_y,
       0,
       menu.icon:getHeight()/2
     )
