@@ -13,9 +13,9 @@ function enemy:update(dt)
     if dist < rad and dist ~=0  then
       if v.type == "wizard" then
         self.hasted = true        
-        something_is_near = true  
+        wizard_is_near = true  
         --self:applyeffect(v:geteffect(),v:getmodifier()) 
-        if self.speed == 50 then  
+        if self.speed == 50 and self.slowed == false then  
           self.speed = 75
         elseif self.speed == 25 then
           self.speed = 50  
@@ -31,7 +31,7 @@ function enemy:update(dt)
         self.slowed = true         
         trap_is_near = true
         --self:applyeffect(v:geteffect(),v:getmodifier())    
-        if self.speed == 50 then  
+        if self.speed == 50 and self.hasted == false then  
           self.speed = 25
         elseif self.speed == 75 then
           self.speed = 50  
@@ -74,7 +74,7 @@ function enemy:draw()
   else
     love.graphics.setColor(255,255,255)
   end]]--
-  str = string.format("%02d",self.speed)
+  local str = string.format("%02d",self.speed)
   love.graphics.print("enemy",(self.camera_x * x_scale),(self.camera_y * y_scale))
   love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
   love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
