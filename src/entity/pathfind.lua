@@ -14,7 +14,7 @@ function pathfind:path_update(dt,target)
   end
   if self.path and #self.path > 0 then
     local cx,cy = entity.MapToRaw(self.path[1].x,self.path[1].y)
-    if self.path[2] and entity.distance(self,{x=cx,y=cy}) < 32 then
+    if self.path[2] and entity.distance(self,{x=cx,y=cy}) < 16 then
       local cx,cy = entity.MapToRaw(self.path[2].x,self.path[2].y)
       table.remove(self.path,1)
     end
