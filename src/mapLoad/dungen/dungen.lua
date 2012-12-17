@@ -31,10 +31,24 @@ function Dungen.generate(rooms)
   end
   --print("There are "..#Dungen.debug_doors.."doors.")
   RemoveDoors()
+  Dungen.CreateManualRoom(
+  math.floor(Dungen.width / 2) - 2,
+  math.floor(Dungen.width / 2) + 2,
+  math.floor(Dungen.height / 2) - 2,
+  math.floor(Dungen.height / 2) + 2)
+  
 end
 
 function Dungen.getLevel()
   return Dungen.map
+end
+
+function Dungen.CreateManualRoom(minX,maxX,minY,maxY)
+for x = minX,maxX do
+  for y = minY, maxY do
+    Dungen.map[x][y] = Tiles.Floor
+  end
+end 
 end
 
 function Dungen.findDoor()
