@@ -58,9 +58,9 @@ function game_init()
 		  end
     end
   end
-  love.graphics.setCaption("Loading ......")
+  love.graphics.setCaption("Loading .......")
   prin = entity.new("princess")
-  love.graphics.setCaption("Loading ......")
+  love.graphics.setCaption("Loading ........")
   drama.load()
   love.graphics.setCaption("DunGen")
   
