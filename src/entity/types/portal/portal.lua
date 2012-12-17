@@ -14,7 +14,7 @@ portal.portal_quads[4] =  love.graphics.newQuad(0,80,16,32,map.graphics.sheet:ge
 function portal:draw()
   local x,y = entity.getScreenLocation(self)
   if self.owner == "enemy" then
-    love.graphics.drawq(portal.sheet,portal.portal_quads[4],x,y,0,4,4)
+    love.graphics.drawq(portal.sheet,portal.portal_quads[4],x,y,0,4,4,0,16)
   end
   if self.owner == "player" then
     if counter.get_time() ~= 0 then
