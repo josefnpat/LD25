@@ -24,7 +24,16 @@ function test:draw()
     end
   end
 
+  if self.path and #self.path > 0 then
+    local sx,sy = entity.getScreenLocation(self)
+    --for i,v in ipairs(path) do
+      local x,y = entity.MapToRaw(path[1].x,path[1].y)
+      local nx,ny = entity.getScreenLocation({x=x,y=y})
+      love.graphics.line(sx,sy,nx,ny)
+    --end
 
+    
+  end
 
 end
 
@@ -32,8 +41,8 @@ function test.new()
   local e = {}
   e.type = "test"
   repeat
-    e.x = player_obj.x + math.random(-100,100)
-    e.y = player_obj.y + math.random(-100,100)
+    e.x = player_obj.x + math.random(-200,200)
+    e.y = player_obj.y + math.random(-200,200)
   until not entity.collision(e)
   e.update = test.update
   e.draw = test.draw
