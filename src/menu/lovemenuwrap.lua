@@ -37,7 +37,7 @@ function lovemenuwrap.load()
   }
   menu_view[4] = {
     title="Credits",
-    desc="Josefnpat - Programmer\nBlarget - Artist\nIoke - Programmer\npeterrstanley - Programmer\nExpugnosententia - Incompetent\nVividReality - Programmer\n",
+    desc="Josefnpat - Programmer\nBlarget - Artist\nIoke - Programmer/Princess\npeterrstanley - Programmer\nExpugnosententia - Incompetent\nVividReality - Programmer\nDaniel Bienvenu - What Is Love Intro",
     {t="Return",cb="mm"}
   }
   menu:load(menu_view)
