@@ -58,6 +58,11 @@ function enemy:update(dt)
     state = "lose"
   end
   
+  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 32 then
+    player_obj.isCarryingPrincess = false
+    prin.captive = false
+  end
+  
   if not player_obj.isCarryingPrincess and not enemy_has_princess and entity.distance(self,prin) < 16 then
     self.isCarryingPrincess = true
     prin.captive = not prin.captive
