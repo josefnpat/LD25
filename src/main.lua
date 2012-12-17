@@ -9,6 +9,7 @@ counter = require("counter/counter")
 drama = require("drama/drama")
 win = require("win/win")
 lose = require("win/win")
+pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
 
 -------------------------------------
@@ -52,7 +53,7 @@ function game_init()
 		    else
 		      portals[c].owner = "enemy"
 		    end
-		    local nx,ny = entity.getMapLocation(x,y)
+		    local nx,ny = entity.MapToRaw(x,y)
 		    portals[c].x = nx
 		    portals[c].y = ny
 		  end
@@ -63,6 +64,10 @@ function game_init()
   love.graphics.setCaption("Loading ........")
   drama.load()
   love.graphics.setCaption("DunGen")
+  
+  for i=1,10 do
+    entity.new("test")
+  end
   
 end
 
@@ -87,7 +92,7 @@ function love.update (dt)
         end
       end
       for i,v in ipairs(entity.data) do
-        if v.health < 0  then
+        if v.health and v.health < 0  then
           table.remove(entity.data,i)
         end
       end

@@ -21,8 +21,20 @@ function entity.setScreenLocation(x,y)
   return entity_x,entity_y
 end
 
-function entity.getMapLocation(x,y)
+function entity.MapToRaw(x,y)
   return x * 16, y * 16
+end
+
+function entity.RawToMap(entity)
+  local nx = math.round((entity.x-4)/16)
+  local ny = math.round((entity.y-4)/16)
+  return nx,ny
+end
+
+function entity.RawToTile(entity)
+  local nx = math.round((entity.x-4)/16)*16
+  local ny = math.round((entity.y-4)/16)*16
+  return nx,ny
 end
 
 function entity.sort(t)

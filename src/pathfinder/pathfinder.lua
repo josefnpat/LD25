@@ -1,11 +1,10 @@
-require("codeatuts")
+require("pathfinder/codeatuts")
 
 pathfinder = {}
 
 pathfinder.stateObstacle = 0
 
 function pathfinder.find(map,start,stop)
-
   if start then
     if stop then
       path = CalcPath(CalcMoves(map, start[1], start[2], stop[1], stop[2]))

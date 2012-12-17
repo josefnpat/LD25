@@ -110,8 +110,8 @@ function player:update(dt)
   camera.x = self.x - (camera.width / 2) * map.graphics.width
   camera.y = self.y - (camera.height / 2) * map.graphics.height
   local p_portal = {}
-  p_portal.x = ((playerportal_obj.x * map.graphics.width) - map.graphics.width) + 32
-  p_portal.y= ((playerportal_obj.y * map.graphics.height) - map.graphics.height) + 10
+  --p_portal.x = ((playerportal_obj.x * map.graphics.width) - map.graphics.width) + 32
+  --p_portal.y= ((playerportal_obj.y * map.graphics.height) - map.graphics.height) + 10
   
   if counter.count == 0 and entity.distance(self,playerportal_obj) < 16  and self.isCarryingPrincess then
     state = "win"
@@ -123,13 +123,11 @@ end
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
-    temp.x = math.round((player_obj.x-4)/16)*16
-    temp.y = math.round((player_obj.y-8)/16)*16
+    temp.x,temp.y = entity.RawToTile(player_obj)
     table.insert(self.traps,temp)
   elseif key == "2" then
     local temp = entity.new("spiketrap")
-    temp.x = math.round((player_obj.x-4)/16)*16
-    temp.y = math.round((player_obj.y-8)/16)*16
+    temp.x,temp.y = entity.RawToTile(player_obj)
     table.insert(self.traps,temp)
   elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
@@ -151,7 +149,7 @@ function player.new()
   e.isCarryingPrincess = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x,e.y = entity.getMapLocation(map.mapHeight/2+0.5,map.mapHeight/2+0.5)
+  e.x,e.y = entity.MapToRaw(map.mapHeight/2+0.5,map.mapHeight/2+0.5)
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update
