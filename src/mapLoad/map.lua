@@ -6,7 +6,7 @@ local map = {}
 function map.init()
 	map.mapWidth = 48
 	map.mapHeight = 48
-	map.rooms = 16
+	map.rooms = 8
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)
@@ -78,6 +78,10 @@ if Bit >= 20 and Bit <= 23 then
 return 27
 end
 
+if Bit == 12 then
+return 5
+end 
+
 if Bit >= 17 and Bit <= 19 then
 return 12
 end
@@ -116,7 +120,7 @@ map.autoLayer2[x][y - 1] = 26
 return 17
 end
 
-if Bit >= 235 and Bit <= 239 then
+if Bit >= 231 and Bit <= 239 then
 map.autoLayer2[x][y - 1] = 42
 return 44
 end
@@ -162,12 +166,12 @@ if Bit == 35 then
 return 4
 end
 
-if Bit == 255 or Bit == 253 then
+if Bit <= 255 or Bit >= 247 then
 map.autoLayer2[x][y - 1] = 18
 return 19
 end
 
-if Bit == 221 then
+if Bit >= 219  and Bit <= 221 then
 map.autoLayer2[x][y - 1] = 26
 return 28
 end
@@ -189,6 +193,11 @@ end
 
 if Bit == 55 then
 return 33
+end
+
+if Bit == 110 then
+map.autoLayer2[x][y - 1] = 42
+return 25
 end
 
 if Bit == 187 then
@@ -251,7 +260,7 @@ if Bit == 40 or Bit == 42 or Bit == 43 then
 return 43
 end
 
-if Bit == 203 or Bit == 207 or Bit == 206 or Bit == 205 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
+if Bit == 203 or Bit == 207 or Bit == 206 or Bit == 205 or Bit == 197 or Bit == 202 or Bit == 179 or Bit == 106 or Bit == 199 or Bit == 198 then
 map.autoLayer2[x][y - 1] = 34
 return 36
 end

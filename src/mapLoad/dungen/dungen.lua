@@ -96,7 +96,15 @@ function Dungen.gRoom(cursorX, cursorY)
           for y = goalY, goalY + height do
 		    if Dungen.map[x][y] == Tiles.Floor then
                   --print("no room found, trying again")
-                  Dungen.gRoom(Dungen.findDoor())
+					if orientation == 1 then
+						Dungen.gRoom(cursorX,math.random(Dungen.height))
+					elseif orientation == 2 then
+						Dungen.gRoom(math.random(Dungen.width),cursorY)
+					elseif orientation == 3 then
+						Dungen.gRoom(cursorX,math.random(Dungen.height))
+					else
+						Dungen.gRoom(math.random(Dungen.width),cursorY)
+					end
 				  return previousX, previousY
 		    end
 		  end
