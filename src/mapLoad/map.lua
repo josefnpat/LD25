@@ -33,11 +33,14 @@ function map.init()
   
   map.autoLayer2 = {}
 	
-	for x = 1, map.mapWidth do
-		map.autoLayer2[x] = {}
+	local finished = false
+	
+	while finished == false do
+	map.autoMap = map.autoTile()
+	finished = map.TestQuads()
+	print("error in auto mapping, trying again")
 	end
 	
-  map.autoMap = map.autoTile()
 end
 
 function map.setQuads()
@@ -59,17 +62,35 @@ function map.newQuad(x,y)
     map.graphics.sheet:getHeight())
 end
 
+function map.TestQuads()
+for x = 2, map.mapWidth - 1 do
+	for y = 2, map.mapHeight - 1 do
+		CurrentBit, Error = BitToQuad(map.autoMap[x][y],x,y)
+		if Error then
+		Dungeon.map[x][y] = Tiles.Floor
+		--print("An error was found, fixed it")
+		return false
+		end
+	end
+end
+return true
+end
+
 
 
 function map.autoTile()
 autoMap = {}
+for x = 1, map.mapWidth do
+		map.autoLayer2[x] = {}
+end
 for x = 2, map.mapWidth - 1 do
 	autoMap[x] = {}
 	for y = 2, map.mapHeight - 1 do
 		autoMap[x][y] = calculateEdge(x,y,Tiles.Solid) + calculateCorner(x,y,Tiles.Solid)
 	end
 end
-  return autoMap
+
+  return autoMap, true
 end
 
 function BitToQuad(Bit,x,y)
@@ -299,6 +320,7 @@ end
 
 if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
 map.autoLayer2[x][y - 1] = 34
+return 35
 end
 
 if Bit >= 73 and Bit <= 75 then
@@ -311,7 +333,11 @@ if Bit >= 166 and Bit <= 174 then
 return 44
 end
 
+if Bit >= -4 and Bit <= 10 then
 return 35
+end
+
+return 35, true
 end
 
 function calculateCorner( x, y, tile)
@@ -391,7 +417,7 @@ function map.draw(layer,writeDebug)
       if Dungeon.map[x][y] == Tiles.Solid and layer == 1 then
       
         if x > 1 and y > 1 and x < map.mapWidth - 2 and y < map.mapHeight - 2 then
-        map.drawTile(x,y,BitToQuad(map.autoMap[x][y],x,y))
+        map.drawTile(x,y, BitToQuad(map.autoMap[x][y],x,y))
         end
         
       elseif Dungeon.map[x][y] == Tiles.Door and layer == 1 then
