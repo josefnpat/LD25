@@ -109,7 +109,7 @@ function princess.new()
   prin.captive = false
   prin.speed = 20
   prin.dt = 0
-
+  prin.die = false 
   prin.walk = {}
   prin.walk.left = {x=0,y=0,framecount=3}
   prin.walk.right = {x=16*3,y=0,framecount=3}

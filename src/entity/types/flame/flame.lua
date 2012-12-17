@@ -3,6 +3,9 @@ flame.speed = 250
 
 
 function flame:update(dt)
+  if self.health < 0 then
+    self.die = true
+  end
 self.dt = self.dt + dt
 if self.dir == "down" then
 self.y = self.y + flame.speed*dt
@@ -44,6 +47,7 @@ function flame.new()
   e.draw = flame.draw
   e.update = flame.update
   e.dir = "down"
+  e.die = false 
   return e
 end
 

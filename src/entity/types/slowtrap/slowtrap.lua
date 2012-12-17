@@ -19,6 +19,7 @@ function slowtrap.new()
   e.range = 60
   e.update = slowtrap.update
   e.draw = slowtrap.draw
+  e.die = false 
   return e
 end
 

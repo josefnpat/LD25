@@ -49,6 +49,7 @@ function portal.new()
   p.z_index = -2
   p.update = portal.update
   p.draw = portal.draw
+  p.die = false 
   return p
 end
 

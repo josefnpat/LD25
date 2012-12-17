@@ -82,7 +82,9 @@ function enemy:update(dt)
   else
     self.dir = enemy.walk_quads[self.dir_name]
   end
-  
+  if self.health < 0 then
+    self.die = true
+  end
   self.hasted = false
   for _,v in ipairs(enemies) do
     local dist = entity.distance(self,v)
@@ -149,6 +151,7 @@ function enemy.new()
   e.update = enemy.update
   e.draw = enemy.draw
   e.dt = 0
+  e.die = false 
   e.isCarryingPrincess = false
   return e
 end

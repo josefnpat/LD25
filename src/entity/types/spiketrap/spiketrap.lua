@@ -20,6 +20,7 @@ function spiketrap.new()
   e.z_index = -1
   e.update = spiketrap.update
   e.draw = spiketrap.draw
+  e.die = false 
   return e
 end
 

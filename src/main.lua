@@ -114,7 +114,7 @@ function love.update (dt)
       end
       
       for i,v in ipairs(enemies) do
-        if v.health < 0  then
+        if v.die == true  then
           if v.isCarryingPrincess then
             prin.captive = false
             enemy_has_princess = false
@@ -125,7 +125,7 @@ function love.update (dt)
         end
       end
       for i,v in ipairs(entity.data) do
-        if v.health and v.health < 0  then
+        if v.die == true then
           table.remove(entity.data,i)
         end
       end

@@ -61,6 +61,9 @@ function player:draw()
 end
 
 function player:update(dt)
+  if self.health < 0 then
+    self.die = true
+  end
   self.dt = self.dt + dt
   player.coolDown = player.coolDown - 1
   self.walking = false
@@ -193,6 +196,7 @@ function player.new()
   e.z_index = 2
   e.game_status = "current"
   e.traps = {}
+  e.die = false 
   return e
 end
 
