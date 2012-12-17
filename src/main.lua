@@ -29,14 +29,16 @@ function game_init()
   player_obj = entity.new("player")
   love.graphics.setCaption("Loading ....")
   enemies = {}  
-  enemy1 = entity.new("enemy")
-  enemy2 = entity.new("enemy")
-  enemy3 = entity.new("enemy")
-  wizard1 = entity.new("wizard")
-  table.insert(enemies,enemy1)
-  table.insert(enemies,enemy2)
-  table.insert(enemies,enemy3)
-  table.insert(enemies,wizard1)
+  
+  --enemy1 = entity.new("enemy")
+  --enemy2 = entity.new("enemy")
+  --enemy3 = entity.new("enemy")
+  --wizard1 = entity.new("wizard")
+  --table.insert(enemies,enemy1)
+  --table.insert(enemies,enemy2)
+  --table.insert(enemies,enemy3)
+  --table.insert(enemies,wizard1)
+  
   love.graphics.setCaption("Loading .....")
   counter.load()
   counter.set_time(120);
@@ -47,13 +49,17 @@ function game_init()
 		  if Dungeon.map[x][y] == Tiles.Portal then
 		    local c = #portals + 1
 		    portals[c] = entity.new("portal")
+		    local nx,ny = entity.MapToRaw(x,y)
 		    if c == 3 then
 		      portals[c].owner = "player"
 		      playerportal_obj = portals[c]
 		    else
 		      portals[c].owner = "enemy"
+		      local temp_enemy = entity.new("enemy")
+		      temp_enemy.x = nx-16
+		      temp_enemy.y = ny-16
+		      table.insert(enemies,temp_enemy)
 		    end
-		    local nx,ny = entity.MapToRaw(x,y)
 		    portals[c].x = nx
 		    portals[c].y = ny
 		  end
@@ -65,9 +71,9 @@ function game_init()
   drama.load()
   love.graphics.setCaption("DunGen")
   
-  for i=1,10 do
-    entity.new("test")
-  end
+  --for i=1,10 do
+    --entity.new("test")
+  --end
   
 end
 
