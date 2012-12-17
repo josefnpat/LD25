@@ -49,8 +49,8 @@ pathfind = require "entity/pathfind" -- 1/3
 
 enemy.speedvals = {}
 enemy.speedvals.slow = 0.5
-enemy.speedvals.medium = 2
-enemy.speedvals.fast = 4
+enemy.speedvals.medium = 1
+enemy.speedvals.fast = 2
 
 function enemy:update(dt)
   self:path_update(dt,prin) -- 2/3
@@ -94,20 +94,13 @@ function enemy:update(dt)
 end
 
 function enemy:draw()
-
   local frame = 2
   if self.walking then
     frame = math.floor((self.dt * 10) % #self.dir + 1)
   end
   local x,y = entity.getScreenLocation(self)
   love.graphics.drawq( enemy.spritesheet, self.dir[frame], x, y, 0, 4, 4, 9, 28 )
-
-  local hstr = string.format("%02d",self.health)
-  local x,y = entity.getScreenLocation(self)
-  --love.graphics.drawq(self.sprite.sheet,self.dir[frame], x,y,0,4,4,8,24)
   love.graphics.print(self.health,x,y)
-  love.graphics.setColor(255,255,255)
-  
 end
 
 function enemy.new()
