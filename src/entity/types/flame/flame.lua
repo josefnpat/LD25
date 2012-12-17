@@ -25,7 +25,14 @@ self.angle = math.rad(180)
 end
 
 if entity.collision(self) then
-    self.health = -1
+    self.die = true
+  end
+ for _,v in ipairs(enemies) do
+    local dist = entity.distance(self,v)
+    if dist < 8 and dist ~=0  then
+      v.health = v.health - self.weaponpower
+      self.die = true
+    end
   end
 end
 
@@ -41,6 +48,7 @@ function flame.new()
   e.img:setFilter('nearest','nearest')
   e.angle = 0
   e.health = 1
+  e.weaponpower = 20
   e.quad = 57
   e.dt = 0
   e.x,e.y = 0,0
