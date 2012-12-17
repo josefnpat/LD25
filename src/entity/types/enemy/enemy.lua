@@ -2,9 +2,6 @@ local enemy = {}
 
 
 function enemy:update(dt)
-  self.camera_x = (-camera.x + self.x) - (self.sprite.width)/2
-  self.camera_y = (-camera.y + self.y) - (self.sprite.height)/2
-
   local rad = 100
   local wizard_is_near = false
   local trap_is_near = false
@@ -62,9 +59,9 @@ end
 
 function enemy:draw()
   local frame = 2
-    if self.walking then
-      frame = math.floor((self.dt * 10) % #self.dir + 1)
-    end
+  if self.walking then
+    frame = math.floor((self.dt * 10) % #self.dir + 1)
+  end
   local rad = 100
   if self.speed == 50  then
     love.graphics.setColor(250,0,0)
@@ -79,21 +76,21 @@ function enemy:draw()
  
   local str = string.format("%02d",self.speed)
   local hstr = string.format("%02d",self.health)
+  local x,y = entity.getScreenLocation(self)
   love.graphics.drawq(self.sprite.sheet,
         self.dir[frame], 
-        (self.x - camera.x - map.graphics.width) * 4,
-        (self.y - camera.y - map.graphics.height - 4) * 4,
+        x,
+        y,
         0,
         self.x_scale,
         self.y_scale,
         8,
         24)
-
-  love.graphics.circle("line",(self.camera_x * self.x_scale),(self.camera_y * self.y_scale),rad*2)
+  love.graphics.circle("line",x,y,rad)
   --leave this in I'm going to need it for testing love, Cirrus
-  love.graphics.print(str,(self.camera_x * self.x_scale)+12,(self.camera_y * self.y_scale)+12)
+  love.graphics.print(str,x,y)
   --also, leave this 
-  love.graphics.print(hstr,(self.camera_x * self.x_scale)+12,(self.camera_y * self.y_scale)+25)
+  love.graphics.print(hstr,x,y)
   love.graphics.setColor(255,255,255)
   
 end
@@ -114,8 +111,6 @@ function enemy.new()
   e.sprite.sheet:setFilter("nearest","nearest")
   e.sprite.width = 16
   e.sprite.height = 32
-  e.camera_x = 0
-  e.camera_y = 0
   e.speed = 50
   e.x_scale = 4
   e.y_scale = 4
