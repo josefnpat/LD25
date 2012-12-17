@@ -49,7 +49,7 @@ function flame.new()
   e.img:setFilter('nearest','nearest')
   e.angle = 0
   e.health = 1
-  e.weaponpower = 20
+  e.weaponpower = 15
   e.quad = 57
   e.dt = 0
   e.x,e.y = 0,0
