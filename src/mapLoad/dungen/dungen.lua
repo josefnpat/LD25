@@ -58,14 +58,20 @@ function Dungen.gRoom(cursorX, cursorY)
   local width = math.random(6,8)
   local height = math.random(6,8)
   
-  local orientation = math.random(2)
+  local orientation = math.random(4)
   
   if orientation == 1 then
-    goalX = math.floor(cursorX - width / 2)
+    goalX = math.floor(cursorX - width)
     goalY = cursorY
   elseif orientation == 2 then
     goalX = cursorX
-    goalY = math.floor(cursorY - height / 2)
+    goalY = math.floor(cursorY - height)
+  elseif orientation == 3 then
+	goalX = math.floor(cursorX + width)
+    goalY = cursorY
+  elseif orientation == 4 then
+    goalX = cursorX
+    goalY = math.floor(cursorY + height)
   end
   
   
@@ -81,7 +87,7 @@ function Dungen.gRoom(cursorX, cursorY)
 		    end
 		  end
 		end
-   end
+  end
  end
   --print("Succes: I was able to build a room!")
   if goalX > 3 and goalX + width < Dungen.width - 3 then
