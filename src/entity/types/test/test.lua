@@ -2,7 +2,7 @@ local test = {}
 
 function test:update(dt)
   self.last_path_check = self.last_path_check + dt
-  if self.last_path_check > 1 then
+  if self.last_path_check > 0.2 then
     self.last_path_check = 0
     local start = {entity.RawToMap(self)}  
     local stop = {entity.RawToMap(player_obj)}
@@ -18,15 +18,22 @@ function test:update(dt)
     local nx,ny = entity.getScreenLocation({x=cx,y=cy})
     local dx,dy = nx-sx+32,ny-sy+32
     
-    --local previousX,previousY = self.x,self.y
+    local previousX,previousY = self.x,self.y
     
-    self.x = self.x + dx*dt
-    self.y = self.y + dy*dt
+    self.x = self.x + dx*dt/2
+    self.y = self.y + dy*dt/2
     
-    --if entity.collision(self) then
-    --  self.x = previousX
-    --  self.y = previousY
-    --end
+    local tx,ty = entity.RawToTile(self)
+    for i,v in ipairs(entity.data) do
+      if self.x ~= v.x and self.y ~= v.y then
+        local yx,yy = entity.RawToTile(v)
+        if tx == yx and ty == yy then
+          self.x = previousX
+          self.y = previousY
+        end
+      end
+    end
+    
   end
 end
 
