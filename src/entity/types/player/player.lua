@@ -121,14 +121,28 @@ function player:update(dt)
 end
 
 function player:keyreleased(key)
+
+  px,py = entity.RawToTile(player_obj)
+  local at_empty_tile = true
+  for i,v in ipairs(entity.data) do
+    local x,y = entity.RawToTile(v)
+    if x == px and y == py and player_obj ~= v then
+      at_empty_tile = false
+    end
+  end
+  
   if key == "1" then
-    local temp = entity.new("slowtrap")
-    temp.x,temp.y = entity.RawToTile(player_obj)
-    table.insert(self.traps,temp)
+    if at_empty_tile then
+      local temp = entity.new("slowtrap")
+      temp.x,temp.y = px,py
+      table.insert(self.traps,temp)
+    end
   elseif key == "2" then
-    local temp = entity.new("spiketrap")
-    temp.x,temp.y = entity.RawToTile(player_obj)
-    table.insert(self.traps,temp)
+    if at_empty_tile then
+      local temp = entity.new("spiketrap")
+      temp.x,temp.y = px,py
+      table.insert(self.traps,temp)
+    end
   elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     if self.isCarryingPrincess then
