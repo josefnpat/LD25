@@ -100,6 +100,12 @@ function love.update (dt)
     if not pause then
       for i,v in ipairs(enemies) do
         if v.health < 0  then
+          if v.isCarryingPrincess then
+            prin.captive = false
+            enemy_has_princess = false
+            prin.x = v.x
+            prin.y = v.y
+          end
           table.remove(enemies,i)
         end
       end
