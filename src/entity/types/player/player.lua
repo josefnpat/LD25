@@ -10,6 +10,10 @@ player.walk.down = {x=0,y=32,framecount=3}
 player.walk.up = {x=16*3,y=32,framecount=3}
 player.walk_quads = {}
 
+player.flames = {}
+player.coolDown = 0
+player.flameCost = 25
+
 player.carry = {}
 player.carry.left = {x=0,y=32*2,framecount=3}
 player.carry.right = {x=16*3,y=32*2,framecount=3}
@@ -58,6 +62,7 @@ end
 
 function player:update(dt)
   self.dt = self.dt + dt
+  player.coolDown = player.coolDown - 1
   self.walking = false
   local previousX = self.x
   local previousY = self.y
@@ -102,6 +107,10 @@ function player:update(dt)
     self.y = self.y + player.speed*dt
   end
   
+  if love.keyboard.isDown("lshift","3") then
+    player:shoot(self.dir_name,self.x,self.y)
+  end
+  
   if entity.collision(self) then
     self.x = previousX
     self.y = previousY
@@ -118,6 +127,17 @@ function player:update(dt)
   else
     self.game_status = "current"
   end 
+end
+
+function player:shoot(dir,x,y)
+if player.coolDown < 0 then
+local c = #player.flames + 1
+player.flames[c] = entity.new("flame")
+player.flames[c].dir = dir
+player.flames[c].x = x
+player.flames[c].y = y
+player.coolDown = player.flameCost 
+end
 end
 
 function player:keyreleased(key)
