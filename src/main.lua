@@ -1,4 +1,5 @@
 require("git")
+lovesplash = require("lovesplash/lovesplash")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
 bresenham = require("mapLoad/dungen/bresenham")
@@ -8,7 +9,7 @@ counter = require("counter/counter")
 drama = require("drama/drama")
 win = require("win/win")
 lose = require("win/win")
-state = "menu"
+state = "lovesplash"
 
 -------------------------------------
 -- love.load
@@ -64,7 +65,12 @@ end
 -- love.update
 -------------------------------------
 function love.update (dt)
-  if state == "menu" then
+  if state == "lovesplash" then
+    lovesplash.update(dt)
+    if lovesplash.done() then
+      state = "menu"
+    end
+  elseif state == "menu" then
     lovemenuwrap.update(dt)
   elseif state == "drama" then
     drama.update(dt)
@@ -95,7 +101,9 @@ end
 -- love.draw
 -------------------------------------
 function love.draw ()
-  if state == "menu" then
+  if state == "lovesplash" then
+    lovesplash.draw()
+  elseif state == "menu" then
     lovemenuwrap.draw()
   elseif state == "drama" then
     drama.draw()
@@ -136,7 +144,9 @@ function love.keypressed (key,unicode)
   if key == 'f2' then
     tileDebug = not tileDebug
   end
-  if state == "menu" then
+  if state == "lovesplash" then
+    lovesplash.stop()
+  elseif state == "menu" then
     lovemenuwrap.keypressed(key,unicode)
   elseif state == "drama" then
     drama.keypressed (key,unicode)
@@ -174,7 +184,9 @@ end
 -- love.mousepressed
 -------------------------------------
 function love.mousepressed (x,y,button)
-  if state == "menu" then
+  if state == "lovesplash" then
+    lovesplash.stop()
+  elseif state == "menu" then
     lovemenuwrap.mousepressed(x,y,button)
   elseif state == "game" then
     entity.mousepressed(x,y,button)
