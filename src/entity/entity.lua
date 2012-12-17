@@ -86,6 +86,7 @@ function entity.update(dt)
   end
   if entity.needs_sorting then
     entity.sort(entity.data)
+    entity.needs_sorting = false
   end
 end
 
