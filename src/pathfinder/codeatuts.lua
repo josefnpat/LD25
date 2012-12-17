@@ -37,7 +37,7 @@ function CalcMoves(board, startX, startY, targetX, targetY)
        timeout_count = timeout_count + 1
 --       if timeout + 0.1 < love.timer.getMicroTime() then
        if timeout_count > 100 then
-         print("pathfinding timeout - "..timeout_count)
+         --print("pathfinding timeout")
          return nil
        end
        

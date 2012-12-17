@@ -6,7 +6,7 @@ local map = {}
 function map.init()
 	map.mapWidth = 48
 	map.mapHeight = 48
-	map.rooms = 16
+	map.rooms = 64
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)
