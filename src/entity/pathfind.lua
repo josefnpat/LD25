@@ -40,18 +40,22 @@ function pathfind:path_update(dt,target)
       end
     end
     
-    local tx,ty = entity.RawToTile(self)
-    for i,v in ipairs(entity.data) do
-      if v.type == self.type then
-        if self.x ~= v.x and self.y ~= v.y then
-          local yx,yy = entity.RawToTile(v)
-          if tx == yx and ty == yy then
-            self.x = previousX
-            self.y = previousY
-            self.walking = false
+    if not self.isCarryingPrincess then
+    
+      local tx,ty = entity.RawToTile(self)
+      for i,v in ipairs(entity.data) do
+        if v.type == self.type then
+          if self.x ~= v.x and self.y ~= v.y then
+            local yx,yy = entity.RawToTile(v)
+            if tx == yx and ty == yy then
+              self.x = previousX
+              self.y = previousY
+              self.walking = false
+            end
           end
         end
       end
+    
     end
   else
     self.walking = false

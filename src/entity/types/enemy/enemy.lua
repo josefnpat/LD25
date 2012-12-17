@@ -53,11 +53,30 @@ enemy.speedvals.medium = 1
 enemy.speedvals.fast = 2
 
 function enemy:update(dt)
-  self:path_update(dt,prin) -- 2/3
+  
+  if self.isCarryingPrincess and entity.distance(self,playerportal_obj) < 32 then
+    state = "lose"
+  end
+  
+  if not player_obj.isCarryingPrincess and not enemy_has_princess and entity.distance(self,prin) < 16 then
+    self.isCarryingPrincess = true
+    prin.captive = not prin.captive
+    enemy_has_princess = true
+  end
+
+  if self.isCarryingPrincess then
+    self:path_update(dt,playerportal_obj) -- 2/3    
+  else
+    self:path_update(dt,prin) -- 2/3
+  end
 
   self.dt = self.dt + dt
   
-  self.dir = enemy.walk_quads[self.dir_name]
+  if self.isCarryingPrincess then
+    self.dir = enemy.carry_quads[self.dir_name]
+  else
+    self.dir = enemy.walk_quads[self.dir_name]
+  end
   
   self.hasted = false
   for _,v in ipairs(enemies) do
@@ -119,6 +138,7 @@ function enemy.new()
   e.update = enemy.update
   e.draw = enemy.draw
   e.dt = 0
+  e.isCarryingPrincess = false
   return e
 end
 

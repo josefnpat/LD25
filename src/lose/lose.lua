@@ -1,4 +1,4 @@
-win = {}
+lose = {}
 
 function lose.draw()
   love.graphics.setColor(255,255,255)
@@ -15,4 +15,4 @@ function lose.keypressed(key)
   end
 end
 
-return win
+return lose

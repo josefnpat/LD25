@@ -8,7 +8,7 @@ entity = require("entity/entity")
 counter = require("counter/counter")
 drama = require("drama/drama")
 win = require("win/win")
-lose = require("win/win")
+lose = require("lose/lose")
 pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
 --require 'SLAM/slam'
@@ -30,25 +30,17 @@ function game_init()
   player_obj = entity.new("player")
   love.graphics.setCaption("Loading ....")
   enemies = {}  
-	  if state == "menu" then
-	    love.audio.stop()
-        music = love.audio.newSource('SLAM/music/Gametheme.ogg', 'stream') -- creates a new SLAM source
-        music:setLooping(true)                              -- all instances will be looping
-        love.audio.play(music)                              -- play music
-      end
-  --enemy1 = entity.new("enemy")
-  --enemy2 = entity.new("enemy")
-  --enemy3 = entity.new("enemy")
-  --wizard1 = entity.new("wizard")
-  --table.insert(enemies,enemy1)
-  --table.insert(enemies,enemy2)
-  --table.insert(enemies,enemy3)
-  --table.insert(enemies,wizard1)
-  
+  if state == "menu" then
+    love.audio.stop()
+    music = love.audio.newSource('SLAM/music/Gametheme.ogg', 'stream') -- creates a new SLAM source
+    music:setLooping(true)                              -- all instances will be looping
+    love.audio.play(music)                              -- play music
+  end
   love.graphics.setCaption("Loading .....")
   counter.load()
   counter.set_time(120);
   love.graphics.setCaption("Loading ......")
+  enemy_has_princess = false
   portals = {}
   for x = 1, map.mapWidth do
 	  for y = 1, map.mapHeight do
@@ -61,16 +53,18 @@ function game_init()
 		      playerportal_obj = portals[c]
 		    else
 		      portals[c].owner = "enemy"
-		      local temp_enemy = entity.new("enemy")
-		      temp_enemy.x = nx-16
-		      temp_enemy.y = ny-16
-		      table.insert(enemies,temp_enemy)
-		      
-		      local temp_wizard = entity.new("wizard")
-		      temp_wizard.x = nx+16
-		      temp_wizard.y = ny+16
-		      table.insert(enemies,temp_wizard)
-		      
+		      temp_flipper = not temp_flipper
+		      if temp_flipper then
+		        local temp_enemy = entity.new("enemy")
+		        temp_enemy.x = nx-16
+		        temp_enemy.y = ny-16
+		        table.insert(enemies,temp_enemy)
+		      else
+		        local temp_wizard = entity.new("wizard")
+		        temp_wizard.x = nx+16
+		        temp_wizard.y = ny+16
+		        table.insert(enemies,temp_wizard)
+		      end
 		    end
 		    portals[c].x = nx
 		    portals[c].y = ny

@@ -143,7 +143,7 @@ function player:keyreleased(key)
       temp.x,temp.y = px,py
       table.insert(self.traps,temp)
     end
-  elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
+  elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) and not enemy_has_princess then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     if self.isCarryingPrincess then
       self.dir = player.carry_quads[self.dir_name]
