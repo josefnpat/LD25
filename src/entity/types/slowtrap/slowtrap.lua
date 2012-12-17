@@ -15,33 +15,11 @@ function slowtrap.new()
   e.type = "slowtrap"
   e.x = 0
   e.y = 0
-  e.slow_amount = -25;
-  e.effect = 1
-  e.health = 10;
   e.z_index = -1
   e.range = 60
   e.update = slowtrap.update
-  e.gethealth = slowtrap.gethealth
-  e.geteffect = slowtrap.geteffect
-  e.getmodifier = slowtrap.getmodifier
-  e.ishit = slowtrap.ishit
   e.draw = slowtrap.draw
   return e
-end
-
-function slowtrap:gethealth()
-  return self.health
-end
-
-function slowtrap:geteffect()
-  return self.slow_amount
-end
-
-function slowtrap:getmodifier()
-  return self.slow_amount
-end
-function slowtrap:ishit(pow)
-  self.health = self.health - pow;
 end
 
 return slowtrap
