@@ -318,7 +318,7 @@ map.autoLayer2[x][y - 1] = 26
 return 27
 end
 
-if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 or Bit == 70 then
+if Bit == 67 or Bit == 66 or Bit == 65 or Bit == 71 then
 map.autoLayer2[x][y - 1] = 34
 return 35
 end
@@ -337,7 +337,7 @@ if Bit == 4 then
 return 11
 end
 
-if Bit >= -4 and Bit <= 10 then
+if Bit >= -4 and Bit <= 10 or Bit == 70 then
 return 35
 end
 
