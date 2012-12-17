@@ -53,7 +53,7 @@ function player:draw()
     frame = math.floor((self.dt * 10) % #self.dir + 1)
   end
   local x,y = entity.getScreenLocation(self)
-  love.graphics.drawq( player.spritesheet, self.dir[frame], x, y, 0, 4, 4, 8, 24 )
+  love.graphics.drawq( player.spritesheet, self.dir[frame], x, y, 0, 4, 4, 9, 28 )
 end
 
 function player:update(dt)
@@ -70,7 +70,8 @@ function player:update(dt)
     end
     self.walking = true
     self.x = self.x - player.speed*dt
-  elseif love.keyboard.isDown("right","d") then
+  end
+  if love.keyboard.isDown("right","d") then
     self.dir_name = "right"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.right
@@ -79,7 +80,8 @@ function player:update(dt)
     end
     self.walking = true
     self.x = self.x + player.speed*dt
-  elseif love.keyboard.isDown("up","w") then
+  end
+  if love.keyboard.isDown("up","w") then
     self.dir_name = "up"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.up
@@ -88,7 +90,8 @@ function player:update(dt)
     end
     self.walking = true
     self.y = self.y - player.speed*dt
-  elseif love.keyboard.isDown("down","s") then
+  end
+  if love.keyboard.isDown("down","s") then
     self.dir_name = "down"
     if self.isCarryingPrincess then
       self.dir = player.carry_quads.down
