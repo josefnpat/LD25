@@ -6,7 +6,11 @@ function test:update(dt)
     self.last_path_check = 0
     local start = {entity.RawToMap(self)}  
     local stop = {entity.RawToMap(player_obj)}
+    --print("searching")
+    --local start_t = love.timer.getMicroTime( )
     self.path = pathfinder.find(Dungeon.map,start,stop)
+    --local end_t = love.timer.getMicroTime( )
+    --print("done searching"..(end_t - start_t))
   end
   if self.path and #self.path > 0 then
     local cx,cy = entity.MapToRaw(self.path[1].x,self.path[1].y)

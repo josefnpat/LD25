@@ -28,8 +28,19 @@ function CalcMoves(board, startX, startY, targetX, targetY)
    local ysize = table.getn(board)
    local curSquare = {}
    local curSquareIndex = 1     -- Index of current base
-
+  
+   --local timeout = love.timer.getMicroTime()
+   local timeout_count = 0
+   
    while listk > 0 do
+       
+       timeout_count = timeout_count + 1
+--       if timeout + 0.1 < love.timer.getMicroTime() then
+       if timeout_count > 100 then
+         print("pathfinding timeout - "..timeout_count)
+         return nil
+       end
+       
        local lowestF = openlist[listk].f
        curSquareIndex = listk
            for k = listk, 1, -1 do
