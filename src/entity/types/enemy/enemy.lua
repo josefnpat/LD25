@@ -49,8 +49,8 @@ pathfind = require "entity/pathfind" -- 1/3
 
 enemy.speedvals = {}
 enemy.speedvals.slow = 0.5
-enemy.speedvals.medium = 2
-enemy.speedvals.fast = 4
+enemy.speedvals.medium = 1
+enemy.speedvals.fast = 2
 
 function enemy:update(dt)
   self:path_update(dt,prin) -- 2/3

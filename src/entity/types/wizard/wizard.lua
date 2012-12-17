@@ -35,8 +35,8 @@ end
 pathfind = require "entity/pathfind" -- 1/3
 
 wizard.speedvals = {}
-wizard.speedvals.slow = 2
-wizard.speedvals.medium = 4
+wizard.speedvals.slow = 1
+wizard.speedvals.medium = 2
 
 function wizard:update(dt)
   self:path_update(dt,prin) -- 2/3
