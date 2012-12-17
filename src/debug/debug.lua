@@ -4,6 +4,13 @@ chartlib = require('debug/chartlib')
 chart_fps = chartlib.new(200)
 
 function debug.draw()
+  local px,py = entity.getScreenLocation(player_obj)
+  for i,v in ipairs(entity.data) do
+    local ex,ey = entity.getScreenLocation(v)
+    love.graphics.line(px,py,ex,ey)
+    local dist = entity.distance(player_obj,v)
+    love.graphics.print(dist,(px+ex)/2,(py+ey)/2)
+  end
   love.graphics.setColor(255,0,255,255)
   love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight()/2)
   love.graphics.setColor(255,255,255)
