@@ -120,6 +120,11 @@ end
 function player:keyreleased(key)
   if key == "1" then
     local temp = entity.new("slowtrap")
+    temp.x = math.round((player_obj.x-4)/16)*16
+    temp.y = math.round((player_obj.y-8)/16)*16
+    table.insert(self.traps,temp)
+  elseif key == "2" then
+    local temp = entity.new("spiketrap")
     temp.x = camera.x-4*4
     temp.y = camera.y-10*4
     table.insert(self.traps,temp)
@@ -131,11 +136,6 @@ function player:keyreleased(key)
       self.dir = player.walk_quads[self.dir_name]
     end
     prin.captive = not prin.captive
-  elseif key == "2" then
-    local temp = entity.new("spiketrap")
-    temp.x = camera.x-4*4
-    temp.y = camera.y-10*4
-    table.insert(self.traps,temp)
   end
 end
 
@@ -148,7 +148,7 @@ function player.new()
   e.isCarryingPrincess = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x,e.y = entity.getMapLocation(map.mapHeight/2+0.5,map.mapHeight/2+2.5)
+  e.x,e.y = entity.getMapLocation(map.mapHeight/2+0.5,map.mapHeight/2+0.5)
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update
