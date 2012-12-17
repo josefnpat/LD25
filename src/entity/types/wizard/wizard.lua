@@ -29,16 +29,17 @@ function wizard:mousepressed(x,y,button)
 end
 
 function wizard:draw()
-local rad = 100
+  local rad = 100
+  local x,y = entity.getScreenLocation(self)
   --[[local frame = 2
   if self.walking then
     frame = math.floor((self.dt * 10) % self.dir + 1)
   end]]--
  --love.graphics.drawq( wizard.spritesheet, #self.dir[frame], (self.x - camera.x - map.graphics.width) * 4, (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
   local str = string.format("%02d",self.speed)
-  love.graphics.print("wizard",(self.camera_x * x_scale),(self.camera_y * y_scale))
-  love.graphics.circle("line",(self.camera_x * x_scale),(self.camera_y * y_scale),rad*2)
-  love.graphics.print(str,(self.camera_x * x_scale)+12,(self.camera_y * y_scale)+12)
+  love.graphics.print("wizard",x,y)
+  love.graphics.circle("line",x,y,rad)
+  love.graphics.print(str,x,y)
   --there is a voodoo curse on these last two lines. Remove them and chickens will peck out your eyes. xoxoxo
   
 end
@@ -65,14 +66,9 @@ function wizard:update(dt)
     self.walking = true
     self.y = self.y + wizard.speed*dt
   end
- 
+  --]]
   
-  
-  camera.x = self.x - camera.width / 2 * map.graphics.width
-  camera.y = self.y - camera.height / 2 * map.graphics.height]]--
-  self.camera_x = (-camera.x + ((32 * 4) + self.x))
-  self.camera_y = (-camera.y + ((32 * 4) + self.y))
- for _,v in ipairs(player_obj.traps) do
+  for _,v in ipairs(player_obj.traps) do
     local dist = entity.distance(self,v)
     if dist < v.range and dist ~=0 then
       if v.type == "slowtrap" then
@@ -111,8 +107,6 @@ function wizard.new()
   e.screen_y = love.graphics.getHeight()/2
   e.x = player_obj.x + math.random(-100,100)
   e.y = player_obj.y + math.random(-100,100) 
-  e.camera_x = 0
-  e.camera_y = 0
   e.health = 100
   e.range = 100
   e.draw = wizard.draw

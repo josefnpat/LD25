@@ -124,7 +124,7 @@ function enemy.new()
   e.walk.up = {x=16*3,y=32,framecount=3}
   e.walk_quads = {}
 
-for i,v in pairs(e.walk) do
+  for i,v in pairs(e.walk) do
     e.walk_quads[i] = {}
     for frame = 1,v.framecount+1 do
       if frame == 4 then
@@ -170,7 +170,5 @@ function enemy:applyeffect(effect,modifier)
   end
 
 end
-
-
 
 return enemy
