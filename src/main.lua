@@ -53,18 +53,6 @@ function game_init()
 		      playerportal_obj = portals[c]
 		    else
 		      portals[c].owner = "enemy"
-		      temp_flipper = not temp_flipper
-		      if temp_flipper then
-		        local temp_enemy = entity.new("enemy")
-		        temp_enemy.x = nx-16
-		        temp_enemy.y = ny-16
-		        table.insert(enemies,temp_enemy)
-		      else
-		        local temp_wizard = entity.new("wizard")
-		        temp_wizard.x = nx+16
-		        temp_wizard.y = ny+16
-		        table.insert(enemies,temp_wizard)
-		      end
 		    end
 		    portals[c].x = nx
 		    portals[c].y = ny
@@ -75,6 +63,9 @@ function game_init()
   prin = entity.new("princess")
   love.graphics.setCaption("Loading ........")
   drama.load()
+  director = {}
+  director.dt = 0
+  director.current_portal = 1
   love.graphics.setCaption("DunGen")
   
   --for i=1,10 do
@@ -98,6 +89,30 @@ function love.update (dt)
     drama.update(dt)
   elseif state == "game" then
     if not pause then
+    
+      director.dt = director.dt + dt
+      if director.dt > 1 then
+        director.dt = director.dt - 1
+        temp_flipper = not temp_flipper
+        
+		    director.current_portal = director.current_portal + 1
+		    if director.current_portal > #portals then
+		      director.current_portal = 1
+		    end
+		    local nx,ny = portals[director.current_portal].x,portals[director.current_portal].y
+        if temp_flipper then
+          local temp_enemy = entity.new("enemy")
+          temp_enemy.x = nx-16
+          temp_enemy.y = ny-16
+          table.insert(enemies,temp_enemy)
+        else
+          local temp_wizard = entity.new("wizard")
+          temp_wizard.x = nx+16
+          temp_wizard.y = ny+16
+          table.insert(enemies,temp_wizard)
+        end
+      end
+      
       for i,v in ipairs(enemies) do
         if v.health < 0  then
           if v.isCarryingPrincess then
