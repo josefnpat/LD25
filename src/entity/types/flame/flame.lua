@@ -27,6 +27,7 @@ end
 if entity.collision(self) then
     self.die = true
   end
+  
  for _,v in ipairs(enemies) do
     local dist = entity.distance(self,v)
     if dist < 8 and dist ~=0  then
@@ -38,7 +39,7 @@ end
 
 function flame:draw()
 local x,y = entity.getScreenLocation(self)
-love.graphics.drawq(map.graphics.sheet,map.quads[57],x,y,self.angle,4,4)
+love.graphics.drawq(map.graphics.sheet,map.quads[57],x,y - 32,self.angle,4,4,8,8)
 end
 
 function flame.new()
