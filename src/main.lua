@@ -20,9 +20,13 @@ function love.load (arg)
 end
 
 function game_init()
+  love.graphics.setCaption("Loading .")
   map.init()
+  love.graphics.setCaption("Loading ..")
   entity.load()
+  love.graphics.setCaption("Loading ...")
   player_obj = entity.new("player")
+  love.graphics.setCaption("Loading ....")
   enemies = {}  
   enemy1 = entity.new("enemy")
   enemy2 = entity.new("enemy")
@@ -32,10 +36,10 @@ function game_init()
   table.insert(enemies,enemy2)
   table.insert(enemies,enemy3)
   table.insert(enemies,wizard1)
-  
+  love.graphics.setCaption("Loading .....")
   counter.load()
   counter.set_time(120);
-  
+  love.graphics.setCaption("Loading ......")
   portals = {}
   for x = 1, map.mapWidth do
 	  for y = 1, map.mapHeight do
@@ -54,11 +58,10 @@ function game_init()
 		  end
     end
   end
-  
+  love.graphics.setCaption("Loading ......")
   prin = entity.new("princess")
-  
+  love.graphics.setCaption("Loading ......")
   drama.load()
-  
   love.graphics.setCaption("DunGen")
   
 end
