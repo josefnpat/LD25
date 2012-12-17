@@ -59,6 +59,8 @@ function game_init()
   
   drama.load()
   
+  love.graphics.setCaption("DunGen")
+  
 end
 
 -------------------------------------
