@@ -2,7 +2,7 @@ pathfind = {}
 
 function pathfind:path_update(dt,target)
   self.last_path_check = self.last_path_check + dt
-  if self.last_path_check > 0.2 then
+  if self.last_path_check > 1 then
     self.last_path_check = 0
     local start = {entity.RawToMap(self)}  
     local stop = {entity.RawToMap(target)}
