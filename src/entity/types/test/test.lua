@@ -17,14 +17,16 @@ function test:update(dt)
     local sx,sy = entity.getScreenLocation(self)
     local nx,ny = entity.getScreenLocation({x=cx,y=cy})
     local dx,dy = nx-sx+32,ny-sy+32
-    local previousX,previousY = self.x,self.y
+    
+    --local previousX,previousY = self.x,self.y
+    
     self.x = self.x + dx*dt
     self.y = self.y + dy*dt
     
-    if entity.collision(self) then
-      self.x = previousX
-      self.y = previousY
-    end
+    --if entity.collision(self) then
+    --  self.x = previousX
+    --  self.y = previousY
+    --end
   end
 end
 
@@ -32,6 +34,7 @@ function test:draw()
   local x,y = entity.getScreenLocation(self)
   love.graphics.circle("line",x,y,8,16*4)
   love.graphics.print("t",x,y)
+  --[[
   if self.path then
     for i,v in ipairs(self.path) do
       local x,y = entity.MapToRaw(v.x,v.y)
@@ -40,7 +43,7 @@ function test:draw()
       love.graphics.circle("line",rx+32,ry+32,4)
     end
   end
-
+  --]]
 end
 
 function test.new()
