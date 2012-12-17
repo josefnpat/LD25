@@ -11,6 +11,7 @@ win = require("win/win")
 lose = require("win/win")
 pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
+--require 'SLAM/slam'
 
 -------------------------------------
 -- love.load
@@ -29,7 +30,12 @@ function game_init()
   player_obj = entity.new("player")
   love.graphics.setCaption("Loading ....")
   enemies = {}  
-  
+	  if state == "menu" then
+	    love.audio.stop()
+        music = love.audio.newSource('SLAM/music/Gametheme.ogg', 'stream') -- creates a new SLAM source
+        music:setLooping(true)                              -- all instances will be looping
+        love.audio.play(music)                              -- play music
+      end
   --enemy1 = entity.new("enemy")
   --enemy2 = entity.new("enemy")
   --enemy3 = entity.new("enemy")
