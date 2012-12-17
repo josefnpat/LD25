@@ -12,7 +12,7 @@ function enemy:update(dt)
         self.hasted = true        
         wizard_is_near = true  
         --self:applyeffect(v:geteffect(),v:getmodifier()) 
-        if self.speed == 50 and self.slowed == false then  
+        if self.speed == 50 and self.slowed == false and wizard_is_near then  
           self.speed = 75
         elseif self.speed == 25 then
           self.speed = 50  
