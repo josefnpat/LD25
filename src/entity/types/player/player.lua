@@ -113,8 +113,8 @@ function player:update(dt)
   p_portal.x = ((playerportal_obj.x * map.graphics.width) - map.graphics.width) + 32
   p_portal.y= ((playerportal_obj.y * map.graphics.height) - map.graphics.height) + 10
   
-  if counter.count == 0 and entity.distance(self,p_portal) < 16  and self.isCarryingPrincess then
-    self.game_status = "won"
+  if counter.count == 0 and entity.distance(self,playerportal_obj) < 16  and self.isCarryingPrincess then
+    state = "win"
   else
     self.game_status = "current"
   end 
@@ -131,7 +131,7 @@ function player:keyreleased(key)
     temp.x = math.round((player_obj.x-4)/16)*16
     temp.y = math.round((player_obj.y-8)/16)*16
     table.insert(self.traps,temp)
-  elseif key == "p" and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
+  elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
     if self.isCarryingPrincess then
       self.dir = player.carry_quads[self.dir_name]
