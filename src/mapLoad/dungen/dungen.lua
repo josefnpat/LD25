@@ -76,16 +76,16 @@ function Dungen.gRoom(cursorX, cursorY)
   
   if orientation == 1 then
     goalX = math.floor(cursorX - width * 1.5)
-    goalY = math.floor(cursorY - height * 1.5)
+    goalY = cursorY
   elseif orientation == 2 then
-    goalX = math.floor(cursorX + width)
+    goalX = cursorX
     goalY = math.floor(cursorY - height * 1.5)
   elseif orientation == 3 then
-	goalX = math.floor(cursorX + width)
-    goalY = math.floor(cursorY - height * 1.5)
+	goalX = math.floor(cursorX + width * 0.5)
+    goalY = cursorY
   else
-    goalX = math.floor(cursorX + width)
-    goalY = math.floor(cursorY + height)
+    goalX = cursorX
+    goalY = math.floor(cursorY + height * 0.5)
   end
   
   
