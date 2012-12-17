@@ -65,6 +65,12 @@ function game_init()
 		      temp_enemy.x = nx-16
 		      temp_enemy.y = ny-16
 		      table.insert(enemies,temp_enemy)
+		      
+		      local temp_wizard = entity.new("wizard")
+		      temp_wizard.x = nx+16
+		      temp_wizard.y = ny+16
+		      table.insert(enemies,temp_wizard)
+		      
 		    end
 		    portals[c].x = nx
 		    portals[c].y = ny
