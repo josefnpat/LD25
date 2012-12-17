@@ -1,87 +1,67 @@
 local enemy = {}
 
+pathfind = require "entity/pathfind" -- 1/3
+
+enemy.speedvals = {}
+enemy.speedvals.slow = 0.5
+enemy.speedvals.medium = 2
+enemy.speedvals.fast = 4
 
 function enemy:update(dt)
-  local rad = 100
-  local wizard_is_near = false
-  local trap_is_near = false
+
+  self:path_update(dt,prin) -- 2/3
+
+  self.hasted = false
   for _,v in ipairs(enemies) do
     local dist = entity.distance(self,v)
     if dist < v.range and dist ~=0  then
       if v.type == "wizard" then
-        self.hasted = true        
-        wizard_is_near = true  
-        --self:applyeffect(v:geteffect(),v:getmodifier()) 
-        if self.speed == 50 and self.slowed == false and wizard_is_near then  
-          self.speed = 75
-        elseif self.speed == 25 then
-          self.speed = 50  
-        end
+        self.hasted = true
       end
     end
   end
 
+  self.slowed = false
   for _,v in ipairs(player_obj.traps) do
     local dist = entity.distance(self,v)
     if dist < v.range and dist ~=0 then
       if v.type == "slowtrap" then
-        self.slowed = true         
-        trap_is_near = true
-        --self:applyeffect(v:geteffect(),v:getmodifier())    
-        if self.speed == 50 and self.hasted == false then  
-          self.speed = 25
-        elseif self.speed == 75 then
-          self.speed = 50  
-        end
+        self.slowed = true     
       elseif v.type == "spiketrap" then
-        self:ishit(v:getmodifier())
+        self.health = self.health - 20*dt
       end
     end
   end
 
-  if not wizard_is_near and self.hasted == true then
-   -- self:applyeffect(1,-25)
-    if self.speed == 75 then  
-      self.speed = 50
-    elseif self.speed == 50 then
-      self.speed = 25  
-    end
+  if self.slowed and self.hasted then
+    self.speed = enemy.speedvals.medium
+  elseif self.slowed then
+    self.speed = enemy.speedvals.slow
+  elseif self.hasteed then
+    self.speed = enemy.speedvals.fast
+  else
+    self.speed = enemy.speedvals.medium
   end
-  if not trap_is_near and self.slowed == true then
-    --self:applyeffect(1,25)
-    if self.speed == 25 then  
-      self.speed = 50
-    elseif self.speed == 50 then
-      self.speed = 75  
-    end
-  end
+  
 end
 
 function enemy:draw()
-  local frame = 2
-  if self.walking then
-    frame = math.floor((self.dt * 10) % #self.dir + 1)
-  end
-  local rad = 100
-  if self.speed == 50  then
+
+  --debug
+  if self.speed == enemy.speedvals.medium   then
     love.graphics.setColor(250,0,0)
-  elseif self.speed == 25 then
+  elseif self.speed == enemy.speedvals.slow then
     love.graphics.setColor(0,191,255)
-  elseif self.speed == 75 then
+  elseif self.speed == enemy.speedvals.fast then
     love.graphics.setColor(255,105,180)
   else
     love.graphics.setColor(255,255,255)
   end
-  --leave these as well
- 
-  local str = string.format("%02d",self.speed)
+
   local hstr = string.format("%02d",self.health)
   local x,y = entity.getScreenLocation(self)
-  love.graphics.drawq(self.sprite.sheet,self.dir[frame], x,y,0,4,4,8,24)
-  love.graphics.circle("line",x,y,rad)
-  --leave this in I'm going to need it for testing love, Cirrus
-  love.graphics.print(str,x,y)
-  --also, leave this 
+  --love.graphics.drawq(self.sprite.sheet,self.dir[frame], x,y,0,4,4,8,24)
+  love.graphics.circle("line",x,y,self.range)
   love.graphics.print(hstr,x,y)
   love.graphics.setColor(255,255,255)
   
@@ -93,6 +73,7 @@ end
 
 function enemy.new()
   local e = {}
+  pathfind.init(e) -- 3/3
   e.type = "enemy"
   e.health = 100
   e.x = player_obj.x + math.random(-100,100)
@@ -103,16 +84,14 @@ function enemy.new()
   e.sprite.sheet:setFilter("nearest","nearest")
   e.sprite.width = 16
   e.sprite.height = 32
-  e.speed = 50
-  e.range = 999
+  e.speed = enemy.speedvals.medium 
+  e.range = 16
   e.weapon_power = 10
   e.slowed = false
   e.hasted = false
   e.update = enemy.update
   e.draw = enemy.draw
   e.slow = enemy.slow
-  e.applyeffect = enemy.applyeffect
-  e.gethealth = enemy.gethealth
   e.keypressed = enemy.keypressed
   e.ishit = enemy.ishit
   e.dt = 0
@@ -149,26 +128,6 @@ function enemy.new()
              e.sprite.sheet:getWidth(),
              e.sprite.sheet:getHeight())
   return e
-end
-
-function enemy:gethealth()
-  return self.health
-end
-
-function enemy:ishit(pow)
-  self.health = self.health - pow
-end
-function enemy:slow()
-  self.slowed = true
-end
- 
-function enemy:applyeffect(effect,modifier)
-  if effect == 1 then
-    self.speed = self.speed + modifier 
-  else
-    self.speed = self.speed
-  end
-
 end
 
 return enemy

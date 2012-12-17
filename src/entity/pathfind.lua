@@ -26,7 +26,7 @@ function pathfind:path_update(dt,target)
     self.y = self.y + dy*dt/3*self.speed
     local tx,ty = entity.RawToTile(self)
     for i,v in ipairs(entity.data) do
-      if v.type ~= Tiles.Solid then
+      if v.type == self.type then
         if self.x ~= v.x and self.y ~= v.y then
           local yx,yy = entity.RawToTile(v)
           if tx == yx and ty == yy then
