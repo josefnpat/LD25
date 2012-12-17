@@ -110,7 +110,7 @@ function love.draw ()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
-    map.draw(2,tileDebug)
+    map.draw(2,debug.tile and debug.show)
     counter.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
@@ -118,32 +118,20 @@ function love.draw ()
       love.graphics.setColor(255,255,255)
       love.graphics.printf("Paused\nPuse `q` to return to menu. Press `escape` to return to game.",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
     end
-    if player_obj.game_status == "won" then 
-      state = "win"
-    end
   elseif state == "win" then
      win.draw()
   elseif state == "lose" then
      lose.draw()
   end
-  if debug then
-    debuglib.draw()
-  end
+  debuglib.draw(debug)
 end
 
 pause = false
-debug = false
-tileDebug = false
 -------------------------------------
 -- love.keypressed
 -------------------------------------
 function love.keypressed (key,unicode)
-  if key == 'f1' then
-    debug = not debug
-  end
-  if key == 'f2' then
-    tileDebug = not tileDebug
-  end
+  debuglib.keypressed(key)
   if state == "lovesplash" then
     lovesplash.stop()
   elseif state == "menu" then
