@@ -38,7 +38,7 @@ function map.init()
 	while finished == false do
 	map.autoMap = map.autoTile()
 	finished = map.TestQuads()
-	print("error in auto mapping, trying again")
+	--print("error in auto mapping, trying again")
 	end
 	
 end
