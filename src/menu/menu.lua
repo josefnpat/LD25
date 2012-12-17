@@ -52,7 +52,7 @@ function menu:draw()
     love.graphics.draw(menu.bg,0,0,0,scale_x,scale_y)
     --love.graphics.setColor(0,0,0,127)
     --love.graphics.rectangle("fill",love.graphics.getWidth()*6/10,0,love.graphics.getWidth()*3/10,love.graphics.getHeight())
-    love.graphics.setColor(255,255,255,96+96*math.abs(math.sin(menu.title_fade)))
+    love.graphics.setColor(255,255,0,96+96*math.abs(math.sin(menu.title_fade)))
     
     love.graphics.draw(menu.title_glow,scale_x*32,scale_y*32,0,scale_x,scale_y)
     love.graphics.setColor(255,255,255)
