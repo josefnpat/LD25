@@ -39,7 +39,17 @@ wizard.speedvals.slow = 1
 wizard.speedvals.medium = 2
 
 function wizard:update(dt)
-  self:path_update(dt,prin) -- 2/3
+
+  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 32 then
+    player_obj.isCarryingPrincess = false
+    prin.captive = false
+  end
+  
+  if enemy_has_princess then
+    self:path_update(dt,player_obj) -- 2/3
+  else
+    self:path_update(dt,prin) -- 2/3
+  end
   
   self.dt = self.dt + dt
   
