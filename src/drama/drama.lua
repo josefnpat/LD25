@@ -59,7 +59,7 @@ table.insert(scene.lines,line)
 line = {}
 
 line.speaker = "left"
-line.text = "Now, I can walk with [arrow keys] or [W][A][S][D], better make my mind up; which controls to take?"
+line.text = "Now, I can walk with [arrow keys] or [W][A][S][D]. Excellent!"
 
 table.insert(scene.lines,line)
 
@@ -80,21 +80,14 @@ table.insert(scene.lines,line)
 line = {}
 
 line.speaker = "left"
-line.text = "Okay, so, all the controls should be covered now."
+line.text = "I better make sure the heroes don't bring the Princess to the red portal, otherwise they will warp back with her and everything will have been in vain!"
 
 table.insert(scene.lines,line)
 
 line = {}
 
 line.speaker = "left"
-line.text = "I better make sure the heroes don't bring the Princess to their portals, otherwise they will warp back with her and everything would have been for nothing!"
-
-table.insert(scene.lines,line)
-
-line = {}
-
-line.speaker = "left"
-line.text = "It takes a while until the portal to my next castle opens up, but I better carry this princess out of here, before the hero can rescue her."
+line.text = "It will take a little bit until the red portal to the next castle will opens up for me. When it does, I'll have to carry the princess out of here."
 
 table.insert(scene.lines,line)
 
@@ -109,7 +102,11 @@ function drama.draw()
 end
 
 function drama.keypressed(key,uni)
-  d.keypressed(key,uni)
+  if key == "escape" then
+    state = "game"
+  else
+    d.keypressed(key,uni)
+  end
 end
 
 function drama.mousepressed()
