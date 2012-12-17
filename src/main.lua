@@ -29,6 +29,8 @@ function game_init()
   love.graphics.setCaption("Loading ...")
   player_obj = entity.new("player")
   love.graphics.setCaption("Loading ....")
+  max_enemies = 25
+  num_enemies = 0
   enemies = {}  
   if state == "menu" and sound then
     love.audio.stop()
@@ -100,16 +102,18 @@ function love.update (dt)
 		      director.current_portal = 1
 		    end
 		    local nx,ny = portals[director.current_portal].x,portals[director.current_portal].y
-        if temp_flipper then
+        if temp_flipper and num_enemies < max_enemies then
           local temp_enemy = entity.new("enemy")
           temp_enemy.x = nx-16
           temp_enemy.y = ny-16
+          num_enemies = num_enemies + 1
           table.insert(enemies,temp_enemy)
-        else
+        elseif num_enemies < max_enemies then
           local temp_wizard = entity.new("wizard")
           temp_wizard.x = nx+16
           temp_wizard.y = ny+16
           table.insert(enemies,temp_wizard)
+          num_enemies = num_enemies + 1
         end
       end
       
@@ -127,6 +131,7 @@ function love.update (dt)
       for i,v in ipairs(entity.data) do
         if v.die == true then
           table.remove(entity.data,i)
+          num_enemies = num_enemies - 1
         end
       end
       entity.update(dt)
