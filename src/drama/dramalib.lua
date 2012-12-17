@@ -80,7 +80,7 @@ function libdrama.draw()
     if cur > max + 500 * libdrama.textspeed then
       love.graphics.setFont(libdrama.font_small)
       love.graphics.setColor(libdrama.non_speaker_color)
-      love.graphics.printf("[press any key to continue]",0,love.graphics.getHeight()-libdrama.vpad-line_height,800,"center")
+      love.graphics.printf("[press any key to continue]",0,love.graphics.getHeight()-libdrama.vpad-line_height,love.graphics.getWidth(),"center")
     end
   end
   
@@ -96,6 +96,10 @@ function libdrama.keypressed(key,uni)
   else
     libdrama.parseline()
   end
+end
+
+function libdrama.mousepressed()
+  libdrama.keypressed()
 end
 
 function libdrama.update(dt)

@@ -77,6 +77,10 @@ function drama.keypressed(key,uni)
   d.keypressed(key,uni)
 end
 
+function drama.mousepressed()
+  d.mousepressed()
+end
+
 function libdrama.done()
   state = "game"
 end

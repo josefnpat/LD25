@@ -176,6 +176,8 @@ function love.mousepressed (x,y,button)
     lovesplash.stop()
   elseif state == "menu" then
     lovemenuwrap.mousepressed(x,y,button)
+  elseif state == "drama" then
+    drama.mousepressed(x,y,button)  
   elseif state == "game" then
     entity.mousepressed(x,y,button)
   end
