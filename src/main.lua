@@ -30,7 +30,7 @@ function game_init()
   player_obj = entity.new("player")
   love.graphics.setCaption("Loading ....")
   enemies = {}  
-  if state == "menu" then
+  if state == "menu" and sound then
     love.audio.stop()
     music = love.audio.newSource('SLAM/music/Gametheme.ogg', 'stream') -- creates a new SLAM source
     music:setLooping(true)                              -- all instances will be looping

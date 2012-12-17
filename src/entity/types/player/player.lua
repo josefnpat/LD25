@@ -12,7 +12,7 @@ player.walk_quads = {}
 
 player.flames = {}
 player.coolDown = 0
-player.flameCost = 25
+player.flameCost = 10
 
 player.carry = {}
 player.carry.left = {x=0,y=32*2,framecount=3}

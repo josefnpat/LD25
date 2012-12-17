@@ -38,6 +38,7 @@ function flame.new()
   local e = {}
   e.type = "flame"
   e.img = map.graphics.sheet
+  e.img:setFilter('nearest','nearest')
   e.angle = 0
   e.quad = 57
   e.dt = 0
