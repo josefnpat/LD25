@@ -1,9 +1,11 @@
 local test = {}
 
-pathfind = require "entity/pathfind"
+-- To apply pathfinding to your own entities, insert the three commands commented.
+
+pathfind = require "entity/pathfind" -- 1/3
 
 function test:update(dt)
-  self:path_update(dt,prin)
+  self:path_update(dt,prin) -- 2/3
 end
 
 function test:draw()
@@ -31,8 +33,7 @@ function test.new()
   until not entity.collision(e)
   e.update = test.update
   e.draw = test.draw
-  e.last_path_check = math.random()
-  e.path_update = pathfind.path_update
+  pathfind.init(e) -- 3/3
   return e
 end
 

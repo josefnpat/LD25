@@ -37,4 +37,9 @@ function pathfind:path_update(dt,target)
   end
 end
 
+function pathfind.init(e)
+  e.last_path_check = math.random()
+  e.path_update = pathfind.path_update
+end
+
 return pathfind
