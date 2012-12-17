@@ -29,7 +29,7 @@ function test:update(dt)
     
     local tx,ty = entity.RawToTile(self)
     for i,v in ipairs(entity.data) do
-      if self.x ~= v.x and self.y ~= v.y then
+      if self.x ~= v.x and self.y ~= v.y and v.type ~= Tiles.Portal then
         local yx,yy = entity.RawToTile(v)
         if tx == yx and ty == yy then
           self.x = previousX
