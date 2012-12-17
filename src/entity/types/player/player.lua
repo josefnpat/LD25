@@ -150,7 +150,9 @@ function player:keyreleased(key)
   for i,v in ipairs(entity.data) do
     local x,y = entity.RawToTile(v)
     if x == px and y == py and player_obj ~= v then
-      at_empty_tile = false
+      if v.type == "portal" or v.type == "slowtrap" or v.type == "spiketrap" then
+        at_empty_tile = false
+      end
     end
   end
   
