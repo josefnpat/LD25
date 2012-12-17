@@ -9,6 +9,18 @@ function entity.new(t)
   return temp
 end
 
+function entity.getScreenLocation(entity)
+  local x = (entity.x - camera.x - map.graphics.width) * 4
+  local y = (entity.y - camera.y - map.graphics.height) * 4
+  return x,y
+end
+
+function entity.setScreenLocation(x,y)
+  local entity_x = x/4 + map.graphics.width + camera.x
+  local entity_y = y/4 + map.graphics.height + entity.y
+  return entity_x,entity_y
+end
+
 function entity.sort(t)
   table.sort(t,function(x,y)
       local x_index,y_index = 0,0

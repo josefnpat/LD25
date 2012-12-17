@@ -47,16 +47,13 @@ for i,v in pairs(player.carry) do
   end
 end
 
-function player:mousepressed(x,y,button)
-
-end
-
 function player:draw()
   local frame = 2
   if self.walking then
     frame = math.floor((self.dt * 10) % #self.dir + 1)
   end
-  love.graphics.drawq( player.spritesheet, self.dir[frame], (self.x - camera.x - map.graphics.width) * 4, (self.y - camera.y - map.graphics.height - 4) * 4, 0, 4, 4, 8, 24 )
+  local x,y = entity.getScreenLocation(self)
+  love.graphics.drawq( player.spritesheet, self.dir[frame], x, y, 0, 4, 4, 8, 24 )
 end
 
 function player:update(dt)
@@ -151,8 +148,8 @@ function player.new()
   e.isCarryingPrincess = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = ((map.mapWidth / 2) + 0.5) * 16 -- start x * tile width * scale
-  e.y = ((map.mapHeight / 2) + 0.5) * 16 -- start y * tile height * scale
+  e.x = ((map.mapWidth / 2) + 0.5) * 16
+  e.y = ((map.mapHeight / 2) + 0.5) * 16
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update
