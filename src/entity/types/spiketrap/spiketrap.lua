@@ -2,22 +2,12 @@ local spiketrap = {}
 spiketrap.sheet = map.graphics.sheet
 spiketrap.sheet:setFilter('nearest','nearest')
 
-
-
 function spiketrap:update(dt)
-    self.camera_x = (-camera.x + ((32 * 4) + self.x))
-    self.camera_y = (-camera.y + ((32 * 4) + self.y))
 end
 
 function spiketrap:draw()
-  local x_scale = 4
-  local y_scale = 4
-  --love.graphics.print("spiketrap",(self.camera_x * x_scale),(self.camera_y * y_scale))
-  love.graphics.drawq(
-    map.graphics.sheet,map.quads[32],
-    self.camera_x * x_scale,
-    self.camera_y * y_scale,
-    0,4,4)
+  local x,y = entity.getScreenLocation(self)
+  love.graphics.drawq(spiketrap.sheet,map.quads[32],x,y,0,4,4)
 end
 
 function spiketrap.new()

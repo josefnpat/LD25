@@ -125,8 +125,8 @@ function player:keyreleased(key)
     table.insert(self.traps,temp)
   elseif key == "2" then
     local temp = entity.new("spiketrap")
-    temp.x = camera.x-4*4
-    temp.y = camera.y-10*4
+    temp.x = math.round((player_obj.x-4)/16)*16
+    temp.y = math.round((player_obj.y-8)/16)*16
     table.insert(self.traps,temp)
   elseif key == "p" and (self.isCarryingPrincess or entity.distance(self, prin) < 16) then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
