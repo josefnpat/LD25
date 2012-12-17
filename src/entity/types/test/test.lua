@@ -8,31 +8,37 @@ function test:update(dt)
     local stop = {entity.RawToMap(player_obj)}
     self.path = pathfinder.find(Dungeon.map,start,stop)
   end
-
+  if self.path and #self.path > 0 then
+    local cx,cy = entity.MapToRaw(self.path[1].x,self.path[1].y)
+    if self.path[2] and entity.distance(self,{x=cx,y=cy}) < 32 then
+      local cx,cy = entity.MapToRaw(self.path[2].x,self.path[2].y)
+      table.remove(self.path,1)
+    end
+    local sx,sy = entity.getScreenLocation(self)
+    local nx,ny = entity.getScreenLocation({x=cx,y=cy})
+    local dx,dy = nx-sx+32,ny-sy+32
+    local previousX,previousY = self.x,self.y
+    self.x = self.x + dx*dt
+    self.y = self.y + dy*dt
+    
+    if entity.collision(self) then
+      self.x = previousX
+      self.y = previousY
+    end
+  end
 end
 
 function test:draw()
   local x,y = entity.getScreenLocation(self)
-  love.graphics.circle("line",x,y,16*4)
+  love.graphics.circle("line",x,y,8,16*4)
   love.graphics.print("t",x,y)
   if self.path then
     for i,v in ipairs(self.path) do
       local x,y = entity.MapToRaw(v.x,v.y)
       local e = {x=x,y=y}
       local rx,ry = entity.getScreenLocation(e)
-      love.graphics.circle("line",rx,ry,4)
+      love.graphics.circle("line",rx+32,ry+32,4)
     end
-  end
-
-  if self.path and #self.path > 0 then
-    local sx,sy = entity.getScreenLocation(self)
-    --for i,v in ipairs(path) do
-      local x,y = entity.MapToRaw(self.path[1].x,self.path[1].y)
-      local nx,ny = entity.getScreenLocation({x=x,y=y})
-      love.graphics.line(sx,sy,nx,ny)
-    --end
-
-    
   end
 
 end
