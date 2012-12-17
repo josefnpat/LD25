@@ -43,7 +43,7 @@ function debug.draw()
     end
   end
   chart_fps:draw("FPS",32,love.graphics.getHeight()/2+16*4,nil,100)
-  love.graphics.print("F2 - Tile Numers\nF3 - distance\nF4 - Tileset",32,love.graphics.getHeight()/2+16*16)
+  love.graphics.print("F2 - Tile Numers\nF3 - distance\nF4 - Tileset\nF5 - vsync",32,love.graphics.getHeight()/2+16*16)
 end
 
 function debug.update(dt)
@@ -54,7 +54,7 @@ debug.show = false
 debug.tile = false
 debug.dist = false
 debug.quake = false
-
+debug.vsync = false
 function debug.keypressed(key)
   if key == "f1" then
     debug.show = not debug.show
@@ -64,6 +64,10 @@ function debug.keypressed(key)
     debug.dist = not debug.dist
   elseif key == "f4" then
     debug.quake = not debug.quake
+  elseif key == "f5" then
+    debug.vsync = not debug.vsync
+    local width, height, fullscreen, vsync, fsaa = love.graphics.getMode( )
+    success = love.graphics.setMode( width, height, fullscreen, debug.vsync, fsaa )
   end
 end
 

@@ -1,27 +1,31 @@
 local test = {}
 
 function test:update(dt)
-  --local start = {entity.RawToTile(self)}
-  --start[1],start[2] = math.round(start[1]/16),math.round(start[2]/16)
-  local start = {entity.RawToMap(self)}
-  --print(start[1],start[2])
-  
-  --local stop = {entity.RawToTile(player_obj)}
-  --stop[1],stop[2] = math.round(stop[1]/16),math.round(stop[2]/16)
-  local stop = {entity.RawToMap(player_obj)}
-  --print(stop[1],stop[2])
-  
-  self.path = pathfinder.find(Dungeon.map,start,stop)
+  self.last_path_check = self.last_path_check + dt
+  if self.last_path_check > 1 then
+    self.last_path_check = 0
+    local start = {entity.RawToMap(self)}  
+    local stop = {entity.RawToMap(player_obj)}
+    self.path = pathfinder.find(Dungeon.map,start,stop)
+  end
+
 end
 
 function test:draw()
   local x,y = entity.getScreenLocation(self)
   love.graphics.circle("line",x,y,16*4)
   love.graphics.print("t",x,y)
-  for i,v in ipairs(self.path) do
-    --local x,y = entity.MapToRaw(v)
-    --love.graphics.circle("line",x,y,4)
+  if self.path then
+    for i,v in ipairs(self.path) do
+      local x,y = entity.MapToRaw(v.x,v.y)
+      local e = {x=x,y=y}
+      local rx,ry = entity.getScreenLocation(e)
+      love.graphics.circle("line",rx,ry,4)
+    end
   end
+
+
+
 end
 
 function test.new()
@@ -33,6 +37,7 @@ function test.new()
   until not entity.collision(e)
   e.update = test.update
   e.draw = test.draw
+  e.last_path_check = math.random()
   return e
 end
 
