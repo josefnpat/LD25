@@ -46,7 +46,7 @@ function portal.new()
   p.dt = 0
   p.x = 0
   p.y = 0
-  p.z_index = -1
+  p.z_index = -2
   p.update = portal.update
   p.draw = portal.draw
   return p
