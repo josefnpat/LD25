@@ -423,7 +423,7 @@ function map.draw(layer,writeDebug)
   map.gameCanvas[1]:clear(31,24,24)
   map.gameCanvas[2]:clear()
   
-  --minimap.draw()
+  minimap.draw()
   
 end
 
