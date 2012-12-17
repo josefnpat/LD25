@@ -82,7 +82,13 @@ function wizard:draw()
   end
   local x,y = entity.getScreenLocation(self)
   love.graphics.drawq( wizard.spritesheet, self.dir[frame], x, y, 0, 4, 4, 9, 28 )
-  love.graphics.print(self.health,x,y)
+  
+  love.graphics.setColor(0,0,0)
+  love.graphics.rectangle("fill",x-32,y+16,64,4)
+  love.graphics.setColor(255,0,0)
+  love.graphics.rectangle("fill",x-32,y+16,64*self.health/100,4)
+  love.graphics.setColor(255,255,255)
+  
 end
 
 function wizard.new()
