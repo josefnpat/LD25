@@ -2,9 +2,9 @@ menu = {}
 
 love.graphics.getFont()
 
-menu.font_title = love.graphics.newFont("menu/assets/TriodPostnaja.ttf",64)
-menu.font_desc = love.graphics.newFont("counter/assets/spathaserif.ttf",22)
-menu.font_menu = love.graphics.newFont("counter/assets/spathaserif.ttf",26)
+menu.font_title = love.graphics.newFont("menu/assets/Hippauf.ttf",40)
+menu.font_desc = love.graphics.newFont("menu/assets/Hippauf.ttf",18)
+menu.font_menu = love.graphics.newFont("menu/assets/pixel_pirate.ttf",15)
 menu.icon = love.graphics.newImage("menu/assets/icon.png")
 menu.icon:setFilter("nearest","nearest")
 menu.bg = love.graphics.newImage("menu/assets/bg.png")
