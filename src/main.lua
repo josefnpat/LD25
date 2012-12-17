@@ -125,6 +125,7 @@ end
 
 pause = false
 debug = false
+tileDebug = false
 -------------------------------------
 -- love.keypressed
 -------------------------------------
