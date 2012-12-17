@@ -59,7 +59,42 @@ table.insert(scene.lines,line)
 line = {}
 
 line.speaker = "left"
-line.text = "It takes a while until the portal opens up, but I better carry this princess out of here, before the hero can rescue her."
+line.text = "Now, I can walk with [arrow keys] or [W][A][S][D], better make my mind up; which controls to take?"
+
+table.insert(scene.lines,line)
+
+line = {}
+
+line.speaker = "left"
+line.text = "There might be situations in which I need to pick up the Princess! I could do that with [space]."
+
+table.insert(scene.lines,line)
+
+line = {}
+
+line.speaker = "left"
+line.text = "Last but not least: The action keys (like placing traps) are [1],[2] and [3]. I have got to keep that in mind."
+
+table.insert(scene.lines,line)
+
+line = {}
+
+line.speaker = "left"
+line.text = "Okay, so, all the controls should be covered now."
+
+table.insert(scene.lines,line)
+
+line = {}
+
+line.speaker = "left"
+line.text = "I better make sure the heroes don't bring the Princess to their portals, otherwise they will warp back with her and everything would have been for nothing!"
+
+table.insert(scene.lines,line)
+
+line = {}
+
+line.speaker = "left"
+line.text = "It takes a while until the portal to my next castle opens up, but I better carry this princess out of here, before the hero can rescue her."
 
 table.insert(scene.lines,line)
 
