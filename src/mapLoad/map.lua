@@ -333,6 +333,10 @@ if Bit >= 166 and Bit <= 174 then
 return 44
 end
 
+if Bit == 4 then
+return 11
+end
+
 if Bit >= -4 and Bit <= 10 then
 return 35
 end
