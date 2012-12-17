@@ -4,9 +4,9 @@ minimap = require("mapLoad/minimap/minimap")
 local map = {}
 
 function map.init()
-	map.mapWidth = 128
-	map.mapHeight = 128
-	map.rooms = 32
+	map.mapWidth = 48
+	map.mapHeight = 48
+	map.rooms = 16
 	font = love.graphics.newFont(7)
   Dungeon.init(map.mapWidth,map.mapHeight)
   Dungeon.generate(map.rooms)

@@ -27,7 +27,7 @@ function test:draw()
   if self.path and #self.path > 0 then
     local sx,sy = entity.getScreenLocation(self)
     --for i,v in ipairs(path) do
-      local x,y = entity.MapToRaw(path[1].x,path[1].y)
+      local x,y = entity.MapToRaw(self.path[1].x,self.path[1].y)
       local nx,ny = entity.getScreenLocation({x=x,y=y})
       love.graphics.line(sx,sy,nx,ny)
     --end

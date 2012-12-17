@@ -55,8 +55,8 @@ end
 Dungen.debug_doors = {}
 
 function Dungen.gRoom(cursorX, cursorY)
-  local width = math.random(8,16)
-  local height = math.random(8,16)
+  local width = math.random(6,8)
+  local height = math.random(6,8)
   
   local orientation = math.random(2)
   
