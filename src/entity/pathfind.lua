@@ -22,8 +22,8 @@ function pathfind:path_update(dt,target)
     local nx,ny = entity.getScreenLocation({x=cx,y=cy})
     local dx,dy = nx-sx+32,ny-sy+32
     local previousX,previousY = self.x,self.y
-    self.x = self.x + dx*dt/2
-    self.y = self.y + dy*dt/2
+    self.x = self.x + dx*dt/3*self.speed
+    self.y = self.y + dy*dt/3*self.speed
     local tx,ty = entity.RawToTile(self)
     for i,v in ipairs(entity.data) do
       if self.x ~= v.x and self.y ~= v.y and v.type ~= Tiles.Portal then
@@ -40,6 +40,7 @@ end
 function pathfind.init(e)
   e.last_path_check = math.random()
   e.path_update = pathfind.path_update
+  e.speed = 1
 end
 
 return pathfind
