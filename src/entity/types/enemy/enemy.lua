@@ -77,15 +77,7 @@ function enemy:draw()
   local str = string.format("%02d",self.speed)
   local hstr = string.format("%02d",self.health)
   local x,y = entity.getScreenLocation(self)
-  love.graphics.drawq(self.sprite.sheet,
-        self.dir[frame], 
-        x,
-        y,
-        0,
-        self.x_scale,
-        self.y_scale,
-        8,
-        24)
+  love.graphics.drawq(self.sprite.sheet,self.dir[frame], x,y,0,4,4,8,24)
   love.graphics.circle("line",x,y,rad)
   --leave this in I'm going to need it for testing love, Cirrus
   love.graphics.print(str,x,y)
@@ -112,8 +104,6 @@ function enemy.new()
   e.sprite.width = 16
   e.sprite.height = 32
   e.speed = 50
-  e.x_scale = 4
-  e.y_scale = 4
   e.range = 999
   e.weapon_power = 10
   e.slowed = false

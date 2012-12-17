@@ -148,8 +148,7 @@ function player.new()
   e.isCarryingPrincess = false
   e.screen_x = love.graphics.getWidth()/2
   e.screen_y = love.graphics.getHeight()/2
-  e.x = ((map.mapWidth / 2) + 0.5) * 16
-  e.y = ((map.mapHeight / 2) + 0.5) * 16
+  e.x,e.y = entity.getMapLocation(map.mapHeight/2+0.5,map.mapHeight/2+2.5)
   e.draw = player.draw
   e.mousepressed = player.mousepressed
   e.update = player.update

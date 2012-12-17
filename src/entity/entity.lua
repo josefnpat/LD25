@@ -21,6 +21,10 @@ function entity.setScreenLocation(x,y)
   return entity_x,entity_y
 end
 
+function entity.getMapLocation(x,y)
+  return x * 16, y * 16
+end
+
 function entity.sort(t)
   table.sort(t,function(x,y)
       local x_index,y_index = 0,0

@@ -47,8 +47,9 @@ function game_init()
 		    else
 		      portals[c].owner = "enemy"
 		    end
-		    portals[c].x = x
-		    portals[c].y = y
+		    local nx,ny = entity.getMapLocation(x,y)
+		    portals[c].x = nx
+		    portals[c].y = ny
 		  end
     end
   end

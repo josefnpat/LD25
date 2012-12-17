@@ -12,31 +12,15 @@ portal.portal_quads[3] =  love.graphics.newQuad(96,64,32,32,map.graphics.sheet:g
 portal.portal_quads[4] =  love.graphics.newQuad(0,80,16,32,map.graphics.sheet:getWidth(),map.graphics.sheet:getHeight())
 
 function portal:draw()
-  local x_scale = 4
-  local y_scale = 4
-
+  local x,y = entity.getScreenLocation(self)
   if self.owner == "enemy" then
-    love.graphics.drawq(
-      portal.sheet,
-      portal.portal_quads[4],
-      ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
-      ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
-      0,
-      x_scale,
-      y_scale)
+    love.graphics.drawq(portal.sheet,portal.portal_quads[4],x,y,0,4,4)
   end
   if self.owner == "player" then
     if counter.get_time() ~= 0 then
       love.graphics.setColor(0,255,255)
     end
-    love.graphics.drawq(
-      portal.sheet,
-      portal.portal_quads[portal.frame],
-      ((self.x * map.graphics.width) - camera.x) * 4 - map.graphics.width * 4,
-      ((self.y * map.graphics.height) - camera.y) * 4 - map.graphics.height * 8,
-      0,
-      x_scale,
-      y_scale)
+    love.graphics.drawq(portal.sheet,portal.portal_quads[portal.frame],x,y,0,4,4)
     love.graphics.setColor(255,255,255)
   end
 end
