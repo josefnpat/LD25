@@ -92,7 +92,7 @@ function menu:callback(cb)
     menu:setstate(6)
     local scores = loadScore()
     menu_view[6].desc = ""
-    for i = 1, math.min(#scores, 10) do
+    for i = 1, math.min(#scores, 5) do
 		if scores[i].gamemode == "survival" then
 		  menu_view[6].desc = menu_view[6].desc .. "#" .. i .. " " .. scores[i].name .. " - " .. timeToString(scores[i].score) .. "\n\r \n\r"
 		end
