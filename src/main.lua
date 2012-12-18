@@ -2,6 +2,7 @@ require("git")
 lovesplash = require("lovesplash/lovesplash")
 require("menu/lovemenuwrap")
 map = require("mapLoad/map")
+input = require("menu/input")
 bresenham = require("mapLoad/dungen/bresenham")
 debuglib = require("debug/debug")
 entity = require("entity/entity")
@@ -13,6 +14,7 @@ pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
 gui = require("gui/gui")
 gamemode = ""
+playerscore = 0
 --require 'SLAM/slam'
 
 -------------------------------------
@@ -194,6 +196,8 @@ function love.draw ()
     lovemenuwrap.draw()
   elseif state == "drama" then
     drama.draw()
+  elseif state == "input" then
+    input.draw()
   elseif state == "game" then
     map.draw(1)
     entity.draw()
@@ -226,6 +230,21 @@ function love.keypressed (key,unicode)
     lovemenuwrap.keypressed(key,unicode)
   elseif state == "drama" then
     drama.keypressed (key,unicode)
+  elseif state == "input" then
+    if unicode > 31 and unicode < 127 then
+        input.give(string.char(unicode)) 
+    end
+    if key == "return" then
+       local succes, name = input.submit()
+       if succes then
+       addScore(name, playerscore, "Survival")
+       playerscore = 0
+       state = "menu"
+       end
+    end
+    if key == "backspace" then
+       input.backspace()
+    end
   elseif state == "game" then
     if pause then
       if key == "escape" then

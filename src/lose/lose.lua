@@ -11,9 +11,6 @@ end
 
 function lose.update(dt)
     if win.dt == 0 then
-		if gamemode == "survival" then
-		  addScore("Player_1", counter.count, "Survival")
-		end
       love.audio.stop()
       lose.sfx:play()
     end
@@ -22,7 +19,9 @@ end
 
 function lose.keypressed(key)
   if win.dt > 2 then
-    state = "menu"
+    playerscore = counter.count
+    input.init("Great! You've survived for " .. timeToString(playerscore) .. "\n\rPlease enter name!")
+    state = "input"
   end
 end
 
