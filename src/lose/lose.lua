@@ -1,8 +1,11 @@
 lose = {}
 
+lose.img = love.graphics.newImage("lose/YOULOSE.png")
+lose.img:setFilter("nearest","nearest")
+
 function lose.draw()
   love.graphics.setColor(255,255,255)
-  love.graphics.printf("YOU LOST THE GAME!!",0,love.graphics.getHeight()/2,love.graphics.getWidth(),"center")
+  love.graphics.draw(lose.img,0,0,0,4,4)
 end
 
 function lose.update(dt)
