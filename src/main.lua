@@ -41,7 +41,7 @@ function game_init()
   end
   love.graphics.setCaption("Loading .....")
   counter.load()
-  counter.set_time(120);
+  counter.set_time(180);
   love.graphics.setCaption("Loading ......")
   enemy_has_princess = false
   portals = {}
@@ -67,7 +67,7 @@ function game_init()
   love.graphics.setCaption("Loading ........")
   drama.load()
   director = {}
-  director.dt = 0
+  director.dt = -10
   director.current_portal = 1
   love.graphics.setCaption("DunGen")
   
