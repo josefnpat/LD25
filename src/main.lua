@@ -41,7 +41,7 @@ function game_init()
   end
   love.graphics.setCaption("Loading .....")
   counter.load()
-  counter.set_time(120);
+  counter.set_time(180);
   love.graphics.setCaption("Loading ......")
   enemy_has_princess = false
   portals = {}
