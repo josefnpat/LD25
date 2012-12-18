@@ -3,6 +3,11 @@ local player = {}
 player.spritesheet = love.graphics.newImage("entity/types/player/player.png")
 player.spritesheet:setFilter("nearest","nearest")
 
+player.sfx_fire = love.audio.newSource("entity/types/player/sfx/fire.wav")
+
+player.sfx_hurt = love.audio.newSource("entity/types/player/sfx/hurt.wav")
+player.sfx_trap = love.audio.newSource("entity/types/player/sfx/place_trap.wav")
+
 player.walk = {}
 player.walk.left = {x=0,y=0,framecount=3}
 player.walk.right = {x=16*3,y=0,framecount=3}
@@ -13,8 +18,8 @@ player.walk_quads = {}
 
 player.flames = {}
 
-player.flames_cooldown = 1
-player.flames_cooldown_init = 1
+player.flames_cooldown = 0.2
+player.flames_cooldown_init = 0.2
 player.spiketraps_cooldown = 2
 player.spiketraps_cooldown_init = 2
 player.slowtraps_cooldown = 3
@@ -160,6 +165,8 @@ end
 
 function player:shoot(dir,x,y)
   if player.coolDown < 0 then
+    player.sfx_fire:stop()
+    player.sfx_fire:play()
     local c = #player.flames + 1
     player.flames[c] = entity.new("flame")
     player.flames[c].dir = dir
@@ -186,6 +193,8 @@ function player:keyreleased(key)
     if player.slowtraps_cooldown == 0 then
       player.slowtraps_cooldown = player.slowtraps_cooldown_init
       if at_empty_tile then
+        player.sfx_trap:stop()
+        player.sfx_trap:play()
         local temp = entity.new("slowtrap")
         temp.x,temp.y = px,py
         table.insert(self.traps,temp)
@@ -195,6 +204,8 @@ function player:keyreleased(key)
     if player.spiketraps_cooldown == 0 then
       player.spiketraps_cooldown = player.spiketraps_cooldown_init
       if at_empty_tile then
+        player.sfx_trap:stop()
+        player.sfx_trap:play()
         local temp = entity.new("spiketrap")
         temp.x,temp.y = px,py
         table.insert(self.traps,temp)

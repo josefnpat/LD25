@@ -1,6 +1,6 @@
 local flame = {}
 flame.speed = 250
-
+flame.sfx_fire_hit = love.audio.newSource("entity/types/player/sfx/fire_hit.wav")
 
 function flame:update(dt)
   if self.health < 0 then
@@ -33,6 +33,8 @@ if entity.collision(self) then
     if dist < 8 and dist ~=0  then
       v.health = v.health - self.weaponpower
       self.die = true
+      flame.sfx_fire_hit:stop()
+      flame.sfx_fire_hit:play()
     end
   end
 end
