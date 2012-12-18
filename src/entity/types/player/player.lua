@@ -190,9 +190,9 @@ function player:keyreleased(key)
   end
   
   if key == "1" then
-    if player.slowtraps_cooldown == 0 then
-      player.slowtraps_cooldown = player.slowtraps_cooldown_init
-      if at_empty_tile then
+    if at_empty_tile then
+      if player.slowtraps_cooldown == 0 then
+        player.slowtraps_cooldown = player.slowtraps_cooldown_init
         player.sfx_trap:stop()
         player.sfx_trap:play()
         local temp = entity.new("slowtrap")
@@ -201,9 +201,9 @@ function player:keyreleased(key)
       end
     end
   elseif key == "2" then
-    if player.spiketraps_cooldown == 0 then
-      player.spiketraps_cooldown = player.spiketraps_cooldown_init
-      if at_empty_tile then
+    if at_empty_tile then
+      if player.spiketraps_cooldown == 0 then
+        player.spiketraps_cooldown = player.spiketraps_cooldown_init
         player.sfx_trap:stop()
         player.sfx_trap:play()
         local temp = entity.new("spiketrap")
