@@ -22,7 +22,7 @@ Featuring:
 ==========
 
 * Lovely sprites made in GIMP
-* Animated traps and fireballs
+* Traps and fireballs
 * Heroes and Wizards
 * Dynamic Map generation
 * Orthogonal Graphics straight from 1994
