@@ -12,6 +12,7 @@ lose = require("lose/lose")
 pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
 gui = require("gui/gui")
+gamemode = ""
 --require 'SLAM/slam'
 
 -------------------------------------
@@ -22,8 +23,8 @@ function love.load (arg)
   game_init()  
 end
 
-function game_init(gamemode)
-  gamemode = gamemode
+function game_init(mode)
+  gamemode = mode
   love.graphics.setCaption("Loading .")
   map.init()
   love.graphics.setCaption("Loading ..")
