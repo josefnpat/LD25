@@ -22,7 +22,8 @@ function love.load (arg)
   game_init()  
 end
 
-function game_init()
+function game_init(gamemode)
+  gamemode = gamemode
   love.graphics.setCaption("Loading .")
   map.init()
   love.graphics.setCaption("Loading ..")
@@ -56,9 +57,13 @@ function game_init()
 		    local c = #portals + 1
 		    portals[c] = entity.new("portal")
 		    local nx,ny = entity.MapToRaw(x,y)
-		    if c == 3 and gamemode == "story" then
+		    if c == 3 then
+			  if gamemode == "story" then
 		      portals[c].owner = "player"
 		      playerportal_obj = portals[c]
+		      else
+		      portals[c].owner = "enemy"
+		      end
 		    else
 		      portals[c].owner = "enemy"
 		    end
