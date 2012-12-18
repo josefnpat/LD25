@@ -1,5 +1,6 @@
 lose = {}
 
+lose.sfx = love.audio.newSource("lose/lose.wav")
 lose.img = love.graphics.newImage("lose/YOULOSE.png")
 lose.img:setFilter("nearest","nearest")
 
@@ -9,6 +10,10 @@ function lose.draw()
 end
 
 function lose.update(dt)
+    if win.dt == 0 then
+      love.audio.stop()
+      lose.sfx:play()
+    end
   win.dt = win.dt + dt
 end
 

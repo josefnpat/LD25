@@ -2,6 +2,7 @@ win = {}
 
 win.dt = 0
 
+win.sfx = love.audio.newSource("win/win.wav")
 win.img = love.graphics.newImage("win/YOUWIN.png")
 win.img:setFilter("nearest","nearest")
 
@@ -11,6 +12,10 @@ function win.draw()
 end
 
 function win.update(dt)
+    if win.dt == 0 then
+      love.audio.stop()
+      win.sfx:play()
+    end
   win.dt = win.dt + dt
 end
 

@@ -36,12 +36,17 @@ function game_init()
   if state == "menu" and sound then
     love.audio.stop()
     music = love.audio.newSource('SLAM/music/Gametheme.ogg', 'stream') -- creates a new SLAM source
+    music:setVolume(.5)
     music:setLooping(true)                              -- all instances will be looping
     love.audio.play(music)                              -- play music
   end
   love.graphics.setCaption("Loading .....")
   counter.load()
+  if gamemode == "story" then
   counter.set_time(180);
+  else
+  counter.set_time(1);
+  end
   love.graphics.setCaption("Loading ......")
   enemy_has_princess = false
   portals = {}
@@ -51,7 +56,7 @@ function game_init()
 		    local c = #portals + 1
 		    portals[c] = entity.new("portal")
 		    local nx,ny = entity.MapToRaw(x,y)
-		    if c == 3 then
+		    if c == 3 and gamemode == "story" then
 		      portals[c].owner = "player"
 		      playerportal_obj = portals[c]
 		    else

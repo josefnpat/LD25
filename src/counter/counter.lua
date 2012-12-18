@@ -42,10 +42,14 @@ function counter.draw()
   second = counter.count - (minute * 60)
   strsec = string.format("%02d",second)
   love.graphics.draw(counter.img,love.graphics.getWidth()/2,0,0,4,4,32,0)
-  if counter.count == 0 then
-    love.graphics.printf("Portal Is Open!\nEscape!",0,12,love.graphics.getWidth(),"center")
+  if gamemode == "story" then
+    if counter.count == 0 then
+      love.graphics.printf("Portal Is Open!\nEscape!",0,12,love.graphics.getWidth(),"center")
+    else
+      love.graphics.printf("Portal Opens In:\n"..strmin..":"..strsec,0,12,love.graphics.getWidth(),"center")
+    end
   else
-    love.graphics.printf("Portal Opens In:\n"..strmin..":"..strsec,0,12,love.graphics.getWidth(),"center")
+	love.graphics.printf("You've survived for:\n"..strmin..":"..strsec,0,12,love.graphics.getWidth(),"center")
   end
   love.graphics.setColor(255,255,255)
 end
@@ -53,7 +57,11 @@ end
 function counter.update(dt)
   if counter.load_time > 1 then
     counter.load_time = 0
-    counter.count = counter.count - 1
+      if gamemode == "story" then
+       counter.count = counter.count - 1
+      else
+      counter.count = counter.count + 1
+      end
   elseif counter.count < 1 then
     counter.count = 0
   else

@@ -17,6 +17,7 @@ function lovemenuwrap.load()
     title="",
     desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off.\n If you can."..git,
     {t="New Game",cb="ng"},
+    {t="Survival",cb="su"},
     {t="Options",cb="op"},
     {t="Credits",cb="cr"},
     {t="Exit",cb="exit"}
@@ -65,7 +66,12 @@ sound = true
 function menu:callback(cb)
   if cb == "ng" then
     game_init()
+    gamemode = "story"
     state = "drama"
+  elseif cb == "su" then
+    game_init()
+    gamemode = "survival"
+    state = "game"
   elseif cb == "op" then
     menu:setstate(2)
   elseif cb == "cr" then
