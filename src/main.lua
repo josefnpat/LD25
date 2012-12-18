@@ -109,18 +109,20 @@ function love.update (dt)
 		      end
 		    end
         local nx,ny = portals[director.current_portal].x,portals[director.current_portal].y
-        if temp_flipper and num_enemies < max_enemies then
-          local temp_enemy = entity.new("enemy")
-          temp_enemy.x = nx-16
-          temp_enemy.y = ny-16
+        if num_enemies <= max_enemies then
           num_enemies = num_enemies + 1
-          table.insert(enemies,temp_enemy)
-        elseif num_enemies < max_enemies then
-          local temp_wizard = entity.new("wizard")
-          temp_wizard.x = nx+16
-          temp_wizard.y = ny+16
-          table.insert(enemies,temp_wizard)
-          num_enemies = num_enemies + 1
+          if temp_flipper then
+            local temp_enemy = entity.new("enemy")
+            temp_enemy.x = nx-16
+            temp_enemy.y = ny-16
+            num_enemies = num_enemies + 1
+            table.insert(enemies,temp_enemy)
+          else
+            local temp_wizard = entity.new("wizard")
+            temp_wizard.x = nx+16
+            temp_wizard.y = ny+16
+            table.insert(enemies,temp_wizard)
+          end
         end
       end
       
@@ -133,6 +135,7 @@ function love.update (dt)
             prin.y = v.y
           end
           table.remove(enemies,i)
+          num_enemies = num_enemies - 1
         end
       end
       for i,v in ipairs(entity.data) do
