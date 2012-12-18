@@ -38,8 +38,8 @@ if entity.collision(self) then
 end
 
 function flame:draw()
-local x,y = entity.getScreenLocation(self)
-love.graphics.drawq(map.graphics.sheet,map.quads[57],x,y - 32,self.angle,4,4,8,8)
+  local x,y = entity.getScreenLocation(self)
+  love.graphics.drawq(map.graphics.sheet,map.quads[57],x,y - 32,self.angle,4,4,8,8)
 end
 
 function flame.new()
