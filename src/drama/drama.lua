@@ -80,7 +80,7 @@ table.insert(scene.lines,line)
 line = {}
 
 line.speaker = "left"
-line.text = "I better make sure the heroes don't bring the Princess to the red portal, otherwise they will warp back with her and everything will have been in vain!"
+line.text = "I better make sure the heroes don't bring the Princess to the green portals, otherwise they will warp back with her and everything will have been in vain!"
 
 table.insert(scene.lines,line)
 
