@@ -11,10 +11,12 @@ input.line = ""
 end
 
 function input.give(char)
-input.line = input.line .. char
+  if string.len(input.line) < 30 then
+    input.line = input.line .. char
+  end
 end
 
-function input.remove()
+function input.backspace()
 input.line = string.sub(input.line, 1, -2)
 end
 
@@ -34,8 +36,10 @@ function input.draw()
 love.graphics.draw(input.bg,0,0,0,love.graphics.getWidth() / win.img:getWidth(),love.graphics.getHeight() / win.img:getHeight())
 love.graphics.setColor(0,0,0,150)
 love.graphics.rectangle("fill",love.graphics.getWidth() / 2 - 250,love.graphics.getHeight() / 2 - 70,500,140)
+love.graphics.rectangle("fill",love.graphics.getWidth() / 2 - 235,love.graphics.getHeight() / 2 + 25,470,34)
 love.graphics.setColor(255,255,255,255)
 love.graphics.rectangle("line",love.graphics.getWidth() / 2 - 250,love.graphics.getHeight() / 2 - 70,500,140)
+love.graphics.rectangle("line",love.graphics.getWidth() / 2 - 235,love.graphics.getHeight() / 2 + 25,470,34)
 love.graphics.print(input.question, love.graphics.getWidth() / 2 - 230, love.graphics.getHeight() / 2 - 50)
 if love.timer.getTime() % 2 > 1 then
 love.graphics.print("> " .. input.line .. "|", love.graphics.getWidth() / 2 - 230, love.graphics.getHeight() / 2 + 30) 
