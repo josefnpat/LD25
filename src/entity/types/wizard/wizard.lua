@@ -42,7 +42,7 @@ function wizard:update(dt)
   if self.health < 0 then
     self.die = true
   end
-  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 32 then
+  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 16 then
     player_obj.isCarryingPrincess = false
     prin.captive = false
   end
