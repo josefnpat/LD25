@@ -67,7 +67,7 @@ function game_init()
   love.graphics.setCaption("Loading ........")
   drama.load()
   director = {}
-  director.dt = 0
+  director.dt = -10
   director.current_portal = 1
   love.graphics.setCaption("DunGen")
   

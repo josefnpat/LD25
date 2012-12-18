@@ -54,11 +54,7 @@ enemy.speedvals.fast = 2
 
 function enemy:update(dt)
   
-  if self.isCarryingPrincess and entity.distance(self,playerportal_obj) < 32 then
-    state = "lose"
-  end
-  
-  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 32 then
+  if player_obj.isCarryingPrincess and entity.distance(self,player_obj) < 16 then
     player_obj.isCarryingPrincess = false
     prin.captive = false
   end
@@ -70,10 +66,29 @@ function enemy:update(dt)
   end
 
   if self.isCarryingPrincess then
-    self:path_update(dt,playerportal_obj) -- 2/3    
+    local closest_portal = portals[1]
+    local closest_portal_distance = entity.distance(closest_portal,self)
+    for i,v in pairs(portals) do
+      if v.owner == "enemy" then
+        local check_portal_distance = entity.distance(v,self)
+        if check_portal_distance < closest_portal_distance then
+          closest_portal_distance = check_portal_distance
+          closest_portal = v
+          break
+        end
+      end
+    end
+
+    self:path_update(dt,closest_portal) -- 2/3    
+    
+    if self.isCarryingPrincess and entity.distance(self,closest_portal) < 32 then
+      state = "lose"
+    end
+    
   else
     self:path_update(dt,prin) -- 2/3
   end
+
 
   self.dt = self.dt + dt
   
