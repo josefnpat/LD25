@@ -24,6 +24,7 @@ function love.load (arg)
 end
 
 function game_init(mode)
+  loadScore()
   gamemode = mode
   love.graphics.setCaption("Loading .")
   map.init()
@@ -86,6 +87,21 @@ function game_init(mode)
     --entity.new("test")
   --end
   
+end
+
+function loadScore()
+local topscores = {}
+
+if love.filesystem.exists("score.lua") then
+local chunk = love.filesystem.load("score.lua")
+scoreBoard = chunk()
+ for i = 1, #scoreBoard.scores do
+	topscores[i] = scoreBoard.scores[i]
+ end
+end
+for i = 1, #topscores do
+print(i)
+end
 end
 
 -------------------------------------
