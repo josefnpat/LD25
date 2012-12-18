@@ -13,12 +13,12 @@ player.walk_quads = {}
 
 player.flames = {}
 
-player.flames_cooldown = 10
-player.flames_cooldown_init = 10
-player.spiketraps_cooldown = 20
-player.spiketraps_cooldown_init = 20
-player.slowtraps_cooldown = 30
-player.slowtraps_cooldown_init = 30
+player.flames_cooldown = 1
+player.flames_cooldown_init = 1
+player.spiketraps_cooldown = 2
+player.spiketraps_cooldown_init = 2
+player.slowtraps_cooldown = 3
+player.slowtraps_cooldown_init = 3
 
 player.coolDown = 0
 player.flameCost = 10
@@ -70,6 +70,20 @@ function player:draw()
 end
 
 function player:update(dt)
+
+  player.flames_cooldown = player.flames_cooldown - dt
+  if player.flames_cooldown < 0 then
+    player.flames_cooldown = 0
+  end
+  player.spiketraps_cooldown = player.spiketraps_cooldown - dt
+  if player.spiketraps_cooldown < 0 then  
+    player.spiketraps_cooldown = 0
+  end
+  player.slowtraps_cooldown = player.slowtraps_cooldown - dt
+  if player.slowtraps_cooldown < 0 then
+    player.slowtraps_cooldown = 0
+  end
+
   if self.health < 0 then
     self.die = true
   end
@@ -120,7 +134,10 @@ function player:update(dt)
   end
   
   if love.keyboard.isDown("lshift","3") then
-    player:shoot(self.dir_name,self.x,self.y)
+    if player.flames_cooldown == 0 then
+      player.flames_cooldown = player.flames_cooldown_init
+      player:shoot(self.dir_name,self.x,self.y)
+    end
   end
   
   if entity.collision(self) then
@@ -166,16 +183,22 @@ function player:keyreleased(key)
   end
   
   if key == "1" then
-    if at_empty_tile then
-      local temp = entity.new("slowtrap")
-      temp.x,temp.y = px,py
-      table.insert(self.traps,temp)
+    if player.slowtraps_cooldown == 0 then
+      player.slowtraps_cooldown = player.slowtraps_cooldown_init
+      if at_empty_tile then
+        local temp = entity.new("slowtrap")
+        temp.x,temp.y = px,py
+        table.insert(self.traps,temp)
+      end
     end
   elseif key == "2" then
-    if at_empty_tile then
-      local temp = entity.new("spiketrap")
-      temp.x,temp.y = px,py
-      table.insert(self.traps,temp)
+    if player.spiketraps_cooldown == 0 then
+      player.spiketraps_cooldown = player.spiketraps_cooldown_init
+      if at_empty_tile then
+        local temp = entity.new("spiketrap")
+        temp.x,temp.y = px,py
+        table.insert(self.traps,temp)
+      end
     end
   elseif key == " " and (self.isCarryingPrincess or entity.distance(self, prin) < 16) and not enemy_has_princess then   --debug
     self.isCarryingPrincess = not self.isCarryingPrincess
