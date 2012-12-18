@@ -5,7 +5,7 @@ lose.img:setFilter("nearest","nearest")
 
 function lose.draw()
   love.graphics.setColor(255,255,255)
-  love.graphics.draw(lose.img,0,0,0,4,4)
+  love.graphics.draw(lose.img,0,0,0,love.graphics.getWidth() / win.img:getWidth(),love.graphics.getHeight() / win.img:getHeight())
 end
 
 function lose.update(dt)
