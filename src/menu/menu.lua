@@ -16,6 +16,8 @@ menu.title:setFilter("nearest","nearest")
 menu.title_glow = love.graphics.newImage("menu/assets/title_glow.png")
 menu.title_glow:setFilter("nearest","nearest")
 
+menu.sfx = love.audio.newSource("menu/assets/select.wav")
+
 menu.padding = 64
 menu.option = 0
 menu.state = 1
@@ -135,12 +137,20 @@ end
 function menu:keypressed(key)
   if menu.run then
     if key == "escape" then
+      menu.sfx:stop()
+      menu.sfx:play()
       menu.option = #menu.view[menu.state]-1
     elseif key == "up" then
+      menu.sfx:stop()
+      menu.sfx:play()
       menu.option = (menu.option - 1) % #menu.view[menu.state]
     elseif key == "down" then
+      menu.sfx:stop()
+      menu.sfx:play()
       menu.option = (menu.option + 1) % #menu.view[menu.state]
     elseif key == "return" or key == "enter" or key ==" " then
+      menu.sfx:stop()
+      menu.sfx:play()
       menu:callback_exec()
     end
   end
