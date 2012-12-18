@@ -54,6 +54,18 @@ function counter.draw()
   love.graphics.setColor(255,255,255)
 end
 
+function timeToString(count)
+  local minute = 0
+  local strmin = "00"
+  if math.floor(count/60) > 0 then
+    minute = math.floor(count/60)
+    strmin = string.format("%02d",minute)
+  end
+  second = count - (minute * 60)
+  strsec = string.format("%02d",second)
+  return strmin..":"..strsec
+end
+
 function counter.update(dt)
   if counter.load_time > 1 then
     counter.load_time = 0

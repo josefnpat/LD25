@@ -97,12 +97,14 @@ local chunk = love.filesystem.load("score.lua")
 scoreBoard = chunk()
  for i = 1, #scoreBoard.scores do
 	topscores[i] = scoreBoard.scores[i]
+	
  end
 end
-for i = 1, #topscores do
-print(i)
+table.sort(topscores, function(a,b) return a.score>b.score end)
+return topscores
 end
-end
+
+
 
 -------------------------------------
 -- love.update

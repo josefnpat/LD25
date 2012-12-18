@@ -18,6 +18,7 @@ function lovemenuwrap.load()
     desc="The Forces of good are coming to take what you've rightfully stolen. Hold them off.\n If you can."..git,
     {t="New Game",cb="ng"},
     {t="Survival",cb="su"},
+    {t="Leaderboard",cb = "lead"},
     {t="Options",cb="op"},
     {t="Credits",cb="cr"},
     {t="Exit",cb="exit"}
@@ -39,6 +40,17 @@ function lovemenuwrap.load()
   menu_view[4] = {
     title="Credits",
     desc="Josefnpat - Programmer\nBlarget - Artist\nIoke - Programmer/Princess\npeterrstanley - Programmer\nExpugnosententia - Programmer/Incompetent\nVividReality - Programmer\nmmmeff - Game Tester\nDaniel Bienvenu - What Is Love Intro",
+    {t="Return",cb="mm"}
+  }
+  menu_view[5] = {
+    title="Leaderboards",
+    desc="Select a gamemode.",
+    {t="Survival",cb="su_lead"},
+    {t="Return",cb="mm"}
+  }
+  menu_view[6] = {
+    title="Survival",
+    desc="",
     {t="Return",cb="mm"}
   }
   menu:load(menu_view)
@@ -74,6 +86,17 @@ function menu:callback(cb)
     menu:setstate(2)
   elseif cb == "cr" then
     menu:setstate(4)
+  elseif cb == "lead" then
+    menu:setstate(5)
+  elseif cb == "su_lead"then
+    menu:setstate(6)
+    local scores = loadScore()
+    menu_view[6].desc = ""
+    for i = 1, math.min(#scores, 10) do
+		if scores[i].gamemode == "survival" then
+		  menu_view[6].desc = menu_view[6].desc .. "#" .. i .. " " .. scores[i].name .. " - " .. timeToString(scores[i].score) .. "\n\r \n\r"
+		end
+    end
   elseif cb == "exit" then
     menu:setstate(3)
   elseif cb == "cexit" then
@@ -99,6 +122,8 @@ function menu:callback(cb)
     print("unknown command:"..cb)
   end
 end
+
+
 
 function lovemenuwrap.update(dt)
   menu:update(dt)
