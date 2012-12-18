@@ -28,6 +28,7 @@ function menu:load(views)
   menu:calc_offset()
   menu.iconpos = menu.option*menu.button:getHeight()*scale_y+menu.offset+menu.button:getHeight()*scale_y/2
   menu.iconcurpos = menu.iconpos
+  menu.iconprevious = menu.iconpos
 end
 
 function menu:calc_offset()
@@ -132,25 +133,22 @@ function menu:update(dt)
       menu.option = temp_test
     end
   end
+  if menu.iconprevious ~= menu.iconpos then
+      menu.sfx:stop()
+      menu.sfx:play()
+  end
+  menu.iconprevious = menu.iconpos
 end
 
 function menu:keypressed(key)
   if menu.run then
     if key == "escape" then
-      menu.sfx:stop()
-      menu.sfx:play()
       menu.option = #menu.view[menu.state]-1
     elseif key == "up" then
-      menu.sfx:stop()
-      menu.sfx:play()
       menu.option = (menu.option - 1) % #menu.view[menu.state]
     elseif key == "down" then
-      menu.sfx:stop()
-      menu.sfx:play()
       menu.option = (menu.option + 1) % #menu.view[menu.state]
     elseif key == "return" or key == "enter" or key ==" " then
-      menu.sfx:stop()
-      menu.sfx:play()
       menu:callback_exec()
     end
   end
