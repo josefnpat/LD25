@@ -102,6 +102,12 @@ function love.update (dt)
 		    if director.current_portal > #portals then
 		      director.current_portal = 1
 		    end
+		    if portals[director.current_portal].owner == "player" then
+		      director.current_portal = director.current_portal + 1
+		      if director.current_portal > #portals then
+		        director.current_portal = 1
+		      end
+		    end
         local nx,ny = portals[director.current_portal].x,portals[director.current_portal].y
         if temp_flipper and num_enemies < max_enemies then
           local temp_enemy = entity.new("enemy")
