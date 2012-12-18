@@ -10,7 +10,16 @@ player.walk.down = {x=0,y=32,framecount=3}
 player.walk.up = {x=16*3,y=32,framecount=3}
 player.walk_quads = {}
 
+
 player.flames = {}
+
+player.flames_cooldown = 10
+player.flames_cooldown_init = 10
+player.spiketraps_cooldown = 20
+player.spiketraps_cooldown_init = 20
+player.slowtraps_cooldown = 30
+player.slowtraps_cooldown_init = 30
+
 player.coolDown = 0
 player.flameCost = 10
 
@@ -133,14 +142,14 @@ function player:update(dt)
 end
 
 function player:shoot(dir,x,y)
-if player.coolDown < 0 then
-local c = #player.flames + 1
-player.flames[c] = entity.new("flame")
-player.flames[c].dir = dir
-player.flames[c].x = x
-player.flames[c].y = y
-player.coolDown = player.flameCost 
-end
+  if player.coolDown < 0 then
+    local c = #player.flames + 1
+    player.flames[c] = entity.new("flame")
+    player.flames[c].dir = dir
+    player.flames[c].x = x
+    player.flames[c].y = y
+    player.coolDown = player.flameCost 
+  end
 end
 
 function player:keyreleased(key)

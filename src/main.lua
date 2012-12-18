@@ -11,6 +11,7 @@ win = require("win/win")
 lose = require("lose/lose")
 pathfinder = require("pathfinder/pathfinder")
 state = "lovesplash"
+gui = require("gui/gui")
 --require 'SLAM/slam'
 
 -------------------------------------
@@ -160,6 +161,7 @@ function love.draw ()
     entity.draw()
     map.draw(2,debug.tile and debug.show)
     counter.draw()
+    gui.draw()
     if pause then
       love.graphics.setColor(0,0,0,191)
       love.graphics.rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
