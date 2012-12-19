@@ -38,17 +38,7 @@ function entity.RawToTile(entity)
 end
 
 function entity.sort(t)
-  table.sort(t,function(x,y)
-      local x_index,y_index = 0,0
-      if x.z_index then
-        x_index = x.z_index
-      end
-      if y.z_index then
-        y_index = y.z_index
-      end
-      return y_index > x_index
-    end
-  )
+table.sort(t, function(a,b) return a.y<b.y end)
 end
 
 function entity.getType(t)
@@ -98,10 +88,10 @@ function entity.update(dt)
       v:update(dt)
     end
   end
-  if entity.needs_sorting then
+  --if entity.needs_sorting then
     entity.sort(entity.data)
-    entity.needs_sorting = false
-  end
+    --entity.needs_sorting = false
+  --end
 end
 
 function entity.draw()
